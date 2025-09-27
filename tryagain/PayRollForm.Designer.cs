@@ -28,30 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listBoxPayroll = new ListBox();
             SuspendLayout();
-            // 
-            // listBoxPayroll
-            // 
-            listBoxPayroll.FormattingEnabled = true;
-            listBoxPayroll.Location = new Point(282, 86);
-            listBoxPayroll.Name = "listBoxPayroll";
-            listBoxPayroll.Size = new Size(304, 224);
-            listBoxPayroll.TabIndex = 0;
             // 
             // PayRollForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(listBoxPayroll);
             Name = "PayRollForm";
             Text = "PayRollForm";
             ResumeLayout(false);
         }
 
         #endregion
-
-        private ListBox listBoxPayroll;
     }
 }
