@@ -1222,7 +1222,7 @@ namespace tryagain
         }
     }
 
-    public class Employee
+    public class Employee1
     {
         public string ID { get; set; }
         public string FullName { get; set; }
@@ -1233,7 +1233,7 @@ namespace tryagain
         public string Status { get; set; }
     }
 
-    public class AttendanceRecord
+    public class AttendanceRecord1
     {
         public string EmployeeID { get; set; }
         public DateTime Date { get; set; }
@@ -1243,7 +1243,7 @@ namespace tryagain
         public string Status { get; set; }
     }
 
-    public class PayrollRecord
+    public class PayrollRecord1
     {
         public string EmployeeID { get; set; }
         public string PayPeriod { get; set; }
