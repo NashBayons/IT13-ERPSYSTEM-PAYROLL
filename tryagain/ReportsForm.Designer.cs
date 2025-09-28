@@ -28,30 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listBoxReports = new ListBox();
             SuspendLayout();
-            // 
-            // listBoxReports
-            // 
-            listBoxReports.FormattingEnabled = true;
-            listBoxReports.Location = new Point(87, 88);
-            listBoxReports.Name = "listBoxReports";
-            listBoxReports.Size = new Size(276, 224);
-            listBoxReports.TabIndex = 0;
             // 
             // ReportsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(listBoxReports);
             Name = "ReportsForm";
             Text = "ReportsForm";
             ResumeLayout(false);
         }
 
         #endregion
-
-        private ListBox listBoxReports;
     }
 }
