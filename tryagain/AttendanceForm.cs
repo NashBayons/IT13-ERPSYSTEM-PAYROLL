@@ -88,7 +88,7 @@ namespace tryagain
             filterPanel.Controls.AddRange(new Control[] { lblFrom, dtpFrom, lblTo, dtpTo, lblStatus, cmbStatus, lblSearch, txtSearch, btnFilter });
             this.Controls.Add(filterPanel);
 
-            // Attendance DataGridView
+
             dgvAttendance = new DataGridView
             {
                 Location = new Point(20, 150),
@@ -98,54 +98,45 @@ namespace tryagain
                 AllowUserToAddRows = false
             };
 
-            dgvAttendance.Columns.Add("EmployeeName", "Employee");
-            dgvAttendance.Columns.Add("Date", "Date");
-            dgvAttendance.Columns.Add("TimeIn", "Time In");
-            dgvAttendance.Columns.Add("TimeOut", "Time Out");
-            dgvAttendance.Columns.Add("WorkHours", "Work Hours");
-            dgvAttendance.Columns.Add("Status", "Status");
-
-            // Add mock data
-            dgvAttendance.Rows.Add("Juan Dela Cruz", "2025-09-23", "09:00 AM", "05:00 PM", "8", "Present");
-            dgvAttendance.Rows.Add("Maria Santos", "2025-09-23", "09:30 AM", "05:00 PM", "7.5", "Late");
-            dgvAttendance.Rows.Add("Pedro Reyes", "2025-09-23", "—", "—", "0", "Absent");
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlDataAdapter da = new SqlDataAdapter("select * from vw_attendancereport", conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgvAttendance.DataSource = dt;
+            }
 
             this.Controls.Add(dgvAttendance);
         }
 
         private void BtnFilter_Click(object sender, EventArgs e)
         {
-            string status = cmbStatus.SelectedItem.ToString();
-            string search = txtSearch.Text.Trim().ToLower();
-            DateTime from = dtpFrom.Value.Date;
-            DateTime to = dtpTo.Value.Date;
-
-            foreach (DataGridViewRow row in dgvAttendance.Rows)
+            if (dgvAttendance.DataSource is DataTable dt)
             {
-                bool visible = true;
+                string filter = "1=1"; // base filter
 
-                DateTime rowDate = DateTime.Parse(row.Cells["Date"].Value.ToString());
+                // Date filter
+                DateTime from = dtpFrom.Value.Date;
+                DateTime to = dtpTo.Value.Date;
+                filter += $" AND Date >= #{from:yyyy-MM-dd}# AND Date <= #{to:yyyy-MM-dd}#";
 
-                if (rowDate < from || rowDate > to) visible = false;
-                if (status != "All" && row.Cells["Status"].Value.ToString() != status) visible = false;
-                if (!string.IsNullOrEmpty(search) && !row.Cells["EmployeeName"].Value.ToString().ToLower().Contains(search))
-                    visible = false;
+                // Status filter
+                string status = cmbStatus.SelectedItem.ToString();
+                if (status != "All")
+                {
+                    filter += $" AND Status = '{status}'";
+                }
 
-                row.Visible = visible;
+                // Employee name filter
+                string search = txtSearch.Text.Trim();
+                if (!string.IsNullOrEmpty(search))
+                {
+                    filter += $" AND Convert(EmployeeName, 'System.String') LIKE '%{search}%'";
+                }
+
+                dt.DefaultView.RowFilter = filter;
             }
         }
-    }
-
-
-
-
-    public class AttendanceRecord
-    {
-        public string EmployeeID { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime? TimeIn { get; set; }
-        public DateTime? TimeOut { get; set; }
-        public double WorkHours { get; set; }
-        public string Status { get; set; }
     }
 }
