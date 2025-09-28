@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Microsoft.Data.SqlClient;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,9 +15,11 @@ namespace tryagain
     public partial class PayRollForm : Form
     {
         private DataGridView dgvPayroll;
+        private DataTable payrollTable;
         private DateTimePicker dtpPeriod, dtpFrom, dtpTo;
         private ComboBox cmbStatus;
         private TextBox txtSearch;
+        private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
         public PayRollForm()
         {
             InitializeComponent();
@@ -94,18 +98,14 @@ namespace tryagain
                 AllowUserToAddRows = false
             };
 
-            // Define columns
-            dgvPayroll.Columns.Add("PayrollID", "Payroll ID");
-            dgvPayroll.Columns.Add("EmployeeName", "Employee");
-            dgvPayroll.Columns.Add("Date", "Date");
-            dgvPayroll.Columns.Add("GrossSalary", "Gross Salary");
-            dgvPayroll.Columns.Add("Deductions", "Deductions");
-            dgvPayroll.Columns.Add("Bonus", "Bonus");
-            dgvPayroll.Columns.Add("Status", "Status");
-
-            // Mock rows
-            dgvPayroll.Rows.Add("1", "Juan Dela Cruz", "2025-09-23", "30,000", "1,000", "2,000", "Paid");
-            dgvPayroll.Rows.Add("2", "Maria Santos", "2025-09-23", "45,000", "500", "1,500", "Pending");
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlDataAdapter da = new SqlDataAdapter("select * from vw_payrollreport", conn);
+                payrollTable = new DataTable();
+                da.Fill(payrollTable);
+                dgvPayroll.DataSource = payrollTable;
+            }
 
             this.Controls.Add(dgvPayroll);
 
@@ -150,36 +150,31 @@ namespace tryagain
 
         private void BtnFilter_Click(object sender, EventArgs e)
         {
-            string status = cmbStatus.SelectedItem.ToString();
-            string search = txtSearch.Text.Trim().ToLower();
+            if (payrollTable == null) return;
+
+            string filter = "1=1";
+
+            // Date range filter
             DateTime from = dtpFrom.Value.Date;
             DateTime to = dtpTo.Value.Date;
+            filter += $" AND [Date] >= #{from:yyyy-MM-dd}# AND [Date] <= #{to:yyyy-MM-dd}#";
 
-            foreach (DataGridViewRow row in dgvPayroll.Rows)
+            // Status filter
+            string status = cmbStatus.SelectedItem.ToString();
+            if (status != "All")
             {
-                bool visible = true;
-
-                DateTime rowDate = DateTime.Parse(row.Cells["Date"].Value.ToString());
-
-                if (rowDate < from || rowDate > to) visible = false;
-                if (status != "All" && row.Cells["Status"].Value.ToString() != status) visible = false;
-                if (!string.IsNullOrEmpty(search) && !row.Cells["EmployeeName"].Value.ToString().ToLower().Contains(search))
-                    visible = false;
-
-                row.Visible = visible;
+                filter += $" AND [Status] = '{status}'";
             }
+
+            // Employee search (case-insensitive)
+            string search = txtSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(search))
+            {
+                filter += $" AND Convert([EmployeeName], 'System.String') LIKE '%{search}%'";
+            }
+
+            payrollTable.DefaultView.RowFilter = filter;
         }
 
-    }
-    public class PayrollRecord
-    {
-        public string EmployeeID { get; set; }
-        public string PayPeriod { get; set; }
-        public decimal BasicSalary { get; set; }
-        public decimal OvertimePay { get; set; }
-        public decimal Allowances { get; set; }
-        public decimal Deductions { get; set; }
-        public decimal NetPay { get; set; }
-        public string Status { get; set; }
     }
 }
