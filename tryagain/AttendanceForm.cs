@@ -21,10 +21,10 @@ namespace tryagain
 
         private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
         
-        private Color primaryColor = Color.FromArgb(63, 81, 181);  // Deep Indigo
-        private Color secondaryColor = Color.FromArgb(245, 246, 250);  // Light Slate
-        private Color accentColor = Color.FromArgb(239, 83, 80);  // Coral Red
-        private Color textColor = Color.FromArgb(33, 33, 33);  // Dark Gray for text
+        //private Color primaryColor = Color.FromArgb(63, 81, 181);  // Deep Indigo
+        //private Color secondaryColor = Color.FromArgb(245, 246, 250);  // Light Slate
+        //private Color accentColor = Color.FromArgb(239, 83, 80);  // Coral Red
+        //private Color textColor = Color.FromArgb(33, 33, 33);  // Dark Gray for text
         public AttendanceForm()
         {
             InitializeComponent();
@@ -114,21 +114,21 @@ namespace tryagain
         {
             if (dgvAttendance.DataSource is DataTable dt)
             {
-                string filter = "1=1"; // base filter
+                string filter = "1=1";
 
-                // Date filter
+                
                 DateTime from = dtpFrom.Value.Date;
                 DateTime to = dtpTo.Value.Date;
                 filter += $" AND Date >= #{from:yyyy-MM-dd}# AND Date <= #{to:yyyy-MM-dd}#";
 
-                // Status filter
+                
                 string status = cmbStatus.SelectedItem.ToString();
                 if (status != "All")
                 {
                     filter += $" AND Status = '{status}'";
                 }
 
-                // Employee name filter
+                
                 string search = txtSearch.Text.Trim();
                 if (!string.IsNullOrEmpty(search))
                 {

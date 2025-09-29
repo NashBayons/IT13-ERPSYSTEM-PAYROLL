@@ -75,6 +75,7 @@ namespace tryagain
                 FlatStyle = FlatStyle.Flat
             };
             this.Controls.Add(btnProcess);
+            btnProcess.Click += BtnProcess_Click;
 
             // Generate Payslip Button
             Button btnPayslip = new Button
@@ -146,7 +147,16 @@ namespace tryagain
             this.Controls.Add(filterPanel);
         }
 
-
+        private void BtnProcess_Click(object sender, EventArgs e)
+        {
+            using (PayrollEntryForm form = new PayrollEntryForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    ShowPayroll(); // Optional: refresh your grid or data after processing
+                }
+            }
+        }
 
         private void BtnFilter_Click(object sender, EventArgs e)
         {
