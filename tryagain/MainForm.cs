@@ -28,7 +28,7 @@ namespace tryagain
         {
             contentPanel.Controls.Clear();
 
-            form.TopLevel=false;
+            form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
 
@@ -48,7 +48,7 @@ namespace tryagain
 
         private void attendanceBtn_Click(object sender, EventArgs e)
         {
-            LoadForm(new  AttendanceForm());
+            LoadForm(new AttendanceForm());
         }
 
         private void payrollBtn_Click(object sender, EventArgs e)
@@ -58,7 +58,12 @@ namespace tryagain
 
         private void reportsBtn_Click(object sender, EventArgs e)
         {
-            LoadForm(new  ReportsForm());
+            LoadForm(new ReportsForm());
+        }
+
+        private void salaryBtn_Click(object sender, EventArgs e)
+        {
+            LoadForm(new SalaryMangementForm());
         }
     }
 }

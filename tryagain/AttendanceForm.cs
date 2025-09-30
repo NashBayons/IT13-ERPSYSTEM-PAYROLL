@@ -66,6 +66,10 @@ namespace tryagain
             Label lblTo = new Label { Text = "To:", Location = new Point(200, 20), AutoSize = true };
             dtpTo = new DateTimePicker { Location = new Point(230, 15), Width = 120 };
 
+            DateTime today = DateTime.Today;
+            dtpFrom.Value = new DateTime(today.Year, today.Month, 1);
+            dtpTo.Value = today;
+
             Label lblStatus = new Label { Text = "Status:", Location = new Point(380, 20), AutoSize = true };
             cmbStatus = new ComboBox { Location = new Point(440, 15), Width = 100, DropDownStyle = ComboBoxStyle.DropDownList };
             cmbStatus.Items.AddRange(new[] { "All", "Present", "Late", "Absent" });

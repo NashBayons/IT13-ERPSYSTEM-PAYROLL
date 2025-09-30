@@ -1,6 +1,6 @@
 ﻿namespace tryagain
 {
-    partial class PayrollEntryForm
+    partial class SalaryDetailsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // PayrollEntryForm
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(844, 450);
-            Name = "PayrollEntryForm";
-            Text = "PayrollEntryForm";
-            ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "SalaryDetailsForm";
         }
 
         #endregion

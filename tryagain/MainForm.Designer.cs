@@ -36,6 +36,7 @@
             dashboardBtn = new Button();
             contentPanel = new Panel();
             dashboardLbl = new Label();
+            salaryBtn = new Button();
             sidebarPanel.SuspendLayout();
             contentPanel.SuspendLayout();
             SuspendLayout();
@@ -43,6 +44,7 @@
             // sidebarPanel
             // 
             sidebarPanel.BackColor = Color.DarkGray;
+            sidebarPanel.Controls.Add(salaryBtn);
             sidebarPanel.Controls.Add(reportsBtn);
             sidebarPanel.Controls.Add(payrollBtn);
             sidebarPanel.Controls.Add(attendanceBtn);
@@ -56,7 +58,7 @@
             // 
             // reportsBtn
             // 
-            reportsBtn.Location = new Point(54, 306);
+            reportsBtn.Location = new Point(54, 345);
             reportsBtn.Name = "reportsBtn";
             reportsBtn.Size = new Size(94, 29);
             reportsBtn.TabIndex = 4;
@@ -123,6 +125,16 @@
             dashboardLbl.TabIndex = 5;
             dashboardLbl.Text = "Welcome to Dashboard";
             // 
+            // salaryBtn
+            // 
+            salaryBtn.Location = new Point(54, 295);
+            salaryBtn.Name = "salaryBtn";
+            salaryBtn.Size = new Size(94, 29);
+            salaryBtn.TabIndex = 5;
+            salaryBtn.Text = "Salary Man.";
+            salaryBtn.UseVisualStyleBackColor = true;
+            salaryBtn.Click += salaryBtn_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -148,5 +160,6 @@
         private Button dashboardBtn;
         private Panel contentPanel;
         private Label dashboardLbl;
+        private Button salaryBtn;
     }
 }

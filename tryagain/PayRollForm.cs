@@ -44,31 +44,31 @@ namespace tryagain
             };
             this.Controls.Add(titleLabel);
 
-            // Payroll Period Selector
-            Label lblPeriod = new Label
-            {
-                Text = "Payroll Period:",
-                Location = new Point(20, 70),
-                AutoSize = true
-            };
-            this.Controls.Add(lblPeriod);
+            //// Payroll Period Selector
+            //Label lblPeriod = new Label
+            //{
+            //    Text = "Payroll Period:",
+            //    Location = new Point(20, 70),
+            //    AutoSize = true
+            //};
+            //this.Controls.Add(lblPeriod);
 
-            dtpPeriod = new DateTimePicker
-            {
-                Location = new Point(130, 65),
-                Width = 180,  // wider to fit long month names
-                Format = DateTimePickerFormat.Custom,
-                CustomFormat = "MMMM yyyy", // "September 2025"
-                ShowUpDown = true, // spin control instead of full calendar
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
-            };
-            this.Controls.Add(dtpPeriod);
+            //dtpPeriod = new DateTimePicker
+            //{
+            //    Location = new Point(130, 65),
+            //    Width = 180,  // wider to fit long month names
+            //    Format = DateTimePickerFormat.Custom,
+            //    CustomFormat = "MMMM yyyy", // "September 2025"
+            //    ShowUpDown = true, // spin control instead of full calendar
+            //    Font = new Font("Segoe UI", 10F, FontStyle.Bold)
+            //};
+            //this.Controls.Add(dtpPeriod);
 
             // Process Payroll Button
             Button btnProcess = new Button
             {
                 Text = "Process Payroll",
-                Location = new Point(320, 63),
+                Location = new Point(20, 63),
                 Size = new Size(130, 30),
                 BackColor = Color.FromArgb(63, 81, 181),
                 ForeColor = Color.White,
@@ -81,7 +81,7 @@ namespace tryagain
             Button btnPayslip = new Button
             {
                 Text = "Generate Payslip",
-                Location = new Point(460, 63),
+                Location = new Point(160, 63),
                 Size = new Size(140, 30),
                 BackColor = Color.FromArgb(0, 150, 136),
                 ForeColor = Color.White,
@@ -123,6 +123,10 @@ namespace tryagain
 
             Label lblTo = new Label { Text = "To:", Location = new Point(200, 20), AutoSize = true };
             dtpTo = new DateTimePicker { Location = new Point(230, 15), Width = 120 };
+
+            DateTime today = DateTime.Today;
+            dtpFrom.Value = new DateTime(today.Year, today.Month, 1);
+            dtpTo.Value = today;
 
             Label lblStatus = new Label { Text = "Status:", Location = new Point(380, 20), AutoSize = true };
             cmbStatus = new ComboBox { Location = new Point(440, 15), Width = 100, DropDownStyle = ComboBoxStyle.DropDownList };

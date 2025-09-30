@@ -1,6 +1,6 @@
 ﻿namespace tryagain
 {
-    partial class PayrollEntryForm
+    partial class SalaryMangementForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             SuspendLayout();
             // 
-            // PayrollEntryForm
+            // SalaryMangementForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(844, 450);
-            Name = "PayrollEntryForm";
-            Text = "PayrollEntryForm";
+            ClientSize = new Size(800, 450);
+            Name = "SalaryMangementForm";
+            Text = "SalaryMangementForm";
             ResumeLayout(false);
         }
 
