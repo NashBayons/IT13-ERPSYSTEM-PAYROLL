@@ -53,7 +53,7 @@ namespace tryagain
 
         private void payrollBtn_Click(object sender, EventArgs e)
         {
-            LoadForm(new PayRollForm());
+            LoadForm(new PayrollBatchForm());
         }
 
         private void reportsBtn_Click(object sender, EventArgs e)
