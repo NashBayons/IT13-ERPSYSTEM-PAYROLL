@@ -65,5 +65,10 @@ namespace tryagain
         {
             LoadForm(new SalaryMangementForm());
         }
+
+        private void leaveBtn_Click(object sender, EventArgs e)
+        {
+            LoadForm(new LeaveRequestForm());
+        }
     }
 }

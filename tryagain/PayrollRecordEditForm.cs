@@ -67,9 +67,9 @@ namespace tryagain
             };
             this.Controls.Add(dgvDeductions);
 
-            btnAddDeduction = new Button { Text = "Add", Location = new Point(10, 430) };
-            btnEditDeduction = new Button { Text = "Edit", Location = new Point(90, 430) };
-            btnDeleteDeduction = new Button { Text = "Delete", Location = new Point(170, 430) };
+            btnAddDeduction = new Button { Text = "Add", Location = new Point(10, 430), Height = 35 };
+            btnEditDeduction = new Button { Text = "Edit", Location = new Point(90, 430), Height = 35 };
+            btnDeleteDeduction = new Button { Text = "Delete", Location = new Point(170, 430), Height = 35 };
 
             btnAddDeduction.Click += (s, e) => AddOrEditDeduction(null);
             btnEditDeduction.Click += (s, e) => EditSelectedDeduction();
@@ -92,9 +92,9 @@ namespace tryagain
             };
             this.Controls.Add(dgvBonuses);
 
-            btnAddBonus = new Button { Text = "Add", Location = new Point(400, 430) };
-            btnEditBonus = new Button { Text = "Edit", Location = new Point(480, 430) };
-            btnDeleteBonus = new Button { Text = "Delete", Location = new Point(560, 430) };
+            btnAddBonus = new Button { Text = "Add", Location = new Point(400, 430), Height=35 };
+            btnEditBonus = new Button { Text = "Edit", Location = new Point(480, 430), Height = 35 };
+            btnDeleteBonus = new Button { Text = "Delete", Location = new Point(560, 430), Height = 35 };
 
             btnAddBonus.Click += (s, e) => AddOrEditBonus(null);
             btnEditBonus.Click += (s, e) => EditSelectedBonus();
@@ -105,7 +105,7 @@ namespace tryagain
             this.Controls.Add(btnDeleteBonus);
 
             // Save button
-            btnSave = new Button { Text = "Save Changes", Location = new Point(10, 500), Width = 120 };
+            btnSave = new Button { Text = "Save Changes", Location = new Point(10, 500), Width = 120, Height = 35 };
             btnSave.Click += BtnSave_Click;
             this.Controls.Add(btnSave);
         }
@@ -120,10 +120,10 @@ namespace tryagain
         private void LoadRecordHeader()
         {
             string sql = @"
-SELECT r.gross_salary, r.base_pay, e.FirstName + ' ' + e.LastName AS EmployeeName
-FROM Payroll_Record r
-JOIN Employees e ON r.employee_id = e.EmployeeID
-WHERE r.payroll_record_id = @id;";
+                    SELECT r.gross_salary, r.base_pay, e.FirstName + ' ' + e.LastName AS EmployeeName
+                    FROM Payroll_Record r
+                    JOIN Employees e ON r.employee_id = e.EmployeeID
+                    WHERE r.payroll_record_id = @id;";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand(sql, conn))

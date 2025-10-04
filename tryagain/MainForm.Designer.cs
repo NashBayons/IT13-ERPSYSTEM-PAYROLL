@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sidebarPanel = new Panel();
+            salaryBtn = new Button();
             reportsBtn = new Button();
             payrollBtn = new Button();
             attendanceBtn = new Button();
@@ -36,7 +37,7 @@
             dashboardBtn = new Button();
             contentPanel = new Panel();
             dashboardLbl = new Label();
-            salaryBtn = new Button();
+            leaveBtn = new Button();
             sidebarPanel.SuspendLayout();
             contentPanel.SuspendLayout();
             SuspendLayout();
@@ -44,6 +45,7 @@
             // sidebarPanel
             // 
             sidebarPanel.BackColor = Color.DarkGray;
+            sidebarPanel.Controls.Add(leaveBtn);
             sidebarPanel.Controls.Add(salaryBtn);
             sidebarPanel.Controls.Add(reportsBtn);
             sidebarPanel.Controls.Add(payrollBtn);
@@ -56,9 +58,19 @@
             sidebarPanel.Size = new Size(200, 753);
             sidebarPanel.TabIndex = 4;
             // 
+            // salaryBtn
+            // 
+            salaryBtn.Location = new Point(54, 260);
+            salaryBtn.Name = "salaryBtn";
+            salaryBtn.Size = new Size(94, 29);
+            salaryBtn.TabIndex = 5;
+            salaryBtn.Text = "Salary Man.";
+            salaryBtn.UseVisualStyleBackColor = true;
+            salaryBtn.Click += salaryBtn_Click;
+            // 
             // reportsBtn
             // 
-            reportsBtn.Location = new Point(54, 345);
+            reportsBtn.Location = new Point(54, 300);
             reportsBtn.Name = "reportsBtn";
             reportsBtn.Size = new Size(94, 29);
             reportsBtn.TabIndex = 4;
@@ -68,7 +80,7 @@
             // 
             // payrollBtn
             // 
-            payrollBtn.Location = new Point(54, 245);
+            payrollBtn.Location = new Point(54, 220);
             payrollBtn.Name = "payrollBtn";
             payrollBtn.Size = new Size(94, 29);
             payrollBtn.TabIndex = 3;
@@ -78,7 +90,7 @@
             // 
             // attendanceBtn
             // 
-            attendanceBtn.Location = new Point(54, 182);
+            attendanceBtn.Location = new Point(54, 140);
             attendanceBtn.Name = "attendanceBtn";
             attendanceBtn.Size = new Size(94, 29);
             attendanceBtn.TabIndex = 2;
@@ -88,7 +100,7 @@
             // 
             // employeeBtn
             // 
-            employeeBtn.Location = new Point(54, 117);
+            employeeBtn.Location = new Point(54, 100);
             employeeBtn.Name = "employeeBtn";
             employeeBtn.Size = new Size(94, 29);
             employeeBtn.TabIndex = 1;
@@ -98,7 +110,7 @@
             // 
             // dashboardBtn
             // 
-            dashboardBtn.Location = new Point(54, 64);
+            dashboardBtn.Location = new Point(55, 60);
             dashboardBtn.Name = "dashboardBtn";
             dashboardBtn.Size = new Size(94, 29);
             dashboardBtn.TabIndex = 0;
@@ -125,15 +137,15 @@
             dashboardLbl.TabIndex = 5;
             dashboardLbl.Text = "Welcome to Dashboard";
             // 
-            // salaryBtn
+            // leaveBtn
             // 
-            salaryBtn.Location = new Point(54, 295);
-            salaryBtn.Name = "salaryBtn";
-            salaryBtn.Size = new Size(94, 29);
-            salaryBtn.TabIndex = 5;
-            salaryBtn.Text = "Salary Man.";
-            salaryBtn.UseVisualStyleBackColor = true;
-            salaryBtn.Click += salaryBtn_Click;
+            leaveBtn.Location = new Point(54, 180);
+            leaveBtn.Name = "leaveBtn";
+            leaveBtn.Size = new Size(94, 29);
+            leaveBtn.TabIndex = 6;
+            leaveBtn.Text = "Leave";
+            leaveBtn.UseVisualStyleBackColor = true;
+            leaveBtn.Click += leaveBtn_Click;
             // 
             // MainForm
             // 
@@ -161,5 +173,6 @@
         private Panel contentPanel;
         private Label dashboardLbl;
         private Button salaryBtn;
+        private Button leaveBtn;
     }
 }

@@ -48,27 +48,27 @@ namespace tryagain
             Label lblPeriod = new Label { Text = "Pay Period Start:", Location = new Point(10, 14), AutoSize = true };
             this.Controls.Add(lblPeriod);
 
-            dtpPayPeriodStart = new DateTimePicker { Location = new Point(120, 10), Width = 150, Format = DateTimePickerFormat.Short };
+            dtpPayPeriodStart = new DateTimePicker { Location = new Point(130, 10), Width = 150, Format = DateTimePickerFormat.Short };
             this.Controls.Add(dtpPayPeriodStart);
 
             Label lblPeriodEnd = new Label { Text = "End:", Location = new Point(280, 14), AutoSize = true };
             this.Controls.Add(lblPeriodEnd);
 
-            dtpPayPeriodEnd = new DateTimePicker { Location = new Point(315, 10), Width = 150, Format = DateTimePickerFormat.Short };
+            dtpPayPeriodEnd = new DateTimePicker { Location = new Point(325, 10), Width = 150, Format = DateTimePickerFormat.Short };
             this.Controls.Add(dtpPayPeriodEnd);
 
             Label lblPayment = new Label { Text = "Payment Date:", Location = new Point(480, 14), AutoSize = true };
             this.Controls.Add(lblPayment);
 
-            dtpPaymentDate = new DateTimePicker { Location = new Point(560, 10), Width = 150, Format = DateTimePickerFormat.Short };
+            dtpPaymentDate = new DateTimePicker { Location = new Point(590, 10), Width = 150, Format = DateTimePickerFormat.Short };
             this.Controls.Add(dtpPaymentDate);
 
             // Buttons
-            btnGenerateBatch = new Button { Text = "Generate Draft Batch", Location = new Point(730, 8), Width = 150 };
+            btnGenerateBatch = new Button { Text = "Generate Draft Batch", Location = new Point(745, 8), Width = 130, Height = 30 };
             btnGenerateBatch.Click += BtnGenerateBatch_Click;
             this.Controls.Add(btnGenerateBatch);
 
-            btnRefresh = new Button { Text = "Refresh", Location = new Point(890, 8), Width = 75 };
+            btnRefresh = new Button { Text = "Refresh", Location = new Point(890, 8), Width = 75, Height = 30 };
             btnRefresh.Click += (s, e) => LoadBatches();
             this.Controls.Add(btnRefresh);
 
@@ -86,7 +86,7 @@ namespace tryagain
             this.Controls.Add(dgvBatches);
 
             // Right-click or button to view batch details
-            btnViewBatch = new Button { Text = "View Selected Batch", Location = new Point(10, 540), Width = 160 };
+            btnViewBatch = new Button { Text = "View Selected Batch", Location = new Point(10, 550), Width = 160, Height= 35 };
             btnViewBatch.Click += BtnViewBatch_Click;
             this.Controls.Add(btnViewBatch);
 
@@ -288,10 +288,12 @@ namespace tryagain
                 return;
             }
 
+
             int batchId = Convert.ToInt32(row.Cells["batch_id"].Value);
+            string status = row.Cells["status"].Value.ToString();
 
             // Open details form (we'll implement this form next)
-            var details = new PayrollBatchDetailsForm(batchId);
+            var details = new PayrollBatchDetailsForm(batchId, status);
             details.ShowDialog();
 
             // refresh after potential edits

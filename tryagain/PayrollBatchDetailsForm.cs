@@ -16,13 +16,15 @@ namespace tryagain
     {
 
         private int _batchId;
+        private string _batchStatus;
         private DataGridView dgvRecords;
         private Button btnFinalize;
         private Button btnEditRecord;
         private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
-        public PayrollBatchDetailsForm(int batchId)
+        public PayrollBatchDetailsForm(int batchId, string status)
         {
             _batchId = batchId;
+            _batchStatus = status;
             this.Text = $"Payroll Batch #{batchId} - Details";
             this.Size = new Size(1000, 600);
             InitializeUI();
@@ -43,18 +45,26 @@ namespace tryagain
             };
             this.Controls.Add(dgvRecords);
 
-            btnFinalize = new Button { Text = "Finalize Batch (Mark Paid)", Location = new Point(10, 510), Width = 180 };
+            btnFinalize = new Button { Text = "Finalize Batch (Paid)", Location = new Point(10, 500), Width = 180, Height=35 };
             btnFinalize.Click += BtnFinalize_Click;
             this.Controls.Add(btnFinalize);
 
             btnEditRecord = new Button
             {
                 Text = "Edit Selected Record",
-                Location = new Point(200, 510),
-                Width = 180
+                Location = new Point(200, 500),
+                Width = 180,
+                Height = 35
             };
             btnEditRecord.Click += BtnEditRecord_Click;
             this.Controls.Add(btnEditRecord);
+
+            if (_batchStatus == "Paid")
+            {
+                btnEditRecord.Enabled = false;
+
+                // btnEditRecord.Visible = false;
+            }
         }
 
         private void PayrollBatchDetailsForm_Load(object sender, EventArgs e)
@@ -126,6 +136,12 @@ namespace tryagain
 
         private void BtnEditRecord_Click(object sender, EventArgs e)
         {
+            if (_batchStatus == "Paid")
+            {
+                MessageBox.Show("This batch is finalized and cannot be edited.", "Locked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (dgvRecords.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a payroll record first.", "Edit Record", MessageBoxButtons.OK, MessageBoxIcon.Information);
