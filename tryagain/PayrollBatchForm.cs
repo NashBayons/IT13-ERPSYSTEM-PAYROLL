@@ -158,11 +158,11 @@ namespace tryagain
 
                 try
                 {
-                    // 1) Insert batch row (status Pending)
+                    // 1) Insert batch row
                     string insertBatchSql = @"
-                            INSERT INTO Payroll_Batch (pay_period_start, pay_period_end, payment_date, status, total_net_pay)
-                            VALUES (@start, @end, @payment, @status, 0);
-                            SELECT CAST(SCOPE_IDENTITY() AS INT);";
+                INSERT INTO Payroll_Batch (pay_period_start, pay_period_end, payment_date, status, total_net_pay)
+                VALUES (@start, @end, @payment, @status, 0);
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
                     int batchId;
                     using (SqlCommand cmd = new SqlCommand(insertBatchSql, conn, tx))
@@ -171,17 +171,15 @@ namespace tryagain
                         cmd.Parameters.AddWithValue("@end", periodEnd);
                         cmd.Parameters.AddWithValue("@payment", paymentDate);
                         cmd.Parameters.AddWithValue("@status", "Pending");
-                        object idObj = cmd.ExecuteScalar();
-                        batchId = Convert.ToInt32(idObj);
+                        batchId = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
-                    // 2) Query employees and their salaries (you can tweak filter e.g. only active employees)
+                    // 2) Query employees
                     string selectEmployees = @"
-                            SELECT e.EmployeeID, e.FirstName, e.LastName, ISNULL(s.GrossSalary, 0) AS GrossSalary
-                            FROM Employees e
-                            LEFT JOIN Salaries s ON e.EmployeeID = s.EmployeeID
-                            -- optionally filter active employees, e.g. WHERE e.Status = 'Active'
-                            ORDER BY e.LastName, e.FirstName;";
+                SELECT e.EmployeeID, e.FirstName, e.LastName, ISNULL(s.GrossSalary, 0) AS GrossSalary
+                FROM Employees e
+                LEFT JOIN Salaries s ON e.EmployeeID = s.EmployeeID
+                ORDER BY e.LastName, e.FirstName;";
 
                     DataTable employees = new DataTable();
                     using (SqlCommand cmd = new SqlCommand(selectEmployees, conn, tx))
@@ -190,66 +188,102 @@ namespace tryagain
                         da.Fill(employees);
                     }
 
-                    // 3) Insert Payroll_Record per employee using simple placeholder calculations
-                    string insertRecordSql = @"
-                        INSERT INTO Payroll_Record
-                            (batch_id, employee_id, gross_salary, base_pay, deductions_total, bonus_amount, net_pay)
-                        VALUES
-                            (@batch, @emp, @gross, @base, @deductions, @bonus, @net);";
-
                     decimal runningTotalNetPay = 0m;
-                    using (SqlCommand cmdInsert = new SqlCommand(insertRecordSql, conn, tx))
+
+                    // 3) Process each employee
+                    foreach (DataRow r in employees.Rows)
                     {
-                        cmdInsert.Parameters.Add("@batch", SqlDbType.Int);
-                        cmdInsert.Parameters.Add("@emp", SqlDbType.Int);
-                        cmdInsert.Parameters.Add("@gross", SqlDbType.Decimal);
-                        cmdInsert.Parameters.Add("@base", SqlDbType.Decimal);
-                        cmdInsert.Parameters.Add("@deductions", SqlDbType.Decimal);
-                        cmdInsert.Parameters.Add("@bonus", SqlDbType.Decimal);
-                        cmdInsert.Parameters.Add("@net", SqlDbType.Decimal);
+                        int empId = Convert.ToInt32(r["EmployeeID"]);
+                        decimal gross = Convert.ToDecimal(r["GrossSalary"]);
+                        decimal basePay = gross;
 
-                        // set precision/scale for decimal parameters if needed
-                        cmdInsert.Parameters["@gross"].Precision = 18; cmdInsert.Parameters["@gross"].Scale = 2;
-                        cmdInsert.Parameters["@base"].Precision = 18; cmdInsert.Parameters["@base"].Scale = 2;
-                        cmdInsert.Parameters["@deductions"].Precision = 18; cmdInsert.Parameters["@deductions"].Scale = 2;
-                        cmdInsert.Parameters["@bonus"].Precision = 18; cmdInsert.Parameters["@bonus"].Scale = 2;
-                        cmdInsert.Parameters["@net"].Precision = 18; cmdInsert.Parameters["@net"].Scale = 2;
+                        // daily/hourly rates
+                        decimal dailyRate = gross / 22m;   // assume 22 working days
+                        decimal hourlyRate = dailyRate / 8m;
 
-                        foreach (DataRow r in employees.Rows)
+                        // --- Attendance summary ---
+                        var (absences, halfdays, lates) = GetAttendanceSummary(empId, periodStart, periodEnd, conn, tx);
+
+                        // --- Unpaid leave days ---
+                        int unpaidLeaves = GetUnpaidLeaveDays(empId, periodStart, periodEnd, conn, tx);
+
+                        // --- Deduction calculation ---
+                        decimal absenceDeduction = absences * dailyRate;
+                        decimal halfdayDeduction = halfdays * (dailyRate / 2);
+                        decimal lateDeduction = lates * hourlyRate; // or flat penalty
+                        decimal leaveDeduction = unpaidLeaves * dailyRate;
+
+                        decimal deductions = absenceDeduction + halfdayDeduction + lateDeduction + leaveDeduction;
+
+                        // Bonus placeholder
+                        decimal bonus = 0m;
+
+                        // Net pay
+                        decimal net = basePay - deductions + bonus;
+                        runningTotalNetPay += net;
+
+                        // 4) Insert payroll record and get its ID
+                        string insertRecordSql = @"
+                    INSERT INTO Payroll_Record
+                        (batch_id, employee_id, gross_salary, base_pay, deductions_total, bonus_amount, net_pay)
+                    VALUES
+                        (@batch, @emp, @gross, @base, @deductions, @bonus, @net);
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                        int recordId;
+                        using (SqlCommand cmd = new SqlCommand(insertRecordSql, conn, tx))
                         {
-                            int empId = Convert.ToInt32(r["EmployeeID"]);
-                            decimal gross = Convert.ToDecimal(r["GrossSalary"]);
+                            cmd.Parameters.AddWithValue("@batch", batchId);
+                            cmd.Parameters.AddWithValue("@emp", empId);
+                            cmd.Parameters.AddWithValue("@gross", gross);
+                            cmd.Parameters.AddWithValue("@base", basePay);
+                            cmd.Parameters.AddWithValue("@deductions", deductions);
+                            cmd.Parameters.AddWithValue("@bonus", bonus);
+                            cmd.Parameters.AddWithValue("@net", net);
+                            recordId = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
 
-                            // ---- PLACEHOLDER CALCULATIONS (replace with your real logic) ----
-                            decimal basePay = gross;                       // base pay (or pro-rate if partial period)
-                            decimal deductions = 0m;                       // default deductions (use attendance/taxes later)
-                            decimal bonus = 0m;                            // default bonus (pulled from approvals later)
-                            // Example: simple absence deduction (uncomment & adapt if Attendance exists)
-                            // int absences = GetAbsences(empId, periodStart, periodEnd, conn, tx);
-                            // decimal dailyRate = gross / 22m;
-                            // deductions += dailyRate * absences;
-                            // -----------------------------------------------------------------
+                        // 5) Insert deduction breakdown rows
+                        string insertDeductionSql = "INSERT INTO Deduction_Record (payroll_record_id, deduction_type, amount) VALUES (@rec, @type, @amt)";
+                        using (SqlCommand cmdDed = new SqlCommand(insertDeductionSql, conn, tx))
+                        {
+                            cmdDed.Parameters.Add("@rec", SqlDbType.Int).Value = recordId;
+                            cmdDed.Parameters.Add("@type", SqlDbType.VarChar);
+                            cmdDed.Parameters.Add("@amt", SqlDbType.Decimal).Precision = 18;
+                            cmdDed.Parameters["@amt"].Scale = 2;
 
-                            decimal net = basePay - deductions + bonus;
-                            runningTotalNetPay += net;
-
-                            cmdInsert.Parameters["@batch"].Value = batchId;
-                            cmdInsert.Parameters["@emp"].Value = empId;
-                            cmdInsert.Parameters["@gross"].Value = gross;
-                            cmdInsert.Parameters["@base"].Value = basePay;
-                            cmdInsert.Parameters["@deductions"].Value = deductions;
-                            cmdInsert.Parameters["@bonus"].Value = bonus;
-                            cmdInsert.Parameters["@net"].Value = net;
-
-                            cmdInsert.ExecuteNonQuery();
+                            if (absenceDeduction > 0)
+                            {
+                                cmdDed.Parameters["@type"].Value = "Absences";
+                                cmdDed.Parameters["@amt"].Value = absenceDeduction;
+                                cmdDed.ExecuteNonQuery();
+                            }
+                            if (halfdayDeduction > 0)
+                            {
+                                cmdDed.Parameters["@type"].Value = "Halfday";
+                                cmdDed.Parameters["@amt"].Value = halfdayDeduction;
+                                cmdDed.ExecuteNonQuery();
+                            }
+                            if (lateDeduction > 0)
+                            {
+                                cmdDed.Parameters["@type"].Value = "Late";
+                                cmdDed.Parameters["@amt"].Value = lateDeduction;
+                                cmdDed.ExecuteNonQuery();
+                            }
+                            if (leaveDeduction > 0)
+                            {
+                                cmdDed.Parameters["@type"].Value = "Unpaid Leave";
+                                cmdDed.Parameters["@amt"].Value = leaveDeduction;
+                                cmdDed.ExecuteNonQuery();
+                            }
                         }
                     }
 
-                    // 4) Update batch total_net_pay and commit
+                    // 6) Update batch totals
                     string updateBatchTotalSql = @"
-                            UPDATE Payroll_Batch
-                            SET total_net_pay = @total
-                            WHERE batch_id = @batchId;";
+                UPDATE Payroll_Batch
+                SET total_net_pay = @total
+                WHERE batch_id = @batchId;";
 
                     using (SqlCommand cmd = new SqlCommand(updateBatchTotalSql, conn, tx))
                     {
@@ -267,7 +301,7 @@ namespace tryagain
                 }
                 catch (Exception ex)
                 {
-                    try { tx.Rollback(); } catch { /* ignore */ }
+                    try { tx.Rollback(); } catch { }
                     MessageBox.Show("Failed to generate batch: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -300,6 +334,60 @@ namespace tryagain
             LoadBatches();
         }
 
+        private (int absences, int halfdays, int lates) GetAttendanceSummary(int empId, DateTime start, DateTime end, SqlConnection conn, SqlTransaction tx)
+        {
+            string sql = @"SELECT status, COUNT(*) as cnt
+                   FROM Attendance
+                   WHERE employeeID = @empId 
+                   AND date BETWEEN @start AND @end
+                   GROUP BY status";
+
+            int absences = 0, halfdays = 0, lates = 0;
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn, tx))
+            {
+                cmd.Parameters.AddWithValue("@empId", empId);
+                cmd.Parameters.AddWithValue("@start", start);
+                cmd.Parameters.AddWithValue("@end", end);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string status = reader.GetString(0);
+                        int count = reader.GetInt32(1);
+
+                        switch (status)
+                        {
+                            case "Absent": absences = count; break;
+                            case "Halfday": halfdays = count; break;
+                            case "Late": lates = count; break;
+                        }
+                    }
+                }
+            }
+
+            return (absences, halfdays, lates);
+        }
+
+
+        private int GetUnpaidLeaveDays(int empId, DateTime start, DateTime end, SqlConnection conn, SqlTransaction tx)
+        {
+            string sql = @"SELECT ISNULL(SUM(DATEDIFF(DAY, start_date, end_date) + 1),0)
+                   FROM Leave_Record
+                   WHERE employee_id = @empId
+                   AND leave_type = 'Unpaid'
+                   AND status = 'Approved'
+                   AND ((start_date BETWEEN @start AND @end) OR (end_date BETWEEN @start AND @end))";
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn, tx))
+            {
+                cmd.Parameters.AddWithValue("@empId", empId);
+                cmd.Parameters.AddWithValue("@start", start);
+                cmd.Parameters.AddWithValue("@end", end);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
 
 
 
