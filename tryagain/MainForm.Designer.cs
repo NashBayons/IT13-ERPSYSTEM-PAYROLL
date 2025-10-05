@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sidebarPanel = new Panel();
+            leaveBtn = new Button();
             salaryBtn = new Button();
             reportsBtn = new Button();
             payrollBtn = new Button();
@@ -36,10 +37,7 @@
             employeeBtn = new Button();
             dashboardBtn = new Button();
             contentPanel = new Panel();
-            dashboardLbl = new Label();
-            leaveBtn = new Button();
             sidebarPanel.SuspendLayout();
-            contentPanel.SuspendLayout();
             SuspendLayout();
             // 
             // sidebarPanel
@@ -57,6 +55,16 @@
             sidebarPanel.Name = "sidebarPanel";
             sidebarPanel.Size = new Size(200, 753);
             sidebarPanel.TabIndex = 4;
+            // 
+            // leaveBtn
+            // 
+            leaveBtn.Location = new Point(54, 180);
+            leaveBtn.Name = "leaveBtn";
+            leaveBtn.Size = new Size(94, 29);
+            leaveBtn.TabIndex = 6;
+            leaveBtn.Text = "Leave";
+            leaveBtn.UseVisualStyleBackColor = true;
+            leaveBtn.Click += leaveBtn_Click;
             // 
             // salaryBtn
             // 
@@ -122,30 +130,10 @@
             // 
             contentPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             contentPanel.BackColor = SystemColors.Info;
-            contentPanel.Controls.Add(dashboardLbl);
             contentPanel.Location = new Point(200, 0);
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(982, 753);
             contentPanel.TabIndex = 5;
-            // 
-            // dashboardLbl
-            // 
-            dashboardLbl.AutoSize = true;
-            dashboardLbl.Location = new Point(54, 29);
-            dashboardLbl.Name = "dashboardLbl";
-            dashboardLbl.Size = new Size(166, 20);
-            dashboardLbl.TabIndex = 5;
-            dashboardLbl.Text = "Welcome to Dashboard";
-            // 
-            // leaveBtn
-            // 
-            leaveBtn.Location = new Point(54, 180);
-            leaveBtn.Name = "leaveBtn";
-            leaveBtn.Size = new Size(94, 29);
-            leaveBtn.TabIndex = 6;
-            leaveBtn.Text = "Leave";
-            leaveBtn.UseVisualStyleBackColor = true;
-            leaveBtn.Click += leaveBtn_Click;
             // 
             // MainForm
             // 
@@ -158,8 +146,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainForm";
             sidebarPanel.ResumeLayout(false);
-            contentPanel.ResumeLayout(false);
-            contentPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -171,7 +157,6 @@
         private Button employeeBtn;
         private Button dashboardBtn;
         private Panel contentPanel;
-        private Label dashboardLbl;
         private Button salaryBtn;
         private Button leaveBtn;
     }
