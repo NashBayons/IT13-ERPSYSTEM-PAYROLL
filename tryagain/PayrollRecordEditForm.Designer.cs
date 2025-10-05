@@ -28,12 +28,197 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "PayrollRecordEditForm";
+            employeeLbl = new Label();
+            grossSalLbl = new Label();
+            basepayLbl = new Label();
+            deductionLbl = new Label();
+            bonusesLbl = new Label();
+            dgvDeduct = new DataGridView();
+            dgvBonus = new DataGridView();
+            deductAddBtn = new Button();
+            deductEditBtn = new Button();
+            deductDeleteBtn = new Button();
+            bonusAddBtn = new Button();
+            bonusEditBtn = new Button();
+            bonusDeleteBtn = new Button();
+            savechangeBtn = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvDeduct).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvBonus).BeginInit();
+            SuspendLayout();
+            // 
+            // employeeLbl
+            // 
+            employeeLbl.AutoSize = true;
+            employeeLbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            employeeLbl.Location = new Point(10, 10);
+            employeeLbl.Name = "employeeLbl";
+            employeeLbl.Size = new Size(59, 23);
+            employeeLbl.TabIndex = 0;
+            employeeLbl.Text = "label1";
+            // 
+            // grossSalLbl
+            // 
+            grossSalLbl.AutoSize = true;
+            grossSalLbl.Location = new Point(10, 40);
+            grossSalLbl.Name = "grossSalLbl";
+            grossSalLbl.Size = new Size(50, 20);
+            grossSalLbl.TabIndex = 1;
+            grossSalLbl.Text = "label2";
+            // 
+            // basepayLbl
+            // 
+            basepayLbl.AutoSize = true;
+            basepayLbl.Location = new Point(10, 70);
+            basepayLbl.Name = "basepayLbl";
+            basepayLbl.Size = new Size(50, 20);
+            basepayLbl.TabIndex = 2;
+            basepayLbl.Text = "label3";
+            // 
+            // deductionLbl
+            // 
+            deductionLbl.AutoSize = true;
+            deductionLbl.Location = new Point(10, 100);
+            deductionLbl.Name = "deductionLbl";
+            deductionLbl.Size = new Size(84, 20);
+            deductionLbl.TabIndex = 3;
+            deductionLbl.Text = "Deductions";
+            // 
+            // bonusesLbl
+            // 
+            bonusesLbl.AutoSize = true;
+            bonusesLbl.Location = new Point(400, 100);
+            bonusesLbl.Name = "bonusesLbl";
+            bonusesLbl.Size = new Size(63, 20);
+            bonusesLbl.TabIndex = 4;
+            bonusesLbl.Text = "Bonuses";
+            // 
+            // dgvDeduct
+            // 
+            dgvDeduct.AllowUserToAddRows = false;
+            dgvDeduct.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDeduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDeduct.Location = new Point(10, 120);
+            dgvDeduct.Name = "dgvDeduct";
+            dgvDeduct.RowHeadersWidth = 51;
+            dgvDeduct.Size = new Size(360, 300);
+            dgvDeduct.TabIndex = 5;
+            // 
+            // dgvBonus
+            // 
+            dgvBonus.AllowUserToAddRows = false;
+            dgvBonus.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBonus.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvBonus.Location = new Point(400, 120);
+            dgvBonus.Name = "dgvBonus";
+            dgvBonus.RowHeadersWidth = 51;
+            dgvBonus.Size = new Size(350, 300);
+            dgvBonus.TabIndex = 6;
+            // 
+            // deductAddBtn
+            // 
+            deductAddBtn.Location = new Point(10, 430);
+            deductAddBtn.Name = "deductAddBtn";
+            deductAddBtn.Size = new Size(70, 35);
+            deductAddBtn.TabIndex = 7;
+            deductAddBtn.Text = "Add";
+            deductAddBtn.UseVisualStyleBackColor = true;
+            // 
+            // deductEditBtn
+            // 
+            deductEditBtn.Location = new Point(90, 430);
+            deductEditBtn.Name = "deductEditBtn";
+            deductEditBtn.Size = new Size(70, 35);
+            deductEditBtn.TabIndex = 8;
+            deductEditBtn.Text = "Edit";
+            deductEditBtn.UseVisualStyleBackColor = true;
+            // 
+            // deductDeleteBtn
+            // 
+            deductDeleteBtn.Location = new Point(170, 430);
+            deductDeleteBtn.Name = "deductDeleteBtn";
+            deductDeleteBtn.Size = new Size(70, 35);
+            deductDeleteBtn.TabIndex = 9;
+            deductDeleteBtn.Text = "Delete";
+            deductDeleteBtn.UseVisualStyleBackColor = true;
+            // 
+            // bonusAddBtn
+            // 
+            bonusAddBtn.Location = new Point(400, 430);
+            bonusAddBtn.Name = "bonusAddBtn";
+            bonusAddBtn.Size = new Size(70, 35);
+            bonusAddBtn.TabIndex = 10;
+            bonusAddBtn.Text = "Add";
+            bonusAddBtn.UseVisualStyleBackColor = true;
+            // 
+            // bonusEditBtn
+            // 
+            bonusEditBtn.Location = new Point(480, 430);
+            bonusEditBtn.Name = "bonusEditBtn";
+            bonusEditBtn.Size = new Size(70, 35);
+            bonusEditBtn.TabIndex = 11;
+            bonusEditBtn.Text = "Edit";
+            bonusEditBtn.UseVisualStyleBackColor = true;
+            // 
+            // bonusDeleteBtn
+            // 
+            bonusDeleteBtn.Location = new Point(560, 430);
+            bonusDeleteBtn.Name = "bonusDeleteBtn";
+            bonusDeleteBtn.Size = new Size(70, 35);
+            bonusDeleteBtn.TabIndex = 12;
+            bonusDeleteBtn.Text = "Delete";
+            bonusDeleteBtn.UseVisualStyleBackColor = true;
+            // 
+            // savechangeBtn
+            // 
+            savechangeBtn.Location = new Point(10, 500);
+            savechangeBtn.Name = "savechangeBtn";
+            savechangeBtn.Size = new Size(120, 35);
+            savechangeBtn.TabIndex = 13;
+            savechangeBtn.Text = "Save Changes";
+            savechangeBtn.UseVisualStyleBackColor = true;
+            // 
+            // PayrollRecordEditForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(782, 553);
+            Controls.Add(savechangeBtn);
+            Controls.Add(bonusDeleteBtn);
+            Controls.Add(bonusEditBtn);
+            Controls.Add(bonusAddBtn);
+            Controls.Add(deductDeleteBtn);
+            Controls.Add(deductEditBtn);
+            Controls.Add(deductAddBtn);
+            Controls.Add(dgvBonus);
+            Controls.Add(dgvDeduct);
+            Controls.Add(bonusesLbl);
+            Controls.Add(deductionLbl);
+            Controls.Add(basepayLbl);
+            Controls.Add(grossSalLbl);
+            Controls.Add(employeeLbl);
+            Name = "PayrollRecordEditForm";
+            Text = "Edit Payroll Record";
+            ((System.ComponentModel.ISupportInitialize)dgvDeduct).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvBonus).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label employeeLbl;
+        private Label grossSalLbl;
+        private Label basepayLbl;
+        private Label deductionLbl;
+        private Label bonusesLbl;
+        private DataGridView dgvDeduct;
+        private DataGridView dgvBonus;
+        private Button deductAddBtn;
+        private Button deductEditBtn;
+        private Button deductDeleteBtn;
+        private Button bonusAddBtn;
+        private Button bonusEditBtn;
+        private Button bonusDeleteBtn;
+        private Button savechangeBtn;
     }
 }

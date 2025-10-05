@@ -178,6 +178,7 @@
             Controls.Add(approveBtn);
             Controls.Add(loadreqBtn);
             Controls.Add(dgvLeaveRequests);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "LeaveRequestForm";
             Text = "LeaveRequestForm";
             ((System.ComponentModel.ISupportInitialize)dgvLeaveRequests).EndInit();

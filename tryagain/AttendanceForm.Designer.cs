@@ -154,7 +154,6 @@
             dgvAttendance1.AllowUserToAddRows = false;
             dgvAttendance1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvAttendance1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAttendance1.ColumnHeadersVisible = false;
             dgvAttendance1.Location = new Point(20, 150);
             dgvAttendance1.Name = "dgvAttendance1";
             dgvAttendance1.ReadOnly = true;

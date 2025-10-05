@@ -17,54 +17,15 @@ namespace tryagain
 
         private int _batchId;
         private string _batchStatus;
-        private DataGridView dgvRecords;
-        private Button btnFinalize;
-        private Button btnEditRecord;
         private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
         public PayrollBatchDetailsForm(int batchId, string status)
         {
+            InitializeComponent();
             _batchId = batchId;
             _batchStatus = status;
             this.Text = $"Payroll Batch #{batchId} - Details";
             this.Size = new Size(1000, 600);
-            InitializeUI();
             Load += PayrollBatchDetailsForm_Load;
-        }
-
-        private void InitializeUI()
-        {
-            dgvRecords = new DataGridView
-            {
-                Location = new Point(10, 10),
-                Size = new Size(960, 480),
-                ReadOnly = true,
-                AllowUserToAddRows = false,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect,   // ✅ important
-                MultiSelect = false
-            };
-            this.Controls.Add(dgvRecords);
-
-            btnFinalize = new Button { Text = "Finalize Batch (Paid)", Location = new Point(10, 500), Width = 180, Height=35 };
-            btnFinalize.Click += BtnFinalize_Click;
-            this.Controls.Add(btnFinalize);
-
-            btnEditRecord = new Button
-            {
-                Text = "Edit Selected Record",
-                Location = new Point(200, 500),
-                Width = 180,
-                Height = 35
-            };
-            btnEditRecord.Click += BtnEditRecord_Click;
-            this.Controls.Add(btnEditRecord);
-
-            if (_batchStatus == "Paid")
-            {
-                btnEditRecord.Enabled = false;
-
-                // btnEditRecord.Visible = false;
-            }
         }
 
         private void PayrollBatchDetailsForm_Load(object sender, EventArgs e)
@@ -92,15 +53,15 @@ namespace tryagain
                 }
             }
 
-            dgvRecords.DataSource = dt;
+            dgvPayrollRecords.DataSource = dt;
 
-            if (dgvRecords.Columns.Contains("payroll_record_id"))
-                dgvRecords.Columns["payroll_record_id"].Visible = false;
-            if (dgvRecords.Columns.Contains("employee_id"))
-                dgvRecords.Columns["employee_id"].Visible = false;
+            if (dgvPayrollRecords.Columns.Contains("payroll_record_id"))
+                dgvPayrollRecords.Columns["payroll_record_id"].Visible = false;
+            if (dgvPayrollRecords.Columns.Contains("employee_id"))
+                dgvPayrollRecords.Columns["employee_id"].Visible = false;
         }
 
-        private void BtnFinalize_Click(object sender, EventArgs e)
+        private void finalizeselectBtn_Click(object sender, EventArgs e)
         {
             var confirm = MessageBox.Show("Finalize this batch and mark as Paid? This will lock the batch.", "Finalize Batch", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
@@ -134,7 +95,7 @@ namespace tryagain
             }
         }
 
-        private void BtnEditRecord_Click(object sender, EventArgs e)
+        private void editselectBtn_Click(object sender, EventArgs e)
         {
             if (_batchStatus == "Paid")
             {
@@ -142,16 +103,16 @@ namespace tryagain
                 return;
             }
 
-            if (dgvRecords.SelectedRows.Count == 0)
+            if (dgvPayrollRecords.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a payroll record first.", "Edit Record", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            var row = dgvRecords.SelectedRows[0];
+            var row = dgvPayrollRecords.SelectedRows[0];
 
             // ensure the grid has the payroll_record_id column
-            if (!dgvRecords.Columns.Contains("payroll_record_id"))
+            if (!dgvPayrollRecords.Columns.Contains("payroll_record_id"))
             {
                 MessageBox.Show("Payroll record id column not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
