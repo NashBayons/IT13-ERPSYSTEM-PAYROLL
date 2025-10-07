@@ -31,20 +31,7 @@ namespace tryagain
 
             this.Text = "Edit Payroll Record";
             this.Size = new Size(800, 600);
-            InitializeButtonFunction();
             Load += PayrollRecordEditForm_Load;
-        }
-
-        private void InitializeButtonFunction()
-        {
-            bonusAddBtn.Click += (s, e) => AddOrEditBonus(null);
-            bonusEditBtn.Click += (s, e) => EditSelectedBonus();
-            bonusDeleteBtn.Click += (s, e) => DeleteSelectedBonus();
-
-            deductAddBtn.Click += (s, e) => AddOrEditDeduction(null);
-            deductEditBtn.Click += (s, e) => EditSelectedBonus();
-            deductDeleteBtn.Click += (s, e) => DeleteSelectedBonus();
-
         }
 
         private void PayrollRecordEditForm_Load(object sender, EventArgs e)
@@ -142,22 +129,6 @@ namespace tryagain
             }
         }
 
-        private void EditSelectedDeduction()
-        {
-            if (dgvDeduct.SelectedRows.Count > 0)
-            {
-                var rowView = dgvDeduct.SelectedRows[0].DataBoundItem as DataRowView;
-                AddOrEditDeduction(rowView.Row);
-            }
-        }
-
-        private void DeleteSelectedDeduction()
-        {
-            if (dgvDeduct.SelectedRows.Count > 0)
-            {
-                dgvDeduct.Rows.Remove(dgvDeduct.SelectedRows[0]);
-            }
-        }
 
         // ---------------- Bonus CRUD ----------------
         private void AddOrEditBonus(DataRow row)
@@ -202,8 +173,7 @@ namespace tryagain
             }
         }
 
-        // ---------------- Save ----------------
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void savechangeBtn_Click(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -298,6 +268,34 @@ namespace tryagain
             }
         }
 
-        // class closing bracket
+        private void deductAddBtn_Click(object sender, EventArgs e)
+        {
+            AddOrEditDeduction(null);
+        }
+
+        private void deductEditBtn_Click(object sender, EventArgs e)
+        {
+            EditSelectedBonus();
+        }
+
+        private void deductDeleteBtn_Click(object sender, EventArgs e)
+        {
+            DeleteSelectedBonus();
+        }
+
+        private void bonusAddBtn_Click(object sender, EventArgs e)
+        {
+            AddOrEditBonus(null);
+        }
+
+        private void bonusEditBtn_Click(object sender, EventArgs e)
+        {
+            EditSelectedBonus();
+        }
+
+        private void bonusDeleteBtn_Click(object sender, EventArgs e)
+        {
+            DeleteSelectedBonus();
+        }
     }
 }

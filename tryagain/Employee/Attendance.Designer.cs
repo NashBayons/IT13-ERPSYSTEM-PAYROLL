@@ -1,6 +1,6 @@
-﻿namespace tryagain
+﻿namespace tryagain.Employee
 {
-    partial class SalaryMangementForm
+    partial class Attendance
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            label5 = new Label();
             SuspendLayout();
             // 
-            // SalaryMangementForm
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Arial", 16F, FontStyle.Bold);
+            label5.Location = new Point(12, 9);
+            label5.Name = "label5";
+            label5.Size = new Size(312, 32);
+            label5.TabIndex = 21;
+            label5.Text = "Attendance Monitoring";
+            label5.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // Attendance
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "SalaryMangementForm";
-            Text = "SalaryMangementForm";
+            ClientSize = new Size(1182, 853);
+            Controls.Add(label5);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "Attendance";
+            Text = "Attendance";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+        private Label label5;
     }
 }

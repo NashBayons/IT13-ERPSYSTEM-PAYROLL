@@ -49,19 +49,76 @@ namespace tryagain
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
-                        SqlCommand cmd = new SqlCommand(
-                            "INSERT INTO Employees (FirstName, LastName, Department, Position, Status) VALUES (@FirstName, @LastName, @Department, @Position, @Status)", conn);
 
-                        cmd.Parameters.AddWithValue("@FirstName", form.FirstName);
-                        cmd.Parameters.AddWithValue("@LastName", form.LastName);
-                        cmd.Parameters.AddWithValue("@Department", form.Department);
-                        cmd.Parameters.AddWithValue("@Position", form.Position);
-                        cmd.Parameters.AddWithValue("@Status", form.Status);
+                        using (SqlTransaction transaction = conn.BeginTransaction())
+                        {
+                            try
+                            {
+                                // 1) Insert into usersaccount
+                                SqlCommand cmdUser = new SqlCommand(@"
+                            INSERT INTO usersaccount (username, password, is_admin, is_employee, status)
+                            VALUES (@Username, @Password, 0, 1, 'active');
+                            SELECT SCOPE_IDENTITY();", conn, transaction);
 
-                        cmd.ExecuteNonQuery();
+                                cmdUser.Parameters.AddWithValue("@Username", form.Username);
+                                cmdUser.Parameters.AddWithValue("@Password", form.Password); // ⚠ hash in real app!
+
+                                int newUserId = Convert.ToInt32(cmdUser.ExecuteScalar());
+
+                                // 2) Insert into Employee
+                                SqlCommand cmdEmp = new SqlCommand(@"
+                            INSERT INTO Employees (userid, firstname, lastname, department, position, status, hire_date)
+                            VALUES (@UserId, @FirstName, @LastName, @Department, @Position, @Status, @HireDate);
+                            SELECT SCOPE_IDENTITY();", conn, transaction);
+
+                                cmdEmp.Parameters.AddWithValue("@UserId", newUserId);
+                                cmdEmp.Parameters.AddWithValue("@FirstName", form.FirstName);
+                                cmdEmp.Parameters.AddWithValue("@LastName", form.LastName);
+                                cmdEmp.Parameters.AddWithValue("@Department", form.Department);
+                                cmdEmp.Parameters.AddWithValue("@Position", form.Position);
+                                cmdEmp.Parameters.AddWithValue("@Status", form.Status);
+                                cmdEmp.Parameters.AddWithValue("@HireDate", form.HireDate);
+
+                                int newEmpId = Convert.ToInt32(cmdEmp.ExecuteScalar());
+
+                                // 3) Insert into EmployeeDetails
+                                SqlCommand cmdDetails = new SqlCommand(@"
+                            INSERT INTO EmployeeDetails (employeeid, email, date_of_birth, address)
+                            VALUES (@EmpId, @Email, @DOB, @Address);", conn, transaction);
+
+                                cmdDetails.Parameters.AddWithValue("@EmpId", newEmpId);
+                                cmdDetails.Parameters.AddWithValue("@Email", form.Email);
+                                cmdDetails.Parameters.AddWithValue("@DOB", (object)form.DateOfBirth ?? DBNull.Value);
+                                cmdDetails.Parameters.AddWithValue("@Address", form.Address);
+
+                                cmdDetails.ExecuteNonQuery();
+
+                                // 4) Insert into EmergencyContact
+                                SqlCommand cmdContact = new SqlCommand(@"
+                            INSERT INTO EmergencyContact (employeeid, contact_name, relationship, phone_number)
+                            VALUES (@EmpId, @ContactName, @Relationship, @PhoneNumber);", conn, transaction);
+
+                                cmdContact.Parameters.AddWithValue("@EmpId", newEmpId);
+                                cmdContact.Parameters.AddWithValue("@ContactName", form.ContactName);
+                                cmdContact.Parameters.AddWithValue("@Relationship", form.Relationship);
+                                cmdContact.Parameters.AddWithValue("@PhoneNumber", form.ContactPhone);
+
+                                cmdContact.ExecuteNonQuery();
+
+                                // ✅ Commit transaction
+                                transaction.Commit();
+
+                                MessageBox.Show("Employee and user account created successfully!");
+                            }
+                            catch (Exception ex)
+                            {
+                                transaction.Rollback();
+                                MessageBox.Show("Error adding employee: " + ex.Message);
+                            }
+                        }
                     }
 
-                    LoadEmployees();
+                    LoadEmployees(); // refresh your DataGrid or list
                 }
             }
         }

@@ -36,6 +36,19 @@ namespace tryagain
             form.Show();
         }
 
+        public void Logout()
+        {
+            if (MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
+
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+
+            this.Close();
+        }
+
         private void dashboardBtn_Click(object sender, EventArgs e)
         {
             LoadForm(new dashboardForm());
@@ -69,6 +82,11 @@ namespace tryagain
         private void leaveBtn_Click(object sender, EventArgs e)
         {
             LoadForm(new LeaveRequestForm());
+        }
+
+        private void logoutBtn_Click(object sender, EventArgs e)
+        {
+            Logout();
         }
     }
 }

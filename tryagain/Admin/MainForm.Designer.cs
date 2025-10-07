@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sidebarPanel = new Panel();
+            logoutBtn = new Button();
             leaveBtn = new Button();
             salaryBtn = new Button();
             reportsBtn = new Button();
@@ -43,6 +44,7 @@
             // sidebarPanel
             // 
             sidebarPanel.BackColor = Color.DarkGray;
+            sidebarPanel.Controls.Add(logoutBtn);
             sidebarPanel.Controls.Add(leaveBtn);
             sidebarPanel.Controls.Add(salaryBtn);
             sidebarPanel.Controls.Add(reportsBtn);
@@ -55,6 +57,16 @@
             sidebarPanel.Name = "sidebarPanel";
             sidebarPanel.Size = new Size(200, 753);
             sidebarPanel.TabIndex = 4;
+            // 
+            // logoutBtn
+            // 
+            logoutBtn.Location = new Point(54, 712);
+            logoutBtn.Name = "logoutBtn";
+            logoutBtn.Size = new Size(94, 29);
+            logoutBtn.TabIndex = 7;
+            logoutBtn.Text = "Log Out";
+            logoutBtn.UseVisualStyleBackColor = true;
+            logoutBtn.Click += logoutBtn_Click;
             // 
             // leaveBtn
             // 
@@ -159,5 +171,6 @@
         private Panel contentPanel;
         private Button salaryBtn;
         private Button leaveBtn;
+        private Button logoutBtn;
     }
 }

@@ -122,6 +122,7 @@
             deductAddBtn.TabIndex = 7;
             deductAddBtn.Text = "Add";
             deductAddBtn.UseVisualStyleBackColor = true;
+            deductAddBtn.Click += deductAddBtn_Click;
             // 
             // deductEditBtn
             // 
@@ -131,6 +132,7 @@
             deductEditBtn.TabIndex = 8;
             deductEditBtn.Text = "Edit";
             deductEditBtn.UseVisualStyleBackColor = true;
+            deductEditBtn.Click += deductEditBtn_Click;
             // 
             // deductDeleteBtn
             // 
@@ -140,6 +142,7 @@
             deductDeleteBtn.TabIndex = 9;
             deductDeleteBtn.Text = "Delete";
             deductDeleteBtn.UseVisualStyleBackColor = true;
+            deductDeleteBtn.Click += deductDeleteBtn_Click;
             // 
             // bonusAddBtn
             // 
@@ -149,6 +152,7 @@
             bonusAddBtn.TabIndex = 10;
             bonusAddBtn.Text = "Add";
             bonusAddBtn.UseVisualStyleBackColor = true;
+            bonusAddBtn.Click += bonusAddBtn_Click;
             // 
             // bonusEditBtn
             // 
@@ -158,6 +162,7 @@
             bonusEditBtn.TabIndex = 11;
             bonusEditBtn.Text = "Edit";
             bonusEditBtn.UseVisualStyleBackColor = true;
+            bonusEditBtn.Click += bonusEditBtn_Click;
             // 
             // bonusDeleteBtn
             // 
@@ -167,6 +172,7 @@
             bonusDeleteBtn.TabIndex = 12;
             bonusDeleteBtn.Text = "Delete";
             bonusDeleteBtn.UseVisualStyleBackColor = true;
+            bonusDeleteBtn.Click += bonusDeleteBtn_Click;
             // 
             // savechangeBtn
             // 
@@ -176,6 +182,7 @@
             savechangeBtn.TabIndex = 13;
             savechangeBtn.Text = "Save Changes";
             savechangeBtn.UseVisualStyleBackColor = true;
+            savechangeBtn.Click += savechangeBtn_Click;
             // 
             // PayrollRecordEditForm
             // 
