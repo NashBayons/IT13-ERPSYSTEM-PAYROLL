@@ -88,5 +88,10 @@ namespace tryagain
         {
             Logout();
         }
+
+        private void sidebarPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

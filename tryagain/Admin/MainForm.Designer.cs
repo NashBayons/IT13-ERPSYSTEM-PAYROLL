@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sidebarPanel = new Panel();
+            pictureBox1 = new PictureBox();
             logoutBtn = new Button();
             leaveBtn = new Button();
             salaryBtn = new Button();
@@ -39,12 +40,12 @@
             dashboardBtn = new Button();
             contentPanel = new Panel();
             sidebarPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // sidebarPanel
             // 
-            sidebarPanel.BackColor = Color.DarkGray;
-            sidebarPanel.Controls.Add(logoutBtn);
+            sidebarPanel.BackColor = Color.DarkBlue;
             sidebarPanel.Controls.Add(leaveBtn);
             sidebarPanel.Controls.Add(salaryBtn);
             sidebarPanel.Controls.Add(reportsBtn);
@@ -52,96 +53,134 @@
             sidebarPanel.Controls.Add(attendanceBtn);
             sidebarPanel.Controls.Add(employeeBtn);
             sidebarPanel.Controls.Add(dashboardBtn);
+            sidebarPanel.Controls.Add(pictureBox1);
+            sidebarPanel.Controls.Add(logoutBtn);
             sidebarPanel.Dock = DockStyle.Left;
             sidebarPanel.Location = new Point(0, 0);
             sidebarPanel.Name = "sidebarPanel";
             sidebarPanel.Size = new Size(200, 753);
             sidebarPanel.TabIndex = 4;
+            sidebarPanel.Paint += sidebarPanel_Paint;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = Properties.Resources.logo2;
+            pictureBox1.Location = new Point(9, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(185, 255);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
             // 
             // logoutBtn
             // 
-            logoutBtn.Location = new Point(54, 712);
+            logoutBtn.BackColor = Color.Red;
+            logoutBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            logoutBtn.ForeColor = Color.White;
+            logoutBtn.Location = new Point(23, 699);
             logoutBtn.Name = "logoutBtn";
-            logoutBtn.Size = new Size(94, 29);
+            logoutBtn.Size = new Size(151, 42);
             logoutBtn.TabIndex = 7;
             logoutBtn.Text = "Log Out";
-            logoutBtn.UseVisualStyleBackColor = true;
+            logoutBtn.UseVisualStyleBackColor = false;
             logoutBtn.Click += logoutBtn_Click;
             // 
             // leaveBtn
             // 
-            leaveBtn.Location = new Point(54, 180);
+            leaveBtn.BackColor = Color.RoyalBlue;
+            leaveBtn.Font = new Font("Segoe UI", 10.2F);
+            leaveBtn.ForeColor = Color.White;
+            leaveBtn.Location = new Point(23, 390);
             leaveBtn.Name = "leaveBtn";
-            leaveBtn.Size = new Size(94, 29);
+            leaveBtn.Size = new Size(151, 42);
             leaveBtn.TabIndex = 6;
             leaveBtn.Text = "Leave";
-            leaveBtn.UseVisualStyleBackColor = true;
+            leaveBtn.UseVisualStyleBackColor = false;
             leaveBtn.Click += leaveBtn_Click;
             // 
             // salaryBtn
             // 
-            salaryBtn.Location = new Point(54, 260);
+            salaryBtn.BackColor = Color.RoyalBlue;
+            salaryBtn.Font = new Font("Segoe UI", 10.2F);
+            salaryBtn.ForeColor = Color.White;
+            salaryBtn.Location = new Point(23, 490);
             salaryBtn.Name = "salaryBtn";
-            salaryBtn.Size = new Size(94, 29);
+            salaryBtn.Size = new Size(151, 42);
             salaryBtn.TabIndex = 5;
             salaryBtn.Text = "Salary Man.";
-            salaryBtn.UseVisualStyleBackColor = true;
+            salaryBtn.UseVisualStyleBackColor = false;
             salaryBtn.Click += salaryBtn_Click;
             // 
             // reportsBtn
             // 
-            reportsBtn.Location = new Point(54, 300);
+            reportsBtn.BackColor = Color.RoyalBlue;
+            reportsBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            reportsBtn.ForeColor = Color.White;
+            reportsBtn.Location = new Point(23, 540);
             reportsBtn.Name = "reportsBtn";
-            reportsBtn.Size = new Size(94, 29);
+            reportsBtn.Size = new Size(151, 42);
             reportsBtn.TabIndex = 4;
             reportsBtn.Text = "Reports";
-            reportsBtn.UseVisualStyleBackColor = true;
+            reportsBtn.UseVisualStyleBackColor = false;
             reportsBtn.Click += reportsBtn_Click;
             // 
             // payrollBtn
             // 
-            payrollBtn.Location = new Point(54, 220);
+            payrollBtn.BackColor = Color.RoyalBlue;
+            payrollBtn.Font = new Font("Segoe UI", 10.2F);
+            payrollBtn.ForeColor = Color.White;
+            payrollBtn.Location = new Point(23, 440);
             payrollBtn.Name = "payrollBtn";
-            payrollBtn.Size = new Size(94, 29);
+            payrollBtn.Size = new Size(151, 42);
             payrollBtn.TabIndex = 3;
             payrollBtn.Text = "Payroll";
-            payrollBtn.UseVisualStyleBackColor = true;
+            payrollBtn.UseVisualStyleBackColor = false;
             payrollBtn.Click += payrollBtn_Click;
             // 
             // attendanceBtn
             // 
-            attendanceBtn.Location = new Point(54, 140);
+            attendanceBtn.BackColor = Color.RoyalBlue;
+            attendanceBtn.Font = new Font("Segoe UI", 10.2F);
+            attendanceBtn.ForeColor = Color.White;
+            attendanceBtn.Location = new Point(23, 340);
             attendanceBtn.Name = "attendanceBtn";
-            attendanceBtn.Size = new Size(94, 29);
+            attendanceBtn.Size = new Size(151, 42);
             attendanceBtn.TabIndex = 2;
             attendanceBtn.Text = "Attendance";
-            attendanceBtn.UseVisualStyleBackColor = true;
+            attendanceBtn.UseVisualStyleBackColor = false;
             attendanceBtn.Click += attendanceBtn_Click;
             // 
             // employeeBtn
             // 
-            employeeBtn.Location = new Point(54, 100);
+            employeeBtn.BackColor = Color.RoyalBlue;
+            employeeBtn.Font = new Font("Segoe UI", 10.2F);
+            employeeBtn.ForeColor = Color.White;
+            employeeBtn.Location = new Point(23, 290);
             employeeBtn.Name = "employeeBtn";
-            employeeBtn.Size = new Size(94, 29);
+            employeeBtn.Size = new Size(151, 42);
             employeeBtn.TabIndex = 1;
             employeeBtn.Text = "Employees";
-            employeeBtn.UseVisualStyleBackColor = true;
+            employeeBtn.UseVisualStyleBackColor = false;
             employeeBtn.Click += employeeBtn_Click;
             // 
             // dashboardBtn
             // 
-            dashboardBtn.Location = new Point(55, 60);
+            dashboardBtn.BackColor = Color.RoyalBlue;
+            dashboardBtn.Font = new Font("Segoe UI", 10.2F);
+            dashboardBtn.ForeColor = Color.White;
+            dashboardBtn.Location = new Point(23, 240);
             dashboardBtn.Name = "dashboardBtn";
-            dashboardBtn.Size = new Size(94, 29);
+            dashboardBtn.Size = new Size(151, 42);
             dashboardBtn.TabIndex = 0;
             dashboardBtn.Text = "Dashboard";
-            dashboardBtn.UseVisualStyleBackColor = true;
+            dashboardBtn.UseVisualStyleBackColor = false;
             dashboardBtn.Click += dashboardBtn_Click;
             // 
             // contentPanel
             // 
             contentPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            contentPanel.BackColor = SystemColors.Info;
+            contentPanel.BackColor = Color.WhiteSmoke;
             contentPanel.Location = new Point(200, 0);
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(982, 753);
@@ -158,6 +197,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainForm";
             sidebarPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -172,5 +212,6 @@
         private Button salaryBtn;
         private Button leaveBtn;
         private Button logoutBtn;
+        private PictureBox pictureBox1;
     }
 }

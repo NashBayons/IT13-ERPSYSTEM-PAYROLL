@@ -50,23 +50,25 @@
             // 
             dgvEmployee.AllowUserToAddRows = false;
             dgvEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvEmployee.BackgroundColor = SystemColors.Control;
             dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEmployee.Location = new Point(20, 80);
             dgvEmployee.Name = "dgvEmployee";
             dgvEmployee.ReadOnly = true;
             dgvEmployee.RowHeadersVisible = false;
             dgvEmployee.RowHeadersWidth = 51;
-            dgvEmployee.Size = new Size(800, 400);
+            dgvEmployee.Size = new Size(937, 353);
             dgvEmployee.TabIndex = 1;
             // 
             // addEmpBtn
             // 
-            addEmpBtn.BackColor = Color.FromArgb(63, 81, 181);
+            addEmpBtn.BackColor = Color.DarkBlue;
             addEmpBtn.FlatStyle = FlatStyle.Flat;
+            addEmpBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addEmpBtn.ForeColor = Color.White;
-            addEmpBtn.Location = new Point(20, 500);
+            addEmpBtn.Location = new Point(20, 459);
             addEmpBtn.Name = "addEmpBtn";
-            addEmpBtn.Size = new Size(120, 40);
+            addEmpBtn.Size = new Size(139, 40);
             addEmpBtn.TabIndex = 2;
             addEmpBtn.Text = "Add Employee";
             addEmpBtn.UseVisualStyleBackColor = false;
@@ -74,10 +76,11 @@
             // 
             // editBtn1
             // 
-            editBtn1.BackColor = Color.FromArgb(63, 81, 181);
+            editBtn1.BackColor = Color.DarkBlue;
             editBtn1.FlatStyle = FlatStyle.Flat;
+            editBtn1.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             editBtn1.ForeColor = Color.White;
-            editBtn1.Location = new Point(160, 500);
+            editBtn1.Location = new Point(165, 459);
             editBtn1.Name = "editBtn1";
             editBtn1.Size = new Size(80, 40);
             editBtn1.TabIndex = 3;
@@ -87,10 +90,11 @@
             // 
             // deleteBtn1
             // 
-            deleteBtn1.BackColor = Color.FromArgb(244, 67, 54);
+            deleteBtn1.BackColor = Color.Red;
             deleteBtn1.FlatStyle = FlatStyle.Flat;
+            deleteBtn1.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             deleteBtn1.ForeColor = Color.White;
-            deleteBtn1.Location = new Point(260, 500);
+            deleteBtn1.Location = new Point(251, 459);
             deleteBtn1.Name = "deleteBtn1";
             deleteBtn1.Size = new Size(80, 40);
             deleteBtn1.TabIndex = 4;
@@ -102,6 +106,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(982, 753);
             Controls.Add(deleteBtn1);
             Controls.Add(editBtn1);

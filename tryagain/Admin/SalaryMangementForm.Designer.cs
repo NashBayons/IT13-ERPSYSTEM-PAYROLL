@@ -49,6 +49,7 @@
             // 
             dgvSalaryGrid.AllowUserToAddRows = false;
             dgvSalaryGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSalaryGrid.BackgroundColor = SystemColors.Control;
             dgvSalaryGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSalaryGrid.Location = new Point(20, 80);
             dgvSalaryGrid.Name = "dgvSalaryGrid";
@@ -59,8 +60,9 @@
             // 
             // addSalaryBtn
             // 
-            addSalaryBtn.BackColor = Color.FromArgb(63, 81, 181);
+            addSalaryBtn.BackColor = Color.RoyalBlue;
             addSalaryBtn.FlatStyle = FlatStyle.Flat;
+            addSalaryBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             addSalaryBtn.ForeColor = Color.White;
             addSalaryBtn.Location = new Point(20, 500);
             addSalaryBtn.Name = "addSalaryBtn";
@@ -72,12 +74,13 @@
             // 
             // editSalaryBtn
             // 
-            editSalaryBtn.BackColor = Color.FromArgb(63, 81, 181);
+            editSalaryBtn.BackColor = Color.RoyalBlue;
             editSalaryBtn.FlatStyle = FlatStyle.Flat;
+            editSalaryBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             editSalaryBtn.ForeColor = Color.White;
             editSalaryBtn.Location = new Point(160, 500);
             editSalaryBtn.Name = "editSalaryBtn";
-            editSalaryBtn.Size = new Size(80, 40);
+            editSalaryBtn.Size = new Size(89, 40);
             editSalaryBtn.TabIndex = 3;
             editSalaryBtn.Text = "button2";
             editSalaryBtn.UseVisualStyleBackColor = false;

@@ -101,7 +101,7 @@
             panel2.Controls.Add(label10);
             panel2.Controls.Add(pictureBox3);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(280, 77);
+            panel2.Location = new Point(263, 77);
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
             panel2.Size = new Size(230, 131);
@@ -163,7 +163,7 @@
             panel3.Controls.Add(label11);
             panel3.Controls.Add(pictureBox4);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(547, 77);
+            panel3.Location = new Point(515, 77);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
             panel3.Size = new Size(230, 131);
@@ -196,7 +196,7 @@
             panel4.Controls.Add(label12);
             panel4.Controls.Add(pictureBox2);
             panel4.Controls.Add(label4);
-            panel4.Location = new Point(811, 77);
+            panel4.Location = new Point(768, 77);
             panel4.Margin = new Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
             panel4.Size = new Size(230, 131);
@@ -261,7 +261,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Arial", 16F, FontStyle.Bold);
-            label5.Location = new Point(12, 9);
+            label5.Location = new Point(12, 18);
             label5.Name = "label5";
             label5.Size = new Size(158, 32);
             label5.TabIndex = 12;
@@ -283,13 +283,13 @@
             panel5.Location = new Point(12, 242);
             panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
-            panel5.Size = new Size(1029, 167);
+            panel5.Size = new Size(986, 167);
             panel5.TabIndex = 13;
             // 
             // pictureBox8
             // 
             pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(637, 55);
+            pictureBox8.Location = new Point(614, 54);
             pictureBox8.Margin = new Padding(3, 4, 3, 4);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(33, 36);
@@ -300,7 +300,7 @@
             // pictureBox7
             // 
             pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
-            pictureBox7.Location = new Point(897, 55);
+            pictureBox7.Location = new Point(876, 54);
             pictureBox7.Margin = new Padding(3, 4, 3, 4);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(33, 36);
@@ -311,7 +311,7 @@
             // pictureBox6
             // 
             pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(357, 49);
+            pictureBox6.Location = new Point(345, 49);
             pictureBox6.Margin = new Padding(3, 4, 3, 4);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(33, 36);
@@ -335,7 +335,7 @@
             button4.BackColor = SystemColors.MenuHighlight;
             button4.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button4.ForeColor = SystemColors.ButtonHighlight;
-            button4.Location = new Point(854, 99);
+            button4.Location = new Point(833, 98);
             button4.Margin = new Padding(3, 4, 3, 4);
             button4.Name = "button4";
             button4.Size = new Size(121, 52);
@@ -348,7 +348,7 @@
             button3.BackColor = SystemColors.MenuHighlight;
             button3.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button3.ForeColor = SystemColors.ButtonHighlight;
-            button3.Location = new Point(591, 99);
+            button3.Location = new Point(568, 98);
             button3.Margin = new Padding(3, 4, 3, 4);
             button3.Name = "button3";
             button3.Size = new Size(121, 52);
@@ -362,7 +362,7 @@
             button2.BackColor = SystemColors.MenuHighlight;
             button2.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button2.ForeColor = SystemColors.ButtonHighlight;
-            button2.Location = new Point(309, 99);
+            button2.Location = new Point(297, 99);
             button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
             button2.Size = new Size(121, 52);
@@ -402,7 +402,7 @@
             panel6.Controls.Add(panel9);
             panel6.Controls.Add(panel8);
             panel6.Controls.Add(label7);
-            panel6.Location = new Point(12, 454);
+            panel6.Location = new Point(12, 444);
             panel6.Margin = new Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
             panel6.Size = new Size(390, 288);
@@ -454,7 +454,7 @@
             panel7.Controls.Add(label14);
             panel7.Controls.Add(label13);
             panel7.Controls.Add(label8);
-            panel7.Location = new Point(530, 454);
+            panel7.Location = new Point(531, 444);
             panel7.Margin = new Padding(3, 4, 3, 4);
             panel7.Name = "panel7";
             panel7.Size = new Size(390, 288);

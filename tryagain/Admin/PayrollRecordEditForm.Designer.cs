@@ -77,18 +77,20 @@
             // deductionLbl
             // 
             deductionLbl.AutoSize = true;
-            deductionLbl.Location = new Point(10, 100);
+            deductionLbl.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            deductionLbl.Location = new Point(10, 97);
             deductionLbl.Name = "deductionLbl";
-            deductionLbl.Size = new Size(84, 20);
+            deductionLbl.Size = new Size(96, 23);
             deductionLbl.TabIndex = 3;
             deductionLbl.Text = "Deductions";
             // 
             // bonusesLbl
             // 
             bonusesLbl.AutoSize = true;
-            bonusesLbl.Location = new Point(400, 100);
+            bonusesLbl.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bonusesLbl.Location = new Point(400, 97);
             bonusesLbl.Name = "bonusesLbl";
-            bonusesLbl.Size = new Size(63, 20);
+            bonusesLbl.Size = new Size(73, 23);
             bonusesLbl.TabIndex = 4;
             bonusesLbl.Text = "Bonuses";
             // 
@@ -96,6 +98,7 @@
             // 
             dgvDeduct.AllowUserToAddRows = false;
             dgvDeduct.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDeduct.BackgroundColor = SystemColors.Control;
             dgvDeduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDeduct.Location = new Point(10, 120);
             dgvDeduct.Name = "dgvDeduct";
@@ -107,6 +110,7 @@
             // 
             dgvBonus.AllowUserToAddRows = false;
             dgvBonus.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBonus.BackgroundColor = SystemColors.Control;
             dgvBonus.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBonus.Location = new Point(400, 120);
             dgvBonus.Name = "dgvBonus";
@@ -116,72 +120,93 @@
             // 
             // deductAddBtn
             // 
+            deductAddBtn.BackColor = Color.RoyalBlue;
+            deductAddBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            deductAddBtn.ForeColor = Color.White;
             deductAddBtn.Location = new Point(10, 430);
             deductAddBtn.Name = "deductAddBtn";
             deductAddBtn.Size = new Size(70, 35);
             deductAddBtn.TabIndex = 7;
             deductAddBtn.Text = "Add";
-            deductAddBtn.UseVisualStyleBackColor = true;
+            deductAddBtn.UseVisualStyleBackColor = false;
             deductAddBtn.Click += deductAddBtn_Click;
             // 
             // deductEditBtn
             // 
+            deductEditBtn.BackColor = Color.DarkGoldenrod;
+            deductEditBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            deductEditBtn.ForeColor = Color.White;
             deductEditBtn.Location = new Point(90, 430);
             deductEditBtn.Name = "deductEditBtn";
             deductEditBtn.Size = new Size(70, 35);
             deductEditBtn.TabIndex = 8;
             deductEditBtn.Text = "Edit";
-            deductEditBtn.UseVisualStyleBackColor = true;
+            deductEditBtn.UseVisualStyleBackColor = false;
             deductEditBtn.Click += deductEditBtn_Click;
             // 
             // deductDeleteBtn
             // 
+            deductDeleteBtn.BackColor = Color.Red;
+            deductDeleteBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            deductDeleteBtn.ForeColor = Color.White;
             deductDeleteBtn.Location = new Point(170, 430);
             deductDeleteBtn.Name = "deductDeleteBtn";
             deductDeleteBtn.Size = new Size(70, 35);
             deductDeleteBtn.TabIndex = 9;
             deductDeleteBtn.Text = "Delete";
-            deductDeleteBtn.UseVisualStyleBackColor = true;
+            deductDeleteBtn.UseVisualStyleBackColor = false;
             deductDeleteBtn.Click += deductDeleteBtn_Click;
             // 
             // bonusAddBtn
             // 
+            bonusAddBtn.BackColor = Color.RoyalBlue;
+            bonusAddBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bonusAddBtn.ForeColor = Color.White;
             bonusAddBtn.Location = new Point(400, 430);
             bonusAddBtn.Name = "bonusAddBtn";
             bonusAddBtn.Size = new Size(70, 35);
             bonusAddBtn.TabIndex = 10;
             bonusAddBtn.Text = "Add";
-            bonusAddBtn.UseVisualStyleBackColor = true;
+            bonusAddBtn.UseVisualStyleBackColor = false;
             bonusAddBtn.Click += bonusAddBtn_Click;
             // 
             // bonusEditBtn
             // 
+            bonusEditBtn.BackColor = Color.DarkGoldenrod;
+            bonusEditBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            bonusEditBtn.ForeColor = Color.White;
             bonusEditBtn.Location = new Point(480, 430);
             bonusEditBtn.Name = "bonusEditBtn";
             bonusEditBtn.Size = new Size(70, 35);
             bonusEditBtn.TabIndex = 11;
             bonusEditBtn.Text = "Edit";
-            bonusEditBtn.UseVisualStyleBackColor = true;
+            bonusEditBtn.UseVisualStyleBackColor = false;
             bonusEditBtn.Click += bonusEditBtn_Click;
             // 
             // bonusDeleteBtn
             // 
+            bonusDeleteBtn.BackColor = Color.Red;
+            bonusDeleteBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bonusDeleteBtn.ForeColor = Color.White;
             bonusDeleteBtn.Location = new Point(560, 430);
             bonusDeleteBtn.Name = "bonusDeleteBtn";
             bonusDeleteBtn.Size = new Size(70, 35);
             bonusDeleteBtn.TabIndex = 12;
             bonusDeleteBtn.Text = "Delete";
-            bonusDeleteBtn.UseVisualStyleBackColor = true;
+            bonusDeleteBtn.UseVisualStyleBackColor = false;
             bonusDeleteBtn.Click += bonusDeleteBtn_Click;
             // 
             // savechangeBtn
             // 
-            savechangeBtn.Location = new Point(10, 500);
+            savechangeBtn.BackColor = Color.FromArgb(0, 192, 0);
+            savechangeBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            savechangeBtn.ForeColor = Color.White;
+            savechangeBtn.Location = new Point(10, 502);
             savechangeBtn.Name = "savechangeBtn";
-            savechangeBtn.Size = new Size(120, 35);
+            savechangeBtn.Size = new Size(150, 39);
             savechangeBtn.TabIndex = 13;
             savechangeBtn.Text = "Save Changes";
-            savechangeBtn.UseVisualStyleBackColor = true;
+            savechangeBtn.UseVisualStyleBackColor = false;
             savechangeBtn.Click += savechangeBtn_Click;
             // 
             // PayrollRecordEditForm

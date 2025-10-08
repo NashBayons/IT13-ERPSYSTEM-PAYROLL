@@ -114,12 +114,12 @@
             panel1.Location = new Point(12, 66);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(921, 281);
+            panel1.Size = new Size(1010, 281);
             panel1.TabIndex = 15;
             // 
             // hiredateTxt
             // 
-            hiredateTxt.Location = new Point(670, 118);
+            hiredateTxt.Location = new Point(759, 118);
             hiredateTxt.Name = "hiredateTxt";
             hiredateTxt.ReadOnly = true;
             hiredateTxt.Size = new Size(165, 27);
@@ -127,7 +127,7 @@
             // 
             // departmentTxt
             // 
-            departmentTxt.Location = new Point(670, 85);
+            departmentTxt.Location = new Point(759, 85);
             departmentTxt.Name = "departmentTxt";
             departmentTxt.ReadOnly = true;
             departmentTxt.Size = new Size(165, 27);
@@ -135,7 +135,7 @@
             // 
             // positionTxt
             // 
-            positionTxt.Location = new Point(670, 52);
+            positionTxt.Location = new Point(759, 52);
             positionTxt.Name = "positionTxt";
             positionTxt.ReadOnly = true;
             positionTxt.Size = new Size(165, 27);
@@ -184,7 +184,7 @@
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(532, 121);
+            label23.Location = new Point(621, 121);
             label23.Name = "label23";
             label23.Size = new Size(73, 20);
             label23.TabIndex = 40;
@@ -194,7 +194,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Arial", 14F, FontStyle.Bold);
-            label14.Location = new Point(532, 10);
+            label14.Location = new Point(621, 10);
             label14.Name = "label14";
             label14.Size = new Size(196, 29);
             label14.TabIndex = 30;
@@ -204,7 +204,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(532, 88);
+            label16.Location = new Point(621, 88);
             label16.Name = "label16";
             label16.Size = new Size(89, 20);
             label16.TabIndex = 34;
@@ -222,7 +222,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(532, 55);
+            label15.Location = new Point(621, 55);
             label15.Name = "label15";
             label15.Size = new Size(61, 20);
             label15.TabIndex = 32;
@@ -280,7 +280,7 @@
             button1.BackColor = Color.White;
             button1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.DarkBlue;
-            button1.Location = new Point(811, 2);
+            button1.Location = new Point(900, 2);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(122, 56);
@@ -293,7 +293,7 @@
             // 
             pictureBox1.BackColor = SystemColors.HighlightText;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(821, 13);
+            pictureBox1.Location = new Point(910, 13);
             pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(26, 31);
@@ -315,12 +315,12 @@
             panel3.Location = new Point(12, 368);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(922, 181);
+            panel3.Size = new Size(1010, 181);
             panel3.TabIndex = 19;
             // 
             // emerconPhoneTxt
             // 
-            emerconPhoneTxt.Location = new Point(621, 105);
+            emerconPhoneTxt.Location = new Point(682, 106);
             emerconPhoneTxt.Name = "emerconPhoneTxt";
             emerconPhoneTxt.ReadOnly = true;
             emerconPhoneTxt.Size = new Size(269, 27);
@@ -329,7 +329,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(621, 82);
+            label18.Location = new Point(682, 83);
             label18.Name = "label18";
             label18.Size = new Size(69, 20);
             label18.TabIndex = 36;
@@ -337,7 +337,7 @@
             // 
             // emerconRelationshipTxt
             // 
-            emerconRelationshipTxt.Location = new Point(319, 105);
+            emerconRelationshipTxt.Location = new Point(353, 105);
             emerconRelationshipTxt.Name = "emerconRelationshipTxt";
             emerconRelationshipTxt.ReadOnly = true;
             emerconRelationshipTxt.Size = new Size(269, 27);
@@ -346,7 +346,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(319, 83);
+            label19.Location = new Point(353, 83);
             label19.Name = "label19";
             label19.Size = new Size(91, 20);
             label19.TabIndex = 34;
@@ -391,7 +391,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(946, 566);
+            ClientSize = new Size(1046, 745);
             Controls.Add(panel3);
             Controls.Add(pictureBox1);
             Controls.Add(button1);
@@ -400,6 +400,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "Employee_Profile";
             Text = "Employee_Profile";
+            Load += Employee_Profile_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

@@ -79,12 +79,13 @@
             // 
             // btnFilter11
             // 
-            btnFilter11.BackColor = Color.LightSkyBlue;
+            btnFilter11.BackColor = Color.DarkBlue;
             btnFilter11.FlatStyle = FlatStyle.Flat;
+            btnFilter11.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnFilter11.ForeColor = Color.White;
-            btnFilter11.Location = new Point(788, 14);
+            btnFilter11.Location = new Point(771, 10);
             btnFilter11.Name = "btnFilter11";
-            btnFilter11.Size = new Size(80, 30);
+            btnFilter11.Size = new Size(117, 36);
             btnFilter11.TabIndex = 8;
             btnFilter11.Text = "Filter";
             btnFilter11.UseVisualStyleBackColor = false;
@@ -153,6 +154,7 @@
             // 
             dgvAttendance1.AllowUserToAddRows = false;
             dgvAttendance1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAttendance1.BackgroundColor = SystemColors.Control;
             dgvAttendance1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAttendance1.Location = new Point(20, 150);
             dgvAttendance1.Name = "dgvAttendance1";

@@ -17,7 +17,7 @@ namespace tryagain.Employee
         private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
 
         private int _empId;
-        public Employee_Profile( int empId)
+        public Employee_Profile(int empId)
         {
             InitializeComponent();
             _empId = empId;
@@ -26,7 +26,7 @@ namespace tryagain.Employee
             this.Dock = DockStyle.Fill;
             LoadEmployeeProfile();
         }
-    
+
         private void LoadEmployeeProfile()
         {
             try
@@ -83,5 +83,9 @@ namespace tryagain.Employee
             }
         }
 
+        private void Employee_Profile_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

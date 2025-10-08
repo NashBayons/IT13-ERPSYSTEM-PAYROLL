@@ -47,8 +47,9 @@
             // dgvLeaveRequests
             // 
             dgvLeaveRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvLeaveRequests.BackgroundColor = SystemColors.Control;
             dgvLeaveRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLeaveRequests.Location = new Point(25, 95);
+            dgvLeaveRequests.Location = new Point(25, 105);
             dgvLeaveRequests.Name = "dgvLeaveRequests";
             dgvLeaveRequests.RowHeadersVisible = false;
             dgvLeaveRequests.RowHeadersWidth = 51;
@@ -57,46 +58,56 @@
             // 
             // loadreqBtn
             // 
-            loadreqBtn.Location = new Point(25, 546);
+            loadreqBtn.BackColor = Color.RoyalBlue;
+            loadreqBtn.Font = new Font("Segoe UI", 10.2F);
+            loadreqBtn.ForeColor = Color.White;
+            loadreqBtn.Location = new Point(25, 566);
             loadreqBtn.Name = "loadreqBtn";
-            loadreqBtn.Size = new Size(94, 29);
+            loadreqBtn.Size = new Size(147, 39);
             loadreqBtn.TabIndex = 1;
             loadreqBtn.Text = "Load Request";
-            loadreqBtn.UseVisualStyleBackColor = true;
+            loadreqBtn.UseVisualStyleBackColor = false;
             loadreqBtn.Click += loadreqBtn_Click;
             // 
             // approveBtn
             // 
-            approveBtn.Location = new Point(135, 546);
+            approveBtn.BackColor = Color.FromArgb(0, 192, 0);
+            approveBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            approveBtn.ForeColor = Color.White;
+            approveBtn.Location = new Point(178, 566);
             approveBtn.Name = "approveBtn";
-            approveBtn.Size = new Size(94, 29);
+            approveBtn.Size = new Size(109, 39);
             approveBtn.TabIndex = 2;
             approveBtn.Text = "Approve";
-            approveBtn.UseVisualStyleBackColor = true;
+            approveBtn.UseVisualStyleBackColor = false;
             approveBtn.Click += approveBtn_Click;
             // 
             // rejectBtn
             // 
-            rejectBtn.Location = new Point(250, 546);
+            rejectBtn.BackColor = Color.Red;
+            rejectBtn.Font = new Font("Segoe UI", 10.2F);
+            rejectBtn.ForeColor = Color.White;
+            rejectBtn.Location = new Point(293, 566);
             rejectBtn.Name = "rejectBtn";
-            rejectBtn.Size = new Size(94, 29);
+            rejectBtn.Size = new Size(109, 39);
             rejectBtn.TabIndex = 3;
             rejectBtn.Text = "Reject";
-            rejectBtn.UseVisualStyleBackColor = true;
+            rejectBtn.UseVisualStyleBackColor = false;
             rejectBtn.Click += rejectBtn_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(25, 31);
+            label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(34, 31);
             label1.Name = "label1";
-            label1.Size = new Size(75, 20);
+            label1.Size = new Size(94, 25);
             label1.TabIndex = 4;
-            label1.Text = "Employee";
+            label1.Text = "Employee:";
             // 
             // txtEmployeeName
             // 
-            txtEmployeeName.Location = new Point(106, 28);
+            txtEmployeeName.Location = new Point(130, 28);
             txtEmployeeName.Name = "txtEmployeeName";
             txtEmployeeName.Size = new Size(125, 27);
             txtEmployeeName.TabIndex = 5;
@@ -104,16 +115,17 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(249, 32);
+            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(27, 64);
             label2.Name = "label2";
-            label2.Size = new Size(82, 20);
+            label2.Size = new Size(102, 25);
             label2.TabIndex = 6;
-            label2.Text = "Leave Type";
+            label2.Text = "Leave Type:";
             // 
             // cmbLeaveType
             // 
             cmbLeaveType.FormattingEnabled = true;
-            cmbLeaveType.Location = new Point(337, 29);
+            cmbLeaveType.Location = new Point(130, 65);
             cmbLeaveType.Name = "cmbLeaveType";
             cmbLeaveType.Size = new Size(151, 28);
             cmbLeaveType.TabIndex = 7;
@@ -121,43 +133,48 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(504, 32);
+            label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(332, 30);
             label3.Name = "label3";
-            label3.Size = new Size(50, 20);
+            label3.Size = new Size(58, 25);
             label3.TabIndex = 8;
-            label3.Text = "label3";
+            label3.Text = "From:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(719, 32);
+            label4.Font = new Font("Segoe UI", 10.8F);
+            label4.Location = new Point(356, 67);
             label4.Name = "label4";
-            label4.Size = new Size(50, 20);
+            label4.Size = new Size(34, 25);
             label4.TabIndex = 9;
-            label4.Text = "label4";
+            label4.Text = "To:";
             // 
             // dtpFrom
             // 
-            dtpFrom.Location = new Point(560, 29);
+            dtpFrom.Location = new Point(397, 26);
             dtpFrom.Name = "dtpFrom";
             dtpFrom.Size = new Size(153, 27);
             dtpFrom.TabIndex = 10;
             // 
             // dtpTo
             // 
-            dtpTo.Location = new Point(775, 28);
+            dtpTo.Location = new Point(397, 66);
             dtpTo.Name = "dtpTo";
             dtpTo.Size = new Size(153, 27);
             dtpTo.TabIndex = 11;
             // 
             // filterBtn
             // 
-            filterBtn.Location = new Point(834, 61);
+            filterBtn.BackColor = Color.DarkBlue;
+            filterBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            filterBtn.ForeColor = Color.White;
+            filterBtn.Location = new Point(586, 20);
             filterBtn.Name = "filterBtn";
-            filterBtn.Size = new Size(94, 29);
+            filterBtn.Size = new Size(117, 36);
             filterBtn.TabIndex = 12;
             filterBtn.Text = "Filter";
-            filterBtn.UseVisualStyleBackColor = true;
+            filterBtn.UseVisualStyleBackColor = false;
             filterBtn.Click += filterBtn_Click;
             // 
             // LeaveRequestForm

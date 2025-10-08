@@ -35,8 +35,8 @@
             label5 = new Label();
             pictureBox3 = new PictureBox();
             panel2 = new Panel();
-            label16 = new Label();
             panel4 = new Panel();
+            label16 = new Label();
             label8 = new Label();
             label7 = new Label();
             label4 = new Label();
@@ -129,6 +129,16 @@
             panel2.Size = new Size(922, 271);
             panel2.TabIndex = 29;
             // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Controls.Add(label16);
+            panel4.Location = new Point(563, 199);
+            panel4.Margin = new Padding(3, 4, 3, 4);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(335, 52);
+            panel4.TabIndex = 31;
+            // 
             // label16
             // 
             label16.AutoSize = true;
@@ -139,16 +149,6 @@
             label16.Size = new Size(287, 25);
             label16.TabIndex = 20;
             label16.Text = "Net Pay                                ₱5.000";
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.White;
-            panel4.Controls.Add(label16);
-            panel4.Location = new Point(563, 199);
-            panel4.Margin = new Padding(3, 4, 3, 4);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(335, 52);
-            panel4.TabIndex = 31;
             // 
             // label8
             // 
@@ -216,6 +216,7 @@
             // 
             // payrollDvg
             // 
+            payrollDvg.BackgroundColor = SystemColors.Control;
             payrollDvg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             payrollDvg.Location = new Point(0, 61);
             payrollDvg.Margin = new Padding(3, 4, 3, 4);

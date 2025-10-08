@@ -76,7 +76,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(32, 107);
+            label2.Location = new Point(33, 88);
             label2.Name = "label2";
             label2.Size = new Size(79, 20);
             label2.TabIndex = 1;
@@ -85,7 +85,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(32, 166);
+            label3.Location = new Point(23, 123);
             label3.Name = "label3";
             label3.Size = new Size(89, 20);
             label3.TabIndex = 2;
@@ -94,7 +94,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(32, 219);
+            label4.Location = new Point(51, 156);
             label4.Name = "label4";
             label4.Size = new Size(61, 20);
             label4.TabIndex = 3;
@@ -103,7 +103,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(32, 272);
+            label5.Location = new Point(63, 185);
             label5.Name = "label5";
             label5.Size = new Size(49, 20);
             label5.TabIndex = 4;
@@ -111,21 +111,21 @@
             // 
             // FirstNameTB
             // 
-            FirstNameTB.Location = new Point(32, 77);
+            FirstNameTB.Location = new Point(118, 49);
             FirstNameTB.Name = "FirstNameTB";
             FirstNameTB.Size = new Size(151, 27);
             FirstNameTB.TabIndex = 5;
             // 
             // LastNameTB
             // 
-            LastNameTB.Location = new Point(32, 136);
+            LastNameTB.Location = new Point(118, 82);
             LastNameTB.Name = "LastNameTB";
             LastNameTB.Size = new Size(151, 27);
             LastNameTB.TabIndex = 6;
             // 
             // PositionTB
             // 
-            PositionTB.Location = new Point(32, 242);
+            PositionTB.Location = new Point(118, 149);
             PositionTB.Name = "PositionTB";
             PositionTB.Size = new Size(151, 27);
             PositionTB.TabIndex = 8;
@@ -134,7 +134,7 @@
             // 
             StatusCB.FormattingEnabled = true;
             StatusCB.Items.AddRange(new object[] { "Active", "Inactive" });
-            StatusCB.Location = new Point(32, 295);
+            StatusCB.Location = new Point(118, 182);
             StatusCB.Name = "StatusCB";
             StatusCB.Size = new Size(151, 28);
             StatusCB.TabIndex = 9;
@@ -143,34 +143,38 @@
             // 
             DepartmentCB.FormattingEnabled = true;
             DepartmentCB.Items.AddRange(new object[] { "HR", "IT", "CS" });
-            DepartmentCB.Location = new Point(32, 189);
+            DepartmentCB.Location = new Point(118, 115);
             DepartmentCB.Name = "DepartmentCB";
             DepartmentCB.Size = new Size(151, 28);
             DepartmentCB.TabIndex = 10;
             // 
             // submitBtn
             // 
-            submitBtn.Location = new Point(316, 397);
+            submitBtn.BackColor = Color.FromArgb(0, 192, 0);
+            submitBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            submitBtn.ForeColor = Color.White;
+            submitBtn.Location = new Point(342, 479);
             submitBtn.Name = "submitBtn";
-            submitBtn.Size = new Size(94, 29);
+            submitBtn.Size = new Size(129, 42);
             submitBtn.TabIndex = 11;
             submitBtn.Text = "Submit";
-            submitBtn.UseVisualStyleBackColor = true;
+            submitBtn.UseVisualStyleBackColor = false;
             // 
             // cancelBtn
             // 
-            cancelBtn.Location = new Point(416, 397);
+            cancelBtn.BackColor = Color.LightGray;
+            cancelBtn.Location = new Point(232, 479);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(94, 29);
+            cancelBtn.Size = new Size(104, 42);
             cancelBtn.TabIndex = 12;
             cancelBtn.Text = "Cancel";
-            cancelBtn.UseVisualStyleBackColor = true;
+            cancelBtn.UseVisualStyleBackColor = false;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(19, 18);
+            label6.Location = new Point(43, 9);
             label6.Name = "label6";
             label6.Size = new Size(202, 25);
             label6.TabIndex = 13;
@@ -180,7 +184,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(259, 18);
+            label7.Location = new Point(43, 276);
             label7.Name = "label7";
             label7.Size = new Size(208, 25);
             label7.TabIndex = 14;
@@ -189,7 +193,7 @@
             // hiredateDtp
             // 
             hiredateDtp.Format = DateTimePickerFormat.Short;
-            hiredateDtp.Location = new Point(32, 349);
+            hiredateDtp.Location = new Point(118, 216);
             hiredateDtp.Name = "hiredateDtp";
             hiredateDtp.Size = new Size(151, 27);
             hiredateDtp.TabIndex = 15;
@@ -197,7 +201,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(32, 326);
+            label8.Location = new Point(39, 216);
             label8.Name = "label8";
             label8.Size = new Size(73, 20);
             label8.TabIndex = 16;
@@ -206,7 +210,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(259, 113);
+            label9.Location = new Point(18, 347);
             label9.Name = "label9";
             label9.Size = new Size(94, 20);
             label9.TabIndex = 20;
@@ -215,14 +219,14 @@
             // birthdateDtp
             // 
             birthdateDtp.Format = DateTimePickerFormat.Short;
-            birthdateDtp.Location = new Point(259, 136);
+            birthdateDtp.Location = new Point(118, 342);
             birthdateDtp.Name = "birthdateDtp";
             birthdateDtp.Size = new Size(208, 27);
             birthdateDtp.TabIndex = 19;
             // 
             // emailaddTxt
             // 
-            emailaddTxt.Location = new Point(259, 77);
+            emailaddTxt.Location = new Point(118, 309);
             emailaddTxt.Name = "emailaddTxt";
             emailaddTxt.Size = new Size(208, 27);
             emailaddTxt.TabIndex = 18;
@@ -230,7 +234,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(259, 52);
+            label10.Location = new Point(9, 312);
             label10.Name = "label10";
             label10.Size = new Size(103, 20);
             label10.TabIndex = 17;
@@ -238,7 +242,7 @@
             // 
             // addressTxt
             // 
-            addressTxt.Location = new Point(259, 190);
+            addressTxt.Location = new Point(118, 375);
             addressTxt.Multiline = true;
             addressTxt.Name = "addressTxt";
             addressTxt.Size = new Size(208, 49);
@@ -247,7 +251,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(259, 165);
+            label11.Location = new Point(50, 393);
             label11.Name = "label11";
             label11.Size = new Size(62, 20);
             label11.TabIndex = 21;
@@ -255,21 +259,21 @@
             // 
             // emergencyContactTxt
             // 
-            emergencyContactTxt.Location = new Point(527, 190);
+            emergencyContactTxt.Location = new Point(519, 106);
             emergencyContactTxt.Name = "emergencyContactTxt";
             emergencyContactTxt.Size = new Size(151, 27);
             emergencyContactTxt.TabIndex = 28;
             // 
             // emergencyRelationshipTxt
             // 
-            emergencyRelationshipTxt.Location = new Point(527, 136);
+            emergencyRelationshipTxt.Location = new Point(519, 73);
             emergencyRelationshipTxt.Name = "emergencyRelationshipTxt";
             emergencyRelationshipTxt.Size = new Size(151, 27);
             emergencyRelationshipTxt.TabIndex = 27;
             // 
             // emergencyNameTxt
             // 
-            emergencyNameTxt.Location = new Point(527, 77);
+            emergencyNameTxt.Location = new Point(519, 40);
             emergencyNameTxt.Name = "emergencyNameTxt";
             emergencyNameTxt.Size = new Size(151, 27);
             emergencyNameTxt.TabIndex = 26;
@@ -277,16 +281,16 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(527, 166);
+            label12.Location = new Point(426, 109);
             label12.Name = "label12";
-            label12.Size = new Size(69, 20);
+            label12.Size = new Size(87, 20);
             label12.TabIndex = 25;
-            label12.Text = "Contact#";
+            label12.Text = "Contact No.";
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(527, 107);
+            label13.Location = new Point(422, 73);
             label13.Name = "label13";
             label13.Size = new Size(91, 20);
             label13.TabIndex = 24;
@@ -295,7 +299,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(527, 52);
+            label14.Location = new Point(409, 43);
             label14.Name = "label14";
             label14.Size = new Size(104, 20);
             label14.TabIndex = 23;
@@ -305,7 +309,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.Location = new Point(527, 18);
+            label15.Location = new Point(409, 9);
             label15.Name = "label15";
             label15.Size = new Size(177, 25);
             label15.TabIndex = 29;
@@ -315,7 +319,7 @@
             // 
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.Location = new Point(737, 18);
+            label16.Location = new Point(409, 276);
             label16.Name = "label16";
             label16.Size = new Size(171, 25);
             label16.TabIndex = 34;
@@ -323,7 +327,7 @@
             // 
             // empPasswordTxt
             // 
-            empPasswordTxt.Location = new Point(737, 136);
+            empPasswordTxt.Location = new Point(519, 339);
             empPasswordTxt.Name = "empPasswordTxt";
             empPasswordTxt.PasswordChar = '*';
             empPasswordTxt.Size = new Size(151, 27);
@@ -331,7 +335,7 @@
             // 
             // empUsernameTxt
             // 
-            empUsernameTxt.Location = new Point(737, 77);
+            empUsernameTxt.Location = new Point(519, 306);
             empUsernameTxt.Name = "empUsernameTxt";
             empUsernameTxt.Size = new Size(151, 27);
             empUsernameTxt.TabIndex = 32;
@@ -339,7 +343,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(737, 107);
+            label17.Location = new Point(443, 342);
             label17.Name = "label17";
             label17.Size = new Size(70, 20);
             label17.TabIndex = 31;
@@ -348,7 +352,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(737, 52);
+            label18.Location = new Point(438, 309);
             label18.Name = "label18";
             label18.Size = new Size(75, 20);
             label18.TabIndex = 30;
@@ -358,7 +362,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(941, 437);
+            ClientSize = new Size(731, 533);
             Controls.Add(label16);
             Controls.Add(empPasswordTxt);
             Controls.Add(empUsernameTxt);

@@ -38,6 +38,7 @@
             // 
             dgvPayrollRecords.AllowUserToAddRows = false;
             dgvPayrollRecords.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPayrollRecords.BackgroundColor = SystemColors.Control;
             dgvPayrollRecords.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPayrollRecords.Location = new Point(10, 10);
             dgvPayrollRecords.MultiSelect = false;
@@ -52,22 +53,28 @@
             // 
             // finalizeselectBtn
             // 
+            finalizeselectBtn.BackColor = Color.FromArgb(0, 192, 0);
+            finalizeselectBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            finalizeselectBtn.ForeColor = Color.White;
             finalizeselectBtn.Location = new Point(10, 500);
             finalizeselectBtn.Name = "finalizeselectBtn";
-            finalizeselectBtn.Size = new Size(180, 35);
+            finalizeselectBtn.Size = new Size(184, 44);
             finalizeselectBtn.TabIndex = 1;
             finalizeselectBtn.Text = "Finalize Batch (Paid)";
-            finalizeselectBtn.UseVisualStyleBackColor = true;
+            finalizeselectBtn.UseVisualStyleBackColor = false;
             finalizeselectBtn.Click += finalizeselectBtn_Click;
             // 
             // editselectBtn
             // 
+            editselectBtn.BackColor = Color.DarkGoldenrod;
+            editselectBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            editselectBtn.ForeColor = Color.White;
             editselectBtn.Location = new Point(200, 500);
             editselectBtn.Name = "editselectBtn";
-            editselectBtn.Size = new Size(180, 35);
+            editselectBtn.Size = new Size(186, 44);
             editselectBtn.TabIndex = 2;
             editselectBtn.Text = "Edit Selected Record";
-            editselectBtn.UseVisualStyleBackColor = true;
+            editselectBtn.UseVisualStyleBackColor = false;
             editselectBtn.Click += editselectBtn_Click;
             // 
             // PayrollBatchDetailsForm

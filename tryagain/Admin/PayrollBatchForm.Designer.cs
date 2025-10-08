@@ -46,18 +46,18 @@
             label1.AutoSize = true;
             label1.Location = new Point(10, 14);
             label1.Name = "label1";
-            label1.Size = new Size(112, 20);
+            label1.Size = new Size(115, 20);
             label1.TabIndex = 0;
-            label1.Text = "Pay Period Start";
+            label1.Text = "Pay Period Start:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(280, 14);
+            label2.Location = new Point(282, 14);
             label2.Name = "label2";
-            label2.Size = new Size(34, 20);
+            label2.Size = new Size(37, 20);
             label2.TabIndex = 1;
-            label2.Text = "End";
+            label2.Text = "End:";
             // 
             // label3
             // 
@@ -94,28 +94,34 @@
             // 
             // gendraftBtn
             // 
-            gendraftBtn.Location = new Point(745, 8);
+            gendraftBtn.BackColor = Color.FromArgb(0, 192, 0);
+            gendraftBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            gendraftBtn.ForeColor = Color.White;
+            gendraftBtn.Location = new Point(746, 7);
             gendraftBtn.Name = "gendraftBtn";
-            gendraftBtn.Size = new Size(130, 30);
+            gendraftBtn.Size = new Size(130, 36);
             gendraftBtn.TabIndex = 6;
             gendraftBtn.Text = "Generate Draft";
-            gendraftBtn.UseVisualStyleBackColor = true;
+            gendraftBtn.UseVisualStyleBackColor = false;
             gendraftBtn.Click += gendraftBtn_Click;
             // 
             // refreshBtn
             // 
-            refreshBtn.Location = new Point(890, 8);
+            refreshBtn.BackColor = Color.RoyalBlue;
+            refreshBtn.ForeColor = Color.White;
+            refreshBtn.Location = new Point(882, 6);
             refreshBtn.Name = "refreshBtn";
-            refreshBtn.Size = new Size(75, 30);
+            refreshBtn.Size = new Size(84, 36);
             refreshBtn.TabIndex = 7;
             refreshBtn.Text = "Refresh";
-            refreshBtn.UseVisualStyleBackColor = true;
+            refreshBtn.UseVisualStyleBackColor = false;
             refreshBtn.Click += refreshBtn_Click;
             // 
             // dgvPayrollBatch
             // 
             dgvPayrollBatch.AllowUserToAddRows = false;
             dgvPayrollBatch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPayrollBatch.BackgroundColor = SystemColors.Control;
             dgvPayrollBatch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPayrollBatch.Location = new Point(10, 50);
             dgvPayrollBatch.MultiSelect = false;
@@ -129,12 +135,15 @@
             // 
             // viewbatchBtn
             // 
-            viewbatchBtn.Location = new Point(10, 550);
+            viewbatchBtn.BackColor = Color.DarkBlue;
+            viewbatchBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            viewbatchBtn.ForeColor = Color.White;
+            viewbatchBtn.Location = new Point(10, 546);
             viewbatchBtn.Name = "viewbatchBtn";
-            viewbatchBtn.Size = new Size(160, 35);
+            viewbatchBtn.Size = new Size(168, 44);
             viewbatchBtn.TabIndex = 9;
             viewbatchBtn.Text = "View Selected Batch";
-            viewbatchBtn.UseVisualStyleBackColor = true;
+            viewbatchBtn.UseVisualStyleBackColor = false;
             viewbatchBtn.Click += viewbatchBtn_Click;
             // 
             // PayrollBatchForm
