@@ -134,6 +134,7 @@
             attendanceDvg.Dock = DockStyle.Bottom;
             attendanceDvg.Location = new Point(0, 46);
             attendanceDvg.Name = "attendanceDvg";
+            attendanceDvg.RowHeadersVisible = false;
             attendanceDvg.RowHeadersWidth = 51;
             attendanceDvg.Size = new Size(589, 262);
             attendanceDvg.TabIndex = 0;

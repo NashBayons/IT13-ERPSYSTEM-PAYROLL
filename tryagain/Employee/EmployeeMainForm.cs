@@ -28,7 +28,7 @@ namespace tryagain.Employee
         private void ShowDashboard()
         {
             contentPanel.Controls.Clear();
-            LoadForm(new Employee.Dashboard());
+            LoadForm(new Employee.Dashboard(_empId));
         }
 
         // Method to load a form into the contentPanel
@@ -60,7 +60,7 @@ namespace tryagain.Employee
 
         private void Dashboardbtn_Click_1(object sender, EventArgs e)
         {
-            LoadForm(new Employee.Dashboard());
+            LoadForm(new Employee.Dashboard(_empId));
         }
 
         private void Employeeprofilebtn_Click(object sender, EventArgs e)

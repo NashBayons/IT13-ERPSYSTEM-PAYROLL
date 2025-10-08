@@ -160,11 +160,12 @@
             leaveDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             leaveDgv.Location = new Point(18, 324);
             leaveDgv.Name = "leaveDgv";
+            leaveDgv.RowHeadersVisible = false;
             leaveDgv.RowHeadersWidth = 51;
             leaveDgv.Size = new Size(865, 318);
             leaveDgv.TabIndex = 34;
             // 
-            // LeaveRequest
+            // LeaveForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -183,7 +184,7 @@
             Controls.Add(label1);
             Controls.Add(label5);
             Margin = new Padding(3, 4, 3, 4);
-            Name = "LeaveRequest";
+            Name = "LeaveForm";
             Text = "Settings";
             ((System.ComponentModel.ISupportInitialize)leaveDgv).EndInit();
             ResumeLayout(false);

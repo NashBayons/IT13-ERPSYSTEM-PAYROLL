@@ -28,10 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Payroll_System));
-            button2 = new Button();
             label5 = new Label();
-            pictureBox3 = new PictureBox();
             panel2 = new Panel();
             paymentdateLabel = new Label();
             label1 = new Label();
@@ -51,25 +48,11 @@
             panel3 = new Panel();
             payrollDvg = new DataGridView();
             label2 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)payrollDvg).BeginInit();
             SuspendLayout();
-            // 
-            // button2
-            // 
-            button2.BackColor = SystemColors.HighlightText;
-            button2.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.DarkBlue;
-            button2.Location = new Point(797, 13);
-            button2.Margin = new Padding(3, 4, 3, 4);
-            button2.Name = "button2";
-            button2.Size = new Size(205, 52);
-            button2.TabIndex = 19;
-            button2.Text = "     Download Payslip";
-            button2.UseVisualStyleBackColor = false;
             // 
             // label5
             // 
@@ -81,18 +64,6 @@
             label5.TabIndex = 20;
             label5.Text = "Payroll Overview";
             label5.TextAlign = ContentAlignment.BottomCenter;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = SystemColors.HighlightText;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(813, 26);
-            pictureBox3.Margin = new Padding(3, 4, 3, 4);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(26, 27);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 28;
-            pictureBox3.TabStop = false;
             // 
             // panel2
             // 
@@ -312,13 +283,10 @@
             ClientSize = new Size(1014, 706);
             Controls.Add(panel3);
             Controls.Add(panel2);
-            Controls.Add(pictureBox3);
             Controls.Add(label5);
-            Controls.Add(button2);
             Margin = new Padding(3, 4, 3, 4);
             Name = "Payroll_System";
             Text = "Payroll_System";
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel4.ResumeLayout(false);
@@ -331,9 +299,7 @@
         }
 
         #endregion
-        private Button button2;
         private Label label5;
-        private PictureBox pictureBox3;
         private Panel panel2;
         private Panel panel3;
         private Label label6;
