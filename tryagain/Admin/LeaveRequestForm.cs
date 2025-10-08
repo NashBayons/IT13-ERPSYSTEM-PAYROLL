@@ -68,13 +68,13 @@ namespace tryagain
 
         private void approveBtn_Click(object sender, EventArgs e)
         {
+            // ... (Existing code for selecting and getting leaveId)
             if (dgvLeaveRequests.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a leave request to approve.");
                 return;
             }
 
-            // get leave id robustly (by column name if present, otherwise first cell)
             object raw = dgvLeaveRequests.SelectedRows[0].Cells["leave_id"]?.Value
                          ?? dgvLeaveRequests.SelectedRows[0].Cells[0].Value;
 
@@ -87,38 +87,111 @@ namespace tryagain
             if (MessageBox.Show("Approve this leave request?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 return;
 
+            // Variables to hold leave details
+            int employeeId = 0;
+            DateTime startDate = DateTime.MinValue;
+            DateTime endDate = DateTime.MinValue;
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+                    // Start a transaction
+                    SqlTransaction transaction = conn.BeginTransaction();
 
-                    string query = @"
-                        UPDATE leave_record
-                        SET status = @status,
-                            approved_by = @userId,
-                            remarks = @remarks
-                        WHERE leave_id = @leaveId
-                          AND status = 'Pending'; -- only update if still pending
-                                 ";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@status", "Approved");
-                        cmd.Parameters.AddWithValue("@userId", _userId);
-                        cmd.Parameters.AddWithValue("@remarks", DBNull.Value);
-                        cmd.Parameters.AddWithValue("@leaveId", leaveId);
+                        // 1. SELECT: Get Leave Details (Employee ID and Dates)
+                        string selectQuery = @"
+                    SELECT employee_id, start_date, end_date
+                    FROM leave_record
+                    WHERE leave_id = @leaveId AND status = 'Pending';";
 
-                        int rows = cmd.ExecuteNonQuery();
-                        if (rows > 0)
+                        using (SqlCommand selectCmd = new SqlCommand(selectQuery, conn, transaction))
                         {
-                            LoadPendingRequest();
-                            MessageBox.Show("Leave request approved.");
+                            selectCmd.Parameters.AddWithValue("@leaveId", leaveId);
+
+                            using (SqlDataReader reader = selectCmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    employeeId = Convert.ToInt32(reader["employee_id"]);
+                                    startDate = Convert.ToDateTime(reader["start_date"]);
+                                    endDate = Convert.ToDateTime(reader["end_date"]);
+                                }
+                                else
+                                {
+                                    // Close the reader before rolling back or committing
+                                    reader.Close();
+                                    MessageBox.Show("No pending leave request found (it may have been processed already).");
+                                    transaction.Rollback(); // Rollback is technically not needed here but good practice
+                                    return;
+                                }
+                            }
                         }
-                        else
+
+                        // 2. UPDATE: Approve the Leave Request
+                        string updateQuery = @"
+                    UPDATE leave_record
+                    SET status = @status,
+                        approved_by = @userId,
+                        remarks = @remarks
+                    WHERE leave_id = @leaveId;";
+                        // We rely on the SELECT check above for 'Pending' status
+
+                        using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn, transaction))
                         {
-                            MessageBox.Show("No pending leave request found (it may have been processed already).");
+                            updateCmd.Parameters.AddWithValue("@status", "Approved");
+                            updateCmd.Parameters.AddWithValue("@userId", _userId);
+                            updateCmd.Parameters.AddWithValue("@remarks", DBNull.Value);
+                            updateCmd.Parameters.AddWithValue("@leaveId", leaveId);
+
+                            int rowsUpdated = updateCmd.ExecuteNonQuery();
+
+                            if (rowsUpdated > 0)
+                            {
+                                // 3. INSERT: Add Records to Attendance Table
+                                string insertQuery = @"
+                                    INSERT INTO Attendance (employeeid, date, status)
+                                    VALUES (@employeeId, @date, @status);";
+
+                                using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn, transaction))
+                                {
+                                    insertCmd.Parameters.Add("@employeeId", System.Data.SqlDbType.Int).Value = employeeId;
+                                    insertCmd.Parameters.Add("@status", System.Data.SqlDbType.VarChar).Value = "Leave";
+
+                                    // Iterate from start_date to end_date (inclusive)
+                                    for (DateTime date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
+                                    {
+                                        // IMPORTANT: Exclude weekend days if necessary for your logic
+                                        // if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday) 
+                                        // {
+                                        insertCmd.Parameters.Add("@date", System.Data.SqlDbType.Date).Value = date;
+                                        insertCmd.ExecuteNonQuery();
+                                        insertCmd.Parameters.RemoveAt("@date"); // Remove for the next loop iteration
+                                                                                // }
+                                    }
+                                }
+
+                                // All steps successful, COMMIT the transaction
+                                transaction.Commit();
+                                LoadPendingRequest();
+                                MessageBox.Show("Leave request approved and attendance recorded.");
+                            }
+                            else
+                            {
+                                // Should not happen if SELECT was successful, but just in case
+                                transaction.Rollback();
+                                MessageBox.Show("No pending leave request found (it may have been processed already).");
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback if any part of the transaction failed
+                        transaction.Rollback();
+                        throw new Exception("Transaction failed. Details: " + ex.Message);
                     }
                 }
             }

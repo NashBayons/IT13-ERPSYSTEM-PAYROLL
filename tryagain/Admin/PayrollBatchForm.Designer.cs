@@ -127,6 +127,7 @@
             dgvPayrollBatch.MultiSelect = false;
             dgvPayrollBatch.Name = "dgvPayrollBatch";
             dgvPayrollBatch.ReadOnly = true;
+            dgvPayrollBatch.RowHeadersVisible = false;
             dgvPayrollBatch.RowHeadersWidth = 51;
             dgvPayrollBatch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPayrollBatch.Size = new Size(960, 490);

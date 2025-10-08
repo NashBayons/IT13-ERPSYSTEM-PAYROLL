@@ -1,145 +1,345 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace tryagain
 {
     public partial class ReportsForm : Form
     {
-        private DataGridView dgvReports;
-        private DateTimePicker dtpFrom, dtpTo;
-        private ComboBox cmbReportType;
-        private TextBox txtSearch;
+        private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
         public ReportsForm()
         {
             InitializeComponent();
-            ShowReports();
-
-            this.TopLevel = false;
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.Dock = DockStyle.Fill;
         }
-     
-        private void ShowReports()
+
+
+        private void LoadAttendanceReport(DateTime fromDate, DateTime toDate, string department = "All")
         {
-            this.Controls.Clear();
-
-            // Title
-            Label titleLabel = new Label
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                Text = "Reports",
-                Font = new Font("Segoe UI", 20F, FontStyle.Bold),
-                Location = new Point(20, 10),
-                AutoSize = true,
-                BackColor = Color.Transparent
-            };
-            this.Controls.Add(titleLabel);
+                conn.Open();
 
-            // Report Type Selector
-            Label lblReportType = new Label
+                string sql = @"
+            SELECT e.employeeid, 
+                   (e.firstname + ' ' + e.lastname) AS FullName,
+                   SUM(CASE WHEN a.status = 'Present' THEN 1 ELSE 0 END) AS Present,
+                   SUM(CASE WHEN a.status = 'Absent' THEN 1 ELSE 0 END) AS Absent,
+                   SUM(CASE WHEN a.status IN ('On Leave', 'Leave') THEN 1 ELSE 0 END) AS Leave,
+                   SUM(CASE WHEN a.status = 'Late' THEN 1 ELSE 0 END) AS Late
+            FROM Attendance a
+            JOIN Employees e ON a.employeeid = e.employeeid
+            WHERE a.date BETWEEN @FromDate AND @ToDate
+            /**DEPT_FILTER**/
+            GROUP BY e.employeeid, e.firstname, e.lastname
+            ORDER BY FullName";
+
+                // If filtering by department
+                if (department != "All")
+                    sql = sql.Replace("/**DEPT_FILTER**/", "AND e.department = @Department");
+                else
+                    sql = sql.Replace("/**DEPT_FILTER**/", "");
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FromDate", fromDate);
+                    cmd.Parameters.AddWithValue("@ToDate", toDate);
+                    if (department != "All")
+                        cmd.Parameters.AddWithValue("@Department", department);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    reportsDvg.DataSource = dt;
+
+                    int totalEmployees = dt.Rows.Count;
+
+                    // ✅ Total days in selected range
+                    int totalDays = (toDate - fromDate).Days + 1;
+
+                    summaryLbl.Text = $"Total Employees: {totalEmployees}    Total Days: {totalDays}";
+                }
+            }
+        }
+
+        private void LoadPayrollReport(DateTime fromDate, DateTime toDate, string department = "All")
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                Text = "Report Type:",
-                Location = new Point(20, 70),
-                AutoSize = true
-            };
-            this.Controls.Add(lblReportType);
+                conn.Open();
 
-            cmbReportType = new ComboBox
+                string sql = @"
+            SELECT 
+                pb.pay_period_start,
+                pb.pay_period_end,
+                pb.payment_date,
+                COUNT(DISTINCT pr.employee_id) AS TotalEmployees,
+                SUM(pr.base_pay) AS TotalBasePay,
+                SUM(pr.gross_salary) AS TotalGrossPay,
+                SUM(pr.deductions_total) AS TotalDeductions,
+                SUM(pr.bonus_amount) AS TotalBonuses,
+                SUM(pr.net_pay) AS TotalNetPay
+                FROM Payroll_Record pr
+                JOIN Payroll_Batch pb ON pr.batch_id = pb.batch_id
+                JOIN Employees e ON pr.employee_id = e.employeeid
+                WHERE pb.payment_date BETWEEN @FromDate AND @ToDate
+                /**DEPT_FILTER**/
+                GROUP BY pb.pay_period_start, pb.pay_period_end, pb.payment_date
+                ORDER BY pb.pay_period_start DESC";
+
+                if (department != "All")
+                    sql = sql.Replace("/**DEPT_FILTER**/", "AND e.department = @Department");
+                else
+                    sql = sql.Replace("/**DEPT_FILTER**/", "");
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FromDate", fromDate);
+                    cmd.Parameters.AddWithValue("@ToDate", toDate);
+                    if (department != "All")
+                        cmd.Parameters.AddWithValue("@Department", department);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    reportsDvg.DataSource = dt;
+
+                    // ✅ Summary across all batches
+                    int totalEmployees = dt.AsEnumerable().Sum(r => r.Field<int>("TotalEmployees"));
+                    decimal totalPayroll = dt.AsEnumerable().Sum(r => r.Field<decimal>("TotalNetPay"));
+
+                    summaryLbl.Text = $"Total Employees Paid: {totalEmployees}    Total Payroll Disbursed: ₱{totalPayroll:N2}";
+                }
+            }
+        }
+
+        private void LoadLeaveReport(DateTime fromDate, DateTime toDate, string department = "All")
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                Location = new Point(110, 65),
-                Width = 200,
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-            cmbReportType.Items.AddRange(new[] { "Attendance Report", "Payroll Report", "Employee Report" });
-            cmbReportType.SelectedIndex = 0;
-            this.Controls.Add(cmbReportType);
+                conn.Open();
 
-            // Generate Report Button
-            Button btnGenerate = new Button
+                string sql = @"
+            SELECT 
+                e.employeeid,
+                (e.firstname + ' ' + e.lastname) AS FullName,
+                lr.leave_type,
+                lr.start_date,
+                lr.end_date,
+                lr.status,
+                lr.remarks
+            FROM Leave_Record lr
+            JOIN Employees e ON lr.employee_id = e.employeeid
+            WHERE lr.start_date BETWEEN @FromDate AND @ToDate
+            /**DEPT_FILTER**/
+            ORDER BY lr.start_date DESC";
+
+                if (department != "All")
+                    sql = sql.Replace("/**DEPT_FILTER**/", "AND e.department = @Department");
+                else
+                    sql = sql.Replace("/**DEPT_FILTER**/", "");
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FromDate", fromDate);
+                    cmd.Parameters.AddWithValue("@ToDate", toDate);
+                    if (department != "All")
+                        cmd.Parameters.AddWithValue("@Department", department);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    reportsDvg.DataSource = dt;
+
+                    // ✅ Summary
+                    int totalRequests = dt.Rows.Count;
+                    int approved = dt.AsEnumerable().Count(r => r.Field<string>("status") == "Approved");
+                    int pending = dt.AsEnumerable().Count(r => r.Field<string>("status") == "Pending");
+                    int rejected = dt.AsEnumerable().Count(r => r.Field<string>("status") == "Rejected");
+
+                    summaryLbl.Text = $"Total Requests: {totalRequests}   Approved: {approved}   Pending: {pending}   Rejected: {rejected}";
+                }
+            }
+        }
+
+        private void generateBtn_Click(object sender, EventArgs e)
+        {
+            DateTime fromDate = datefromPicker.Value.Date;
+            DateTime toDate = datetoPicker.Value.Date;
+            string department = DeparmentCmb.SelectedItem?.ToString() ?? "All";
+            string reportType = reportTypeCmb.SelectedItem?.ToString();
+
+            if (reportType == "Attendance Summary")
             {
-                Text = "Generate Report",
-                Location = new Point(330, 63),
-                Size = new Size(140, 30),
-                BackColor = Color.FromArgb(63, 81, 181),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            this.Controls.Add(btnGenerate);
-
-            // Export Report Button
-            Button btnExport = new Button
+                LoadAttendanceReport(fromDate, toDate, department);
+            }
+            else if (reportType == "Payroll")
             {
-                Text = "Export",
-                Location = new Point(480, 63),
-                Size = new Size(100, 30),
-                BackColor = Color.FromArgb(0, 150, 136),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            this.Controls.Add(btnExport);
-
-            // DataGridView for reports
-            dgvReports = new DataGridView
+                LoadPayrollReport(fromDate, toDate, department);
+            }
+            else if (reportType == "Leave")
             {
-                Location = new Point(20, 120),
-                Size = new Size(950, 350),
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                ReadOnly = true,
-                AllowUserToAddRows = false
-            };
+                LoadLeaveReport(fromDate, toDate, department);
+            }
+        }
 
-            // Mock columns
-            dgvReports.Columns.Add("Column1", "Column 1");
-            dgvReports.Columns.Add("Column2", "Column 2");
-            dgvReports.Columns.Add("Column3", "Column 3");
-
-            // Mock data
-            dgvReports.Rows.Add("Sample A", "Data 1", "More Info");
-            dgvReports.Rows.Add("Sample B", "Data 2", "More Info");
-
-            this.Controls.Add(dgvReports);
-
-            // Filter Panel (below table)
-            Panel filterPanel = new Panel
+        private void expCSVBtn_Click(object sender, EventArgs e)
+        {
+            if (reportsDvg.DataSource == null || reportsDvg.Rows.Count == 0)
             {
-                Location = new Point(20, 490),
-                Size = new Size(950, 60),
-                BackColor = Color.WhiteSmoke
-            };
+                MessageBox.Show("No data to export.");
+                return;
+            }
 
-            Label lblFrom = new Label { Text = "From:", Location = new Point(10, 20), AutoSize = true };
-            dtpFrom = new DateTimePicker { Location = new Point(60, 15), Width = 120 };
-
-            Label lblTo = new Label { Text = "To:", Location = new Point(200, 20), AutoSize = true };
-            dtpTo = new DateTimePicker { Location = new Point(230, 15), Width = 120 };
-
-            Label lblSearch = new Label { Text = "Employee:", Location = new Point(380, 20), AutoSize = true };
-            txtSearch = new TextBox { Location = new Point(460, 15), Width = 150 };
-
-            Button btnFilter = new Button
+            using (SaveFileDialog sfd = new SaveFileDialog { Filter = "Excel Workbook|*.xlsx", FileName = "Report.xlsx" })
             {
-                Text = "Filter",
-                Location = new Point(630, 12),
-                Size = new Size(80, 30),
-                BackColor = Color.FromArgb(63, 81, 181),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
+                if (sfd.ShowDialog() != DialogResult.OK) return;
 
-            filterPanel.Controls.AddRange(new Control[] { lblFrom, dtpFrom, lblTo, dtpTo, lblSearch, txtSearch, btnFilter });
-            this.Controls.Add(filterPanel);
+                try
+                {
+                    DataTable dt = reportsDvg.DataSource as DataTable;
+
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        // Add table first (ClosedXML will place headers at row 1)
+                        var ws = wb.Worksheets.Add(dt, "Report");
+
+                        // Insert 2 rows ABOVE the table (shift everything down)
+                        ws.Row(1).InsertRowsAbove(2);
+
+                        // Title (Row 1)
+                        ws.Cell(1, 1).Value = "ERP Report";
+                        ws.Range(1, 1, 1, dt.Columns.Count).Merge().Style
+                            .Font.SetBold().Font.SetFontSize(16)
+                            .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                        // Summary (Row 2)
+                        if (!string.IsNullOrEmpty(summaryLbl.Text))
+                        {
+                            ws.Cell(2, 1).Value = summaryLbl.Text;
+                            ws.Range(2, 1, 2, dt.Columns.Count).Merge().Style
+                                .Font.SetItalic()
+                                .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Left);
+                        }
+
+                        // Auto adjust column widths
+                        ws.Columns().AdjustToContents();
+
+                        wb.SaveAs(sfd.FileName);
+                    }
+
+                    MessageBox.Show("Excel file saved successfully.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error exporting Excel: " + ex.Message);
+                }
+            }
+        }
+
+        private void expPDFBtn_Click(object sender, EventArgs e)
+        {
+            if (reportsDvg.DataSource == null || reportsDvg.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.");
+                return;
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog { Filter = "PDF File|*.pdf", FileName = "Report.pdf" })
+            {
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                try
+                {
+                    using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write))
+                    {
+                        // create document
+                        Document doc = new Document(PageSize.A4, 20f, 20f, 20f, 20f);
+                        PdfWriter.GetInstance(doc, fs);
+                        doc.Open();
+
+                        // Fonts (construct directly to avoid FontFactory overload issues)
+                        var titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16f, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                        var headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11f, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                        var cellFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10f, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+
+                        // Title
+                        Paragraph title = new Paragraph("ERP Report", titleFont) { Alignment = Element.ALIGN_CENTER };
+                        doc.Add(title);
+                        doc.Add(new Paragraph("\n"));
+
+                        // Add summary label text if available (e.g., totals)
+                        string summaryText = (summaryLbl != null) ? summaryLbl.Text : string.Empty;
+                        if (!string.IsNullOrWhiteSpace(summaryText))
+                        {
+                            Paragraph summary = new Paragraph(summaryText, headerFont) { Alignment = Element.ALIGN_LEFT };
+                            doc.Add(summary);
+                            doc.Add(new Paragraph("\n"));
+                        }
+
+                        // Build PDF table with the same number of columns
+                        PdfPTable pdfTable = new PdfPTable(reportsDvg.ColumnCount)
+                        {
+                            WidthPercentage = 100
+                        };
+
+                        // Add headers
+                        foreach (DataGridViewColumn column in reportsDvg.Columns)
+                        {
+                            PdfPCell headerCell = new PdfPCell(new Phrase(column.HeaderText ?? string.Empty, headerFont))
+                            {
+                                BackgroundColor = new BaseColor(235, 235, 235),
+                                HorizontalAlignment = Element.ALIGN_CENTER,
+                                Padding = 4
+                            };
+                            pdfTable.AddCell(headerCell);
+                        }
+
+                        // Add rows
+                        foreach (DataGridViewRow row in reportsDvg.Rows)
+                        {
+                            if (row.IsNewRow) continue;
+                            foreach (DataGridViewCell cell in row.Cells)
+                            {
+                                string text = cell.Value?.ToString() ?? string.Empty;
+                                PdfPCell dataCell = new PdfPCell(new Phrase(text, cellFont)) { Padding = 4 };
+                                pdfTable.AddCell(dataCell);
+                            }
+                        }
+
+                        doc.Add(pdfTable);
+
+                        // Optional: add generation info/footer
+                        doc.Add(new Paragraph("\n"));
+                        var genInfo = new Paragraph($"Generated: {DateTime.Now:G}", cellFont) { Alignment = Element.ALIGN_RIGHT };
+                        doc.Add(genInfo);
+
+                        doc.Close();
+                    }
+
+                    MessageBox.Show("PDF file saved successfully.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error exporting PDF: " + ex.Message);
+                }
+            }
         }
     }
-    public class ReportItem
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-    }
+
 }
 
