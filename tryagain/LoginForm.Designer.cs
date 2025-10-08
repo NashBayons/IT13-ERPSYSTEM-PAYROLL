@@ -71,18 +71,16 @@
             // 
             usernameTxt.ForeColor = Color.Black;
             usernameTxt.Location = new Point(292, 119);
-            usernameTxt.Multiline = true;
             usernameTxt.Name = "usernameTxt";
-            usernameTxt.Size = new Size(209, 43);
+            usernameTxt.Size = new Size(209, 27);
             usernameTxt.TabIndex = 3;
             // 
             // passwordTxt
             // 
             passwordTxt.Location = new Point(292, 199);
-            passwordTxt.Multiline = true;
             passwordTxt.Name = "passwordTxt";
             passwordTxt.PasswordChar = '*';
-            passwordTxt.Size = new Size(209, 43);
+            passwordTxt.Size = new Size(209, 27);
             passwordTxt.TabIndex = 4;
             // 
             // loginBtn

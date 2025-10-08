@@ -78,29 +78,62 @@ namespace tryagain
 
         private void editSalaryBtn_Click(object sender, EventArgs e)
         {
-            if (dgvSalaryGrid.SelectedRows.Count > 0)
+            if (dgvSalaryGrid.SelectedRows.Count == 0)
             {
-                int salaryId = Convert.ToInt32(dgvSalaryGrid.SelectedRows[0].Cells["SalaryID"].Value);
-                int empId = GetEmployeeIDFromSalary(salaryId);
-                decimal currentGross = Convert.ToDecimal(dgvSalaryGrid.SelectedRows[0].Cells["GrossSalary"].Value);
+                MessageBox.Show("Please select a salary to edit.");
+                return;
+            }
 
-                using (SalaryDetailsForm details = new SalaryDetailsForm())
+            int salaryId;
+            if (!int.TryParse(dgvSalaryGrid.SelectedRows[0].Cells["SalaryID"].Value?.ToString(), out salaryId))
+            {
+                MessageBox.Show("Invalid SalaryID.");
+                return;
+            }
+
+            int empId = GetEmployeeIDFromSalary(salaryId);
+            if (empId == 0)
+            {
+                MessageBox.Show("Employee not found for this salary.");
+                return;
+            }
+
+            decimal currentGross;
+            if (!decimal.TryParse(dgvSalaryGrid.SelectedRows[0].Cells["GrossSalary"].Value?.ToString(), out currentGross))
+            {
+                MessageBox.Show("Invalid Gross Salary.");
+                return;
+            }
+
+            using (SalaryDetailsForm details = new SalaryDetailsForm())
+            {
+                details.EmployeeID = empId;
+                details.GrossSalary = currentGross;
+
+                if (details.ShowDialog() == DialogResult.OK)
                 {
-                    details.EmployeeID = empId;
-                    details.GrossSalary = Convert.ToDecimal(dgvSalaryGrid.SelectedRows[0].Cells["GrossSalary"].Value);
-
-                    if (details.ShowDialog() == DialogResult.OK)
+                    try
                     {
                         using (SqlConnection conn = new SqlConnection(connectionString))
                         {
                             conn.Open();
                             SqlCommand cmd = new SqlCommand(
                                 "UPDATE Salaries SET GrossSalary = @gross WHERE SalaryID = @id", conn);
-                            cmd.Parameters.AddWithValue("@gross", details.GrossSalary);
-                            cmd.Parameters.AddWithValue("@id", salaryId);
-                            cmd.ExecuteNonQuery();
+                            cmd.Parameters.Add("@gross", SqlDbType.Decimal).Value = details.GrossSalary;
+                            cmd.Parameters.Add("@id", SqlDbType.Int).Value = salaryId;
+
+                            int rows = cmd.ExecuteNonQuery();
+                            if (rows == 0)
+                            {
+                                MessageBox.Show("No record updated. SalaryID may not exist.");
+                            }
                         }
+
                         LoadSalaries();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error updating salary: " + ex.Message);
                     }
                 }
             }

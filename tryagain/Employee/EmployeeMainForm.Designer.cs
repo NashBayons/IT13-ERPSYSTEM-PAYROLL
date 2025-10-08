@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             sidebarPanel = new Panel();
-            pictureBox2 = new PictureBox();
-            logoutBtn = new Button();
             accountbtn = new Button();
             Settingsbtn = new Button();
             Attendancetbtn = new Button();
             payrollBtn = new Button();
             Employeeprofilebtn = new Button();
             Dashboardbtn = new Button();
+            pictureBox2 = new PictureBox();
+            logoutBtn = new Button();
             contentPanel = new Panel();
             sidebarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -58,30 +58,6 @@
             sidebarPanel.Name = "sidebarPanel";
             sidebarPanel.Size = new Size(200, 753);
             sidebarPanel.TabIndex = 5;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.Image = Properties.Resources.logo2;
-            pictureBox2.Location = new Point(9, 12);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(185, 255);
-            pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox2.TabIndex = 10;
-            pictureBox2.TabStop = false;
-            // 
-            // logoutBtn
-            // 
-            logoutBtn.BackColor = Color.Red;
-            logoutBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
-            logoutBtn.ForeColor = Color.White;
-            logoutBtn.Location = new Point(23, 699);
-            logoutBtn.Name = "logoutBtn";
-            logoutBtn.Size = new Size(151, 42);
-            logoutBtn.TabIndex = 6;
-            logoutBtn.Text = "Log Out";
-            logoutBtn.UseVisualStyleBackColor = false;
-            logoutBtn.Click += logoutBtn_Click;
             // 
             // accountbtn
             // 
@@ -105,7 +81,7 @@
             Settingsbtn.Name = "Settingsbtn";
             Settingsbtn.Size = new Size(151, 42);
             Settingsbtn.TabIndex = 4;
-            Settingsbtn.Text = "Settings";
+            Settingsbtn.Text = "Leave";
             Settingsbtn.UseVisualStyleBackColor = false;
             Settingsbtn.Click += Settingsbtn_Click_1;
             // 
@@ -160,6 +136,30 @@
             Dashboardbtn.Text = "Dashboard";
             Dashboardbtn.UseVisualStyleBackColor = false;
             Dashboardbtn.Click += Dashboardbtn_Click_1;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.Transparent;
+            pictureBox2.Image = Properties.Resources.logo2;
+            pictureBox2.Location = new Point(9, 12);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(185, 255);
+            pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox2.TabIndex = 10;
+            pictureBox2.TabStop = false;
+            // 
+            // logoutBtn
+            // 
+            logoutBtn.BackColor = Color.Red;
+            logoutBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            logoutBtn.ForeColor = Color.White;
+            logoutBtn.Location = new Point(23, 699);
+            logoutBtn.Name = "logoutBtn";
+            logoutBtn.Size = new Size(151, 42);
+            logoutBtn.TabIndex = 6;
+            logoutBtn.Text = "Log Out";
+            logoutBtn.UseVisualStyleBackColor = false;
+            logoutBtn.Click += logoutBtn_Click;
             // 
             // contentPanel
             // 

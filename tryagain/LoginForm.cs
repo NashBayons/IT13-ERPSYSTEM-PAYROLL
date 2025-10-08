@@ -37,7 +37,7 @@ namespace tryagain
                 if (role == "admin")
                 {
                     MessageBox.Show("Login successful! Welcome, Admin.");
-                    MainForm adminForm = new MainForm();
+                    MainForm adminForm = new MainForm(userId);
                     adminForm.Show();
                     this.Hide();
                 }
@@ -59,7 +59,6 @@ namespace tryagain
             }
 
         }
-
         private bool AuthenticateUser(string username, string password, out string role, out int userId, out int empId)
         {
             role = string.Empty;
@@ -96,6 +95,7 @@ namespace tryagain
                                 if (isAdmin)
                                 {
                                     role = "admin";
+                                    userId = reader.GetInt32(reader.GetOrdinal("user_id"));
                                 }
                                 else if (isEmployee)
                                 {

@@ -54,7 +54,9 @@
             dgvSalaryGrid.Location = new Point(20, 80);
             dgvSalaryGrid.Name = "dgvSalaryGrid";
             dgvSalaryGrid.ReadOnly = true;
+            dgvSalaryGrid.RowHeadersVisible = false;
             dgvSalaryGrid.RowHeadersWidth = 51;
+            dgvSalaryGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSalaryGrid.Size = new Size(900, 400);
             dgvSalaryGrid.TabIndex = 1;
             // 
@@ -68,7 +70,7 @@
             addSalaryBtn.Name = "addSalaryBtn";
             addSalaryBtn.Size = new Size(120, 40);
             addSalaryBtn.TabIndex = 2;
-            addSalaryBtn.Text = "button1";
+            addSalaryBtn.Text = "Add Salary";
             addSalaryBtn.UseVisualStyleBackColor = false;
             addSalaryBtn.Click += addSalaryBtn_Click;
             // 
@@ -82,7 +84,7 @@
             editSalaryBtn.Name = "editSalaryBtn";
             editSalaryBtn.Size = new Size(89, 40);
             editSalaryBtn.TabIndex = 3;
-            editSalaryBtn.Text = "button2";
+            editSalaryBtn.Text = "Edit";
             editSalaryBtn.UseVisualStyleBackColor = false;
             editSalaryBtn.Click += editSalaryBtn_Click;
             // 

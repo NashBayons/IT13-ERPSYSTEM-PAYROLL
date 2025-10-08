@@ -29,23 +29,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Payroll_System));
-            button1 = new Button();
-            pictureBox1 = new PictureBox();
             button2 = new Button();
             label5 = new Label();
             pictureBox3 = new PictureBox();
             panel2 = new Panel();
-            panel4 = new Panel();
-            label16 = new Label();
+            paymentdateLabel = new Label();
+            label1 = new Label();
+            deductionsValueLabel = new Label();
+            bonusesValueLabel = new Label();
+            basepayValueLabel = new Label();
+            grossSalaryValueLabel = new Label();
             label8 = new Label();
             label7 = new Label();
+            MonthYearLabel = new Label();
+            panel4 = new Panel();
+            netpayValueLabel = new Label();
+            label16 = new Label();
             label4 = new Label();
             label3 = new Label();
             label6 = new Label();
             panel3 = new Panel();
             payrollDvg = new DataGridView();
             label2 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
@@ -53,37 +58,12 @@
             ((System.ComponentModel.ISupportInitialize)payrollDvg).BeginInit();
             SuspendLayout();
             // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.HighlightText;
-            button1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.DarkBlue;
-            button1.Location = new Point(512, 9);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(205, 52);
-            button1.TabIndex = 17;
-            button1.Text = "     Download Payslip";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = SystemColors.HighlightText;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(523, 22);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(26, 27);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 18;
-            pictureBox1.TabStop = false;
-            // 
             // button2
             // 
             button2.BackColor = SystemColors.HighlightText;
             button2.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.DarkBlue;
-            button2.Location = new Point(732, 9);
+            button2.Location = new Point(797, 13);
             button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
             button2.Size = new Size(205, 52);
@@ -95,18 +75,18 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Arial", 16F, FontStyle.Bold);
-            label5.Location = new Point(12, 9);
+            label5.Location = new Point(12, 33);
             label5.Name = "label5";
-            label5.Size = new Size(209, 32);
+            label5.Size = new Size(235, 32);
             label5.TabIndex = 20;
-            label5.Text = "Payroll History";
+            label5.Text = "Payroll Overview";
             label5.TextAlign = ContentAlignment.BottomCenter;
             // 
             // pictureBox3
             // 
             pictureBox3.BackColor = SystemColors.HighlightText;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(748, 22);
+            pictureBox3.Location = new Point(813, 26);
             pictureBox3.Margin = new Padding(3, 4, 3, 4);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(26, 27);
@@ -117,27 +97,138 @@
             // panel2
             // 
             panel2.BackColor = SystemColors.ButtonHighlight;
-            panel2.Controls.Add(panel4);
+            panel2.Controls.Add(paymentdateLabel);
+            panel2.Controls.Add(label1);
+            panel2.Controls.Add(deductionsValueLabel);
+            panel2.Controls.Add(bonusesValueLabel);
+            panel2.Controls.Add(basepayValueLabel);
+            panel2.Controls.Add(grossSalaryValueLabel);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
+            panel2.Controls.Add(MonthYearLabel);
+            panel2.Controls.Add(panel4);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label6);
             panel2.Location = new Point(12, 87);
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(922, 271);
+            panel2.Size = new Size(990, 176);
             panel2.TabIndex = 29;
+            // 
+            // paymentdateLabel
+            // 
+            paymentdateLabel.AutoSize = true;
+            paymentdateLabel.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentdateLabel.Location = new Point(218, 42);
+            paymentdateLabel.Name = "paymentdateLabel";
+            paymentdateLabel.Size = new Size(103, 19);
+            paymentdateLabel.TabIndex = 40;
+            paymentdateLabel.Text = "(Month Year)";
+            paymentdateLabel.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(18, 42);
+            label1.Name = "label1";
+            label1.Size = new Size(112, 19);
+            label1.TabIndex = 39;
+            label1.Text = "Payment Date";
+            label1.TextAlign = ContentAlignment.BottomCenter;
+            // 
+            // deductionsValueLabel
+            // 
+            deductionsValueLabel.AutoSize = true;
+            deductionsValueLabel.ForeColor = Color.Red;
+            deductionsValueLabel.Location = new Point(765, 71);
+            deductionsValueLabel.Name = "deductionsValueLabel";
+            deductionsValueLabel.Size = new Size(84, 20);
+            deductionsValueLabel.TabIndex = 38;
+            deductionsValueLabel.Text = "Deductions";
+            // 
+            // bonusesValueLabel
+            // 
+            bonusesValueLabel.AutoSize = true;
+            bonusesValueLabel.ForeColor = Color.Green;
+            bonusesValueLabel.Location = new Point(541, 71);
+            bonusesValueLabel.Name = "bonusesValueLabel";
+            bonusesValueLabel.Size = new Size(63, 20);
+            bonusesValueLabel.TabIndex = 37;
+            bonusesValueLabel.Text = "bonuses";
+            // 
+            // basepayValueLabel
+            // 
+            basepayValueLabel.AutoSize = true;
+            basepayValueLabel.ForeColor = Color.Green;
+            basepayValueLabel.Location = new Point(321, 71);
+            basepayValueLabel.Name = "basepayValueLabel";
+            basepayValueLabel.Size = new Size(64, 20);
+            basepayValueLabel.TabIndex = 36;
+            basepayValueLabel.Text = "basepay";
+            // 
+            // grossSalaryValueLabel
+            // 
+            grossSalaryValueLabel.AutoSize = true;
+            grossSalaryValueLabel.ForeColor = Color.Green;
+            grossSalaryValueLabel.Location = new Point(120, 71);
+            grossSalaryValueLabel.Name = "grossSalaryValueLabel";
+            grossSalaryValueLabel.Size = new Size(65, 20);
+            grossSalaryValueLabel.TabIndex = 35;
+            grossSalaryValueLabel.Text = "Earnings";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.ForeColor = Color.Green;
+            label8.Location = new Point(438, 71);
+            label8.Name = "label8";
+            label8.Size = new Size(63, 20);
+            label8.TabIndex = 34;
+            label8.Text = "Bonuses";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.ForeColor = Color.Green;
+            label7.Location = new Point(218, 71);
+            label7.Name = "label7";
+            label7.Size = new Size(66, 20);
+            label7.TabIndex = 33;
+            label7.Text = "Base Pay";
+            // 
+            // MonthYearLabel
+            // 
+            MonthYearLabel.AutoSize = true;
+            MonthYearLabel.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MonthYearLabel.Location = new Point(218, 14);
+            MonthYearLabel.Name = "MonthYearLabel";
+            MonthYearLabel.Size = new Size(103, 19);
+            MonthYearLabel.TabIndex = 32;
+            MonthYearLabel.Text = "(Month Year)";
+            MonthYearLabel.TextAlign = ContentAlignment.BottomCenter;
             // 
             // panel4
             // 
             panel4.BackColor = Color.White;
+            panel4.Controls.Add(netpayValueLabel);
             panel4.Controls.Add(label16);
-            panel4.Location = new Point(563, 199);
+            panel4.Location = new Point(675, 120);
             panel4.Margin = new Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(335, 52);
+            panel4.Size = new Size(303, 52);
             panel4.TabIndex = 31;
+            // 
+            // netpayValueLabel
+            // 
+            netpayValueLabel.AutoSize = true;
+            netpayValueLabel.Font = new Font("Segoe UI", 10.25F);
+            netpayValueLabel.ForeColor = Color.Green;
+            netpayValueLabel.Location = new Point(180, 13);
+            netpayValueLabel.Name = "netpayValueLabel";
+            netpayValueLabel.Size = new Size(0, 25);
+            netpayValueLabel.TabIndex = 21;
             // 
             // label16
             // 
@@ -146,37 +237,15 @@
             label16.ForeColor = Color.Green;
             label16.Location = new Point(8, 13);
             label16.Name = "label16";
-            label16.Size = new Size(287, 25);
+            label16.Size = new Size(76, 25);
             label16.TabIndex = 20;
-            label16.Text = "Net Pay                                ₱5.000";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 10.25F);
-            label8.ForeColor = Color.Black;
-            label8.Location = new Point(500, 72);
-            label8.Name = "label8";
-            label8.Size = new Size(144, 25);
-            label8.TabIndex = 19;
-            label8.Text = "Total Deductions";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 10.25F);
-            label7.ForeColor = Color.Black;
-            label7.Location = new Point(169, 69);
-            label7.Name = "label7";
-            label7.Size = new Size(101, 25);
-            label7.TabIndex = 18;
-            label7.Text = "Salary Total";
+            label16.Text = "Net Pay:";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.ForeColor = Color.Red;
-            label4.Location = new Point(347, 74);
+            label4.Location = new Point(675, 71);
             label4.Name = "label4";
             label4.Size = new Size(84, 20);
             label4.TabIndex = 17;
@@ -188,19 +257,19 @@
             label3.ForeColor = Color.Green;
             label3.Location = new Point(18, 71);
             label3.Name = "label3";
-            label3.Size = new Size(65, 20);
+            label3.Size = new Size(89, 20);
             label3.TabIndex = 16;
-            label3.Text = "Earnings";
+            label3.Text = "Gross Salary";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(18, 25);
+            label6.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(18, 14);
             label6.Name = "label6";
-            label6.Size = new Size(365, 27);
+            label6.Size = new Size(194, 19);
             label6.TabIndex = 15;
-            label6.Text = "October 2025 Payroll Breakdown";
+            label6.Text = "Current Payroll Summary";
             label6.TextAlign = ContentAlignment.BottomCenter;
             // 
             // panel3
@@ -208,21 +277,21 @@
             panel3.BackColor = SystemColors.ButtonHighlight;
             panel3.Controls.Add(payrollDvg);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(12, 366);
+            panel3.Location = new Point(12, 271);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(925, 361);
+            panel3.Size = new Size(990, 361);
             panel3.TabIndex = 30;
             // 
             // payrollDvg
             // 
-            payrollDvg.BackgroundColor = SystemColors.Control;
             payrollDvg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             payrollDvg.Location = new Point(0, 61);
             payrollDvg.Margin = new Padding(3, 4, 3, 4);
             payrollDvg.Name = "payrollDvg";
+            payrollDvg.RowHeadersVisible = false;
             payrollDvg.RowHeadersWidth = 51;
-            payrollDvg.Size = new Size(922, 300);
+            payrollDvg.Size = new Size(987, 300);
             payrollDvg.TabIndex = 17;
             // 
             // label2
@@ -240,18 +309,15 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(964, 739);
+            ClientSize = new Size(1014, 706);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(pictureBox3);
             Controls.Add(label5);
             Controls.Add(button2);
-            Controls.Add(pictureBox1);
-            Controls.Add(button1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "Payroll_System";
             Text = "Payroll_System";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
@@ -265,21 +331,27 @@
         }
 
         #endregion
-        private Button button1;
-        private PictureBox pictureBox1;
         private Button button2;
         private Label label5;
         private PictureBox pictureBox3;
         private Panel panel2;
         private Panel panel3;
         private Label label6;
-        private Label label7;
         private Label label4;
         private Label label3;
         private Label label2;
-        private Label label8;
         private Panel panel4;
         private Label label16;
         private DataGridView payrollDvg;
+        private Label label8;
+        private Label label7;
+        private Label MonthYearLabel;
+        private Label deductionsValueLabel;
+        private Label bonusesValueLabel;
+        private Label basepayValueLabel;
+        private Label grossSalaryValueLabel;
+        private Label netpayValueLabel;
+        private Label paymentdateLabel;
+        private Label label1;
     }
 }

@@ -20,9 +20,7 @@ namespace tryagain.Employee
         {
             InitializeComponent();
             _empId = empId;
-            this.TopLevel = false;
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.Dock = DockStyle.Fill;
+
             LoadPayrollHistory();
         }
 
@@ -53,8 +51,25 @@ namespace tryagain.Employee
                     {
                         command.Parameters.AddWithValue("@EmpId", _empId);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            if (reader.Read())
+                            {
+                                // 🟢 Current payroll (first row is the latest period)
+                                MonthYearLabel.Text = $"{Convert.ToDateTime(reader["pay_period_start"]).ToShortDateString()} - {Convert.ToDateTime(reader["pay_period_end"]).ToShortDateString()}";
+                                paymentdateLabel.Text = Convert.ToDateTime(reader["payment_date"]).ToShortDateString();
+                                basepayValueLabel.Text = $"₱{reader["base_pay"]:N2}";
+                                grossSalaryValueLabel.Text = $"₱{reader["gross_salary"]:N2}";
+                                deductionsValueLabel.Text = $"₱{reader["deductions_total"]:N2}";
+                                bonusesValueLabel.Text = $"₱{reader["bonus_amount"]:N2}";
+                                netpayValueLabel.Text = $"₱{reader["net_pay"]:N2}";
+                            }
+
+                            // Move reader back to start for full history
+                            reader.Close();
+
+                            // 🟡 Payroll history (fill DataGridView)
+                            SqlDataAdapter adapter = new SqlDataAdapter(command);
                             DataTable dt = new DataTable();
                             adapter.Fill(dt);
 
@@ -65,7 +80,7 @@ namespace tryagain.Employee
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading payroll history: {ex.Message}");
+                MessageBox.Show($"Error loading payroll: {ex.Message}");
             }
         }
     }

@@ -15,8 +15,10 @@ namespace tryagain
     public partial class LeaveRequestForm : Form
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
-        public LeaveRequestForm()
+        private int _userId;
+        public LeaveRequestForm(int userId)
         {
+            _userId = userId;
             InitializeComponent();
             LoadPendingRequest();
 
@@ -66,51 +68,125 @@ namespace tryagain
 
         private void approveBtn_Click(object sender, EventArgs e)
         {
-            if (dgvLeaveRequests.SelectedRows.Count > 0)
+            if (dgvLeaveRequests.SelectedRows.Count == 0)
             {
-                int leaveId = Convert.ToInt32(dgvLeaveRequests.SelectedRows[0].Cells["leave_id"].Value);
+                MessageBox.Show("Please select a leave request to approve.");
+                return;
+            }
 
+            // get leave id robustly (by column name if present, otherwise first cell)
+            object raw = dgvLeaveRequests.SelectedRows[0].Cells["leave_id"]?.Value
+                         ?? dgvLeaveRequests.SelectedRows[0].Cells[0].Value;
+
+            if (!int.TryParse(raw?.ToString(), out int leaveId))
+            {
+                MessageBox.Show("Could not determine the selected leave request ID.");
+                return;
+            }
+
+            if (MessageBox.Show("Approve this leave request?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            try
+            {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"UPDATE Leave_Record 
-                             SET status = 'Approved', 
-                                 approved_by = @userId
-                             WHERE leave_id = @leaveId";
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    //cmd.Parameters.AddWithValue("@userId", loggedInUserId);
-                    cmd.Parameters.AddWithValue("@leaveId", leaveId);
-                    cmd.ExecuteNonQuery();
+                    string query = @"
+                        UPDATE leave_record
+                        SET status = @status,
+                            approved_by = @userId,
+                            remarks = @remarks
+                        WHERE leave_id = @leaveId
+                          AND status = 'Pending'; -- only update if still pending
+                                 ";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@status", "Approved");
+                        cmd.Parameters.AddWithValue("@userId", _userId);
+                        cmd.Parameters.AddWithValue("@remarks", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@leaveId", leaveId);
+
+                        int rows = cmd.ExecuteNonQuery();
+                        if (rows > 0)
+                        {
+                            LoadPendingRequest();
+                            MessageBox.Show("Leave request approved.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("No pending leave request found (it may have been processed already).");
+                        }
+                    }
                 }
-
-                LoadPendingRequest();
-                MessageBox.Show("Leave request approved.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error approving leave request: " + ex.Message);
             }
         }
 
         private void rejectBtn_Click(object sender, EventArgs e)
         {
-            if (dgvLeaveRequests.SelectedRows.Count > 0)
+            if (dgvLeaveRequests.SelectedRows.Count == 0)
             {
-                int leaveId = Convert.ToInt32(dgvLeaveRequests.SelectedRows[0].Cells["leave_id"].Value);
+                MessageBox.Show("Please select a leave request to reject.");
+                return;
+            }
 
+            object raw = dgvLeaveRequests.SelectedRows[0].Cells["leave_id"]?.Value
+                         ?? dgvLeaveRequests.SelectedRows[0].Cells[0].Value;
+
+            if (!int.TryParse(raw?.ToString(), out int leaveId))
+            {
+                MessageBox.Show("Could not determine the selected leave request ID.");
+                return;
+            }
+
+            if (MessageBox.Show("Reject this leave request?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                return;
+
+            try
+            {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"UPDATE Leave_Record 
-                             SET status = 'Rejected', 
-                                 approved_by = @userId
-                             WHERE leave_id = @leaveId";
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    //cmd.Parameters.AddWithValue("@userId", loggedInUserId);
-                    cmd.Parameters.AddWithValue("@leaveId", leaveId);
-                    cmd.ExecuteNonQuery();
+                    string query = @"
+                UPDATE leave_record
+                SET status = @status,
+                    approved_by = @userId,
+                    remarks = @remarks
+                WHERE leave_id = @leaveId
+                  AND status = 'Pending';
+            ";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@status", "Rejected"); // or "Denied" if you prefer
+                        cmd.Parameters.AddWithValue("@userId", _userId);
+                        // you can prompt the admin for a rejection reason and put it here
+                        cmd.Parameters.AddWithValue("@remarks", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@leaveId", leaveId);
+
+                        int rows = cmd.ExecuteNonQuery();
+                        if (rows > 0)
+                        {
+                            LoadPendingRequest();
+                            MessageBox.Show("Leave request rejected.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("No pending leave request found (it may have been processed already).");
+                        }
+                    }
                 }
-
-                LoadPendingRequest();
-                MessageBox.Show("Leave request rejected.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error rejecting leave request: " + ex.Message);
             }
         }
 
@@ -168,6 +244,6 @@ namespace tryagain
             LoadFilter();
         }
 
-        
+
     }
 }

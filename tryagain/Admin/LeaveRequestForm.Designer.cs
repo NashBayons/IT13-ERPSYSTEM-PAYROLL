@@ -53,6 +53,7 @@
             dgvLeaveRequests.Name = "dgvLeaveRequests";
             dgvLeaveRequests.RowHeadersVisible = false;
             dgvLeaveRequests.RowHeadersWidth = 51;
+            dgvLeaveRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvLeaveRequests.Size = new Size(903, 445);
             dgvLeaveRequests.TabIndex = 0;
             // 

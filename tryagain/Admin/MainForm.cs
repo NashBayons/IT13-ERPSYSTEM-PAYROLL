@@ -12,8 +12,10 @@ namespace tryagain
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private int _userid;
+        public MainForm(int userID)
         {
+            _userid = userID;
             InitializeComponent();
             ShowDashboard();
         }
@@ -81,7 +83,7 @@ namespace tryagain
 
         private void leaveBtn_Click(object sender, EventArgs e)
         {
-            LoadForm(new LeaveRequestForm());
+            LoadForm(new LeaveRequestForm(_userid));
         }
 
         private void logoutBtn_Click(object sender, EventArgs e)

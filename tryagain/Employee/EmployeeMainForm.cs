@@ -75,17 +75,17 @@ namespace tryagain.Employee
 
         private void Attendancetbtn_Click_1(object sender, EventArgs e)
         {
-            LoadForm(new Employee.Attendance());
+            LoadForm(new Employee.Attendance(_empId));
         }
 
         private void Settingsbtn_Click_1(object sender, EventArgs e)
         {
-            LoadForm(new Employee.Settings());
+            LoadForm(new Employee.LeaveForm(_empId));
         }
 
         private void accountbtn_Click(object sender, EventArgs e)
         {
-            // Implement logic for account button if required
+            LoadForm(new Employee.AccountEmployee(_userId, _empId));
         }
 
         private void logoutBtn_Click(object sender, EventArgs e)
