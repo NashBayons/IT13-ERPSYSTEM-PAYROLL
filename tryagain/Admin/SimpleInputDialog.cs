@@ -22,16 +22,16 @@ namespace tryagain
         public SimpleInputDialog(string label1, string default1, string label2, decimal default2)
         {
             this.Text = "Input";
-            this.Size = new Size(300, 180);
+            this.Size = new Size(350, 180);
 
             Label lbl1 = new Label { Text = label1, Location = new Point(10, 10), AutoSize = true };
-            txtValue1 = new TextBox { Location = new Point(100, 10), Width = 150, Text = default1 };
+            txtValue1 = new TextBox { Location = new Point(130, 10), Width = 150, Text = default1 };
 
             Label lbl2 = new Label { Text = label2, Location = new Point(10, 40), AutoSize = true };
-            numValue2 = new NumericUpDown { Location = new Point(100, 40), Width = 150, DecimalPlaces = 2, Maximum = 1000000, Value = default2 };
+            numValue2 = new NumericUpDown { Location = new Point(130, 40), Width = 150, DecimalPlaces = 2, Maximum = 1000000, Value = default2 };
 
-            btnOk = new Button { Text = "OK", Location = new Point(40, 80), DialogResult = DialogResult.OK };
-            btnCancel = new Button { Text = "Cancel", Location = new Point(140, 80), DialogResult = DialogResult.Cancel };
+            btnOk = new Button { Text = "OK", Location = new Point(40, 80), Height=35, DialogResult = DialogResult.OK };
+            btnCancel = new Button { Text = "Cancel", Location = new Point(140, 80), Height = 35, DialogResult = DialogResult.Cancel };
 
             this.Controls.Add(lbl1);
             this.Controls.Add(txtValue1);

@@ -62,6 +62,7 @@
             empUsernameTxt = new TextBox();
             empaccountpassLbl = new Label();
             empaccountuserLbl = new Label();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -125,10 +126,11 @@
             // 
             // PositionTB
             // 
-            PositionTB.Location = new Point(118, 149);
+            PositionTB.Location = new Point(279, 149);
             PositionTB.Name = "PositionTB";
             PositionTB.Size = new Size(151, 27);
             PositionTB.TabIndex = 8;
+            PositionTB.Visible = false;
             // 
             // StatusCB
             // 
@@ -358,11 +360,20 @@
             empaccountuserLbl.TabIndex = 30;
             empaccountuserLbl.Text = "Username";
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(118, 149);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 35;
+            // 
             // EmployeeDetailsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(731, 533);
+            Controls.Add(comboBox1);
             Controls.Add(empaccountLbl);
             Controls.Add(empPasswordTxt);
             Controls.Add(empUsernameTxt);
@@ -439,5 +450,6 @@
         private TextBox empUsernameTxt;
         private Label empaccountpassLbl;
         private Label empaccountuserLbl;
+        private ComboBox comboBox1;
     }
 }

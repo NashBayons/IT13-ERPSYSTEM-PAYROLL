@@ -33,7 +33,6 @@ namespace tryagain.Employee
                     connection.Open();
                     string query = @"
                 SELECT 
-                    pr.payroll_record_id,
                     pb.pay_period_start,
                     pb.pay_period_end,
                     pb.payment_date,
@@ -81,6 +80,35 @@ namespace tryagain.Employee
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading payroll: {ex.Message}");
+            }
+        }
+
+        private void filterBtn_Click(object sender, EventArgs e)
+        {
+            if (payrollDvg.DataSource is DataTable dt)
+            {
+                switch (filterComboCmb.SelectedItem?.ToString())
+                {
+                    case "Batch (Newest First)":
+                        dt.DefaultView.Sort = "pay_period_end DESC";
+                        break;
+
+                    case "Batch (Oldest First)":
+                        dt.DefaultView.Sort = "pay_period_end ASC";
+                        break;
+
+                    case "Payment Date (Newest First)":
+                        dt.DefaultView.Sort = "payment_date DESC";
+                        break;
+
+                    case "Payment Date (Oldest First)":
+                        dt.DefaultView.Sort = "payment_date ASC";
+                        break;
+
+                    default:
+                        MessageBox.Show("Please select a sort option.");
+                        break;
+                }
             }
         }
     }

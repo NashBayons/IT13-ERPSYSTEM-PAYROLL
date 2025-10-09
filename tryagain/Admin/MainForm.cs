@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using tryagain.Admin;
 
 namespace tryagain
 {
@@ -23,7 +24,7 @@ namespace tryagain
         private void ShowDashboard()
         {
             contentPanel.Controls.Clear();
-            LoadForm(new dashboardForm());
+            LoadForm(new DashboardwithCharts());
         }
 
         private void LoadForm(Form form)
@@ -53,7 +54,7 @@ namespace tryagain
 
         private void dashboardBtn_Click(object sender, EventArgs e)
         {
-            LoadForm(new dashboardForm());
+            LoadForm(new DashboardwithCharts());
         }
 
         private void employeeBtn_Click(object sender, EventArgs e)

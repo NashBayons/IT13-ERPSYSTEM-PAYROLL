@@ -48,6 +48,8 @@
             panel3 = new Panel();
             payrollDvg = new DataGridView();
             label2 = new Label();
+            filterBtn = new Button();
+            filterComboCmb = new ComboBox();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
@@ -84,7 +86,7 @@
             panel2.Location = new Point(12, 87);
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(990, 176);
+            panel2.Size = new Size(990, 75);
             panel2.TabIndex = 29;
             // 
             // paymentdateLabel
@@ -277,11 +279,35 @@
             label2.Text = "Payroll History";
             label2.TextAlign = ContentAlignment.BottomCenter;
             // 
+            // filterBtn
+            // 
+            filterBtn.BackColor = Color.CornflowerBlue;
+            filterBtn.FlatStyle = FlatStyle.Flat;
+            filterBtn.ForeColor = Color.White;
+            filterBtn.Location = new Point(203, 235);
+            filterBtn.Name = "filterBtn";
+            filterBtn.Size = new Size(94, 29);
+            filterBtn.TabIndex = 32;
+            filterBtn.Text = "Filter";
+            filterBtn.UseVisualStyleBackColor = true;
+            filterBtn.Click += filterBtn_Click;
+            // 
+            // filterComboCmb
+            // 
+            filterComboCmb.FormattingEnabled = true;
+            filterComboCmb.Items.AddRange(new object[] { "Batch (Newest First)", "Batch (Oldest First)", "Payment Date (Newest First)", "Payment Date (Oldest First)" });
+            filterComboCmb.Location = new Point(12, 235);
+            filterComboCmb.Name = "filterComboCmb";
+            filterComboCmb.Size = new Size(151, 28);
+            filterComboCmb.TabIndex = 33;
+            // 
             // Payroll_System
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1014, 706);
+            Controls.Add(filterComboCmb);
+            Controls.Add(filterBtn);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(label5);
@@ -320,5 +346,7 @@
         private Label netpayValueLabel;
         private Label paymentdateLabel;
         private Label label1;
+        private Button filterBtn;
+        private ComboBox filterComboCmb;
     }
 }

@@ -184,7 +184,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1014, 749);
+            ClientSize = new Size(1014, 706);
             Controls.Add(leaveDgv);
             Controls.Add(label6);
             Controls.Add(cancelBtn);

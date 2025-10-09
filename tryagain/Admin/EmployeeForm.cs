@@ -54,6 +54,16 @@ namespace tryagain
                         {
                             try
                             {
+                                SqlCommand checkUser = new SqlCommand(
+                            "SELECT COUNT(*) FROM usersaccount WHERE username = @Username",
+                            conn, transaction);
+                                checkUser.Parameters.AddWithValue("@Username", form.Username);
+
+                                int exists = (int)checkUser.ExecuteScalar();
+                                if (exists > 0)
+                                {
+                                    throw new Exception("Username already exists. Please choose a different one.");
+                                }
                                 // 1) Insert into usersaccount
                                 SqlCommand cmdUser = new SqlCommand(@"
                             INSERT INTO usersaccount (username, password, is_admin, is_employee, status)
@@ -226,18 +236,56 @@ namespace tryagain
 
             if (confirm == DialogResult.Yes)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                // 💡 Use a local variable to hold the UserID retrieved from the DB
+                int userId = 0;
+
+                try
                 {
-                    conn.Open();
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
 
-                    // instead of hard delete, mark as inactive (soft delete)
-                    SqlCommand cmd = new SqlCommand(
-                        "UPDATE Employees SET Status = 'Inactive' WHERE EmployeeID = @EmployeeID", conn);
-                    cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
-                    cmd.ExecuteNonQuery();
+                        // 1. GET THE USERID: Query the Employees table for the associated user ID
+                        SqlCommand cmdGetUserId = new SqlCommand(
+                            "SELECT userid FROM Employees WHERE EmployeeID = @EmployeeID", conn);
+                        cmdGetUserId.Parameters.AddWithValue("@EmployeeID", employeeId);
+
+                        object result = cmdGetUserId.ExecuteScalar();
+
+                        if (result == null || result == DBNull.Value)
+                        {
+                            MessageBox.Show("Error: Could not find associated user account (userid). Deletion halted.", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return; // Exit the function if the userid is missing
+                        }
+
+                        userId = Convert.ToInt32(result);
+
+                        // --- Begin Soft Deletion ---
+
+                        // 2. Mark the Employee as Inactive (Soft Delete)
+                        SqlCommand cmdEmployee = new SqlCommand(
+                            "UPDATE Employees SET Status = 'Inactive' WHERE EmployeeID = @EmployeeID", conn);
+                        cmdEmployee.Parameters.AddWithValue("@EmployeeID", employeeId);
+                        cmdEmployee.ExecuteNonQuery();
+
+                        // 3. Mark the corresponding User Account as Inactive
+                        SqlCommand cmdUserAccount = new SqlCommand(
+                            "UPDATE UsersAccount SET Status = 'Inactive' WHERE user_id = @UserID", conn);
+
+                        // We now use the reliable userId from the query above
+                        cmdUserAccount.Parameters.AddWithValue("@UserID", userId);
+                        cmdUserAccount.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Employee and associated user account marked as Inactive.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoadEmployees(); // refresh grid
+
                 }
-
-                LoadEmployees(); // refresh grid
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred during deletion: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

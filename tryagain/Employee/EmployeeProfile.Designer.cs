@@ -50,8 +50,6 @@
             label9 = new Label();
             label7 = new Label();
             label1 = new Label();
-            button1 = new Button();
-            pictureBox1 = new PictureBox();
             panel3 = new Panel();
             emerconPhoneTxt = new TextBox();
             label18 = new Label();
@@ -63,7 +61,6 @@
             textBox14 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -114,7 +111,7 @@
             panel1.Location = new Point(12, 66);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1010, 281);
+            panel1.Size = new Size(990, 281);
             panel1.TabIndex = 15;
             // 
             // hiredateTxt
@@ -275,32 +272,6 @@
             label1.Text = "Personal Information";
             label1.TextAlign = ContentAlignment.BottomCenter;
             // 
-            // button1
-            // 
-            button1.BackColor = Color.White;
-            button1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.DarkBlue;
-            button1.Location = new Point(900, 2);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(122, 56);
-            button1.TabIndex = 16;
-            button1.Text = "       EditProfile";
-            button1.TextAlign = ContentAlignment.TopRight;
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = SystemColors.HighlightText;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(910, 13);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(26, 31);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 17;
-            pictureBox1.TabStop = false;
-            // 
             // panel3
             // 
             panel3.BackColor = SystemColors.ButtonHighlight;
@@ -315,7 +286,7 @@
             panel3.Location = new Point(12, 368);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1010, 181);
+            panel3.Size = new Size(990, 181);
             panel3.TabIndex = 19;
             // 
             // emerconPhoneTxt
@@ -391,10 +362,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1046, 745);
+            ClientSize = new Size(1014, 706);
             Controls.Add(panel3);
-            Controls.Add(pictureBox1);
-            Controls.Add(button1);
             Controls.Add(panel1);
             Controls.Add(label5);
             Margin = new Padding(3, 4, 3, 4);
@@ -404,7 +373,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ResumeLayout(false);
@@ -415,8 +383,6 @@
         private Label label5;
         private Panel panel1;
         private Label label1;
-        private Button button1;
-        private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Label label7;
         private Label label9;

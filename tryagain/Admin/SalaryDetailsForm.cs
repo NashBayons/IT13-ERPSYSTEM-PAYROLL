@@ -11,9 +11,6 @@ namespace tryagain
     {
         public int EmployeeID { get; set; }
         public decimal GrossSalary { get; set; }
-
-        private ComboBox cmbEmployees;
-        private TextBox txtGross;
         private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
 
         // Strongly typed class for ComboBox items
@@ -27,33 +24,18 @@ namespace tryagain
         public SalaryDetailsForm()
         {
             InitializeComponent();
-            BuildForm();
             LoadEmployees();
-            PreFillForm();
+            this.Load += SalaryDetailsForm_Load;
         }
 
-        private void BuildForm()
+        private void SalaryDetailsForm_Load(object sender, EventArgs e)
         {
-            Label lblEmployee = new Label { Text = "Employee:", Location = new Point(20, 20), AutoSize = true };
-            this.Controls.Add(lblEmployee);
-
-            cmbEmployees = new ComboBox { Location = new Point(120, 15), Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
-            this.Controls.Add(cmbEmployees);
-
-            Label lblGross = new Label { Text = "Gross Salary:", Location = new Point(20, 70), AutoSize = true };
-            this.Controls.Add(lblGross);
-
-            txtGross = new TextBox { Location = new Point(120, 65), Width = 200 };
-            this.Controls.Add(txtGross);
-
-            Button btnSave = new Button { Text = "Save", Location = new Point(120, 110), Size = new Size(80, 30) };
-            btnSave.Click += BtnSave_Click;
-            this.Controls.Add(btnSave);
+            PreFillForm();
         }
 
         private void LoadEmployees()
         {
-            cmbEmployees.Items.Clear();
+            empCmb.Items.Clear();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -61,7 +43,7 @@ namespace tryagain
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    cmbEmployees.Items.Add(new EmployeeItem
+                    empCmb.Items.Add(new EmployeeItem
                     {
                         ID = reader.GetInt32(0),
                         Name = reader.GetString(1)
@@ -74,37 +56,42 @@ namespace tryagain
         private void PreFillForm()
         {
             // Fill Gross Salary textbox
-            txtGross.Text = GrossSalary.ToString("F2");
+            grossSalTxt.Text = GrossSalary.ToString("F2");
 
             // Select the employee in ComboBox
-            for (int i = 0; i < cmbEmployees.Items.Count; i++)
+            for (int i = 0; i < empCmb.Items.Count; i++)
             {
-                if (((EmployeeItem)cmbEmployees.Items[i]).ID == EmployeeID)
+                if (((EmployeeItem)empCmb.Items[i]).ID == EmployeeID)
                 {
-                    cmbEmployees.SelectedIndex = i;
+                    empCmb.SelectedIndex = i;
                     break;
                 }
             }
         }
 
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void SaveBtn_Click(object sender, EventArgs e)
         {
-            if (cmbEmployees.SelectedItem == null)
+            if (empCmb.SelectedItem == null)
             {
                 MessageBox.Show("Please select an employee.");
                 return;
             }
 
-            if (!decimal.TryParse(txtGross.Text, out decimal gross))
+            if (!decimal.TryParse(grossSalTxt.Text, out decimal gross))
             {
                 MessageBox.Show("Please enter a valid Gross Salary.");
                 return;
             }
 
-            EmployeeID = ((EmployeeItem)cmbEmployees.SelectedItem).ID;
+            EmployeeID = ((EmployeeItem)empCmb.SelectedItem).ID;
             GrossSalary = gross;
 
             this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
     }

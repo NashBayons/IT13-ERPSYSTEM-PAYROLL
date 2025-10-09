@@ -62,16 +62,37 @@ namespace tryagain
             {
                 if (details.ShowDialog() == DialogResult.OK)
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    try
                     {
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(
-                            "INSERT INTO Salaries (EmployeeID, GrossSalary) VALUES (@empId, @gross)", conn);
-                        cmd.Parameters.AddWithValue("@empId", details.EmployeeID);
-                        cmd.Parameters.AddWithValue("@gross", details.GrossSalary);
-                        cmd.ExecuteNonQuery();
+                        using (SqlConnection conn = new SqlConnection(connectionString))
+                        {
+                            conn.Open();
+                            SqlCommand cmd = new SqlCommand(
+                                "INSERT INTO Salaries (EmployeeID, GrossSalary) VALUES (@empId, @gross)", conn);
+                            cmd.Parameters.AddWithValue("@empId", details.EmployeeID);
+                            cmd.Parameters.AddWithValue("@gross", details.GrossSalary);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        LoadSalaries();
+                        MessageBox.Show("Salary added successfully.");
                     }
-                    LoadSalaries();
+                    catch (SqlException ex)
+                    {
+                        // Duplicate entry error codes: 2627 = PK violation, 2601 = Unique index violation
+                        if (ex.Number == 2627 || ex.Number == 2601)
+                        {
+                            MessageBox.Show("This employee already has a salary record. Duplicate entries are not allowed.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Database error: " + ex.Message);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Unexpected error: " + ex.Message);
+                    }
                 }
             }
         }

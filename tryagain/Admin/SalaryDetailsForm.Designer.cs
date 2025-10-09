@@ -28,12 +28,100 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "SalaryDetailsForm";
+            label1 = new Label();
+            label2 = new Label();
+            SaveBtn = new Button();
+            CancelBtn = new Button();
+            empCmb = new ComboBox();
+            grossSalTxt = new NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)grossSalTxt).BeginInit();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(20, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(75, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Employee";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(20, 70);
+            label2.Name = "label2";
+            label2.Size = new Size(89, 20);
+            label2.TabIndex = 1;
+            label2.Text = "Gross Salary";
+            // 
+            // SaveBtn
+            // 
+            SaveBtn.BackColor = Color.FromArgb(0, 192, 0);
+            SaveBtn.FlatStyle = FlatStyle.Flat;
+            SaveBtn.ForeColor = Color.White;
+            SaveBtn.Location = new Point(93, 139);
+            SaveBtn.Name = "SaveBtn";
+            SaveBtn.Size = new Size(94, 29);
+            SaveBtn.TabIndex = 2;
+            SaveBtn.Text = "Save";
+            SaveBtn.UseVisualStyleBackColor = false;
+            SaveBtn.Click += SaveBtn_Click;
+            // 
+            // CancelBtn
+            // 
+            CancelBtn.BackColor = Color.Red;
+            CancelBtn.FlatStyle = FlatStyle.Flat;
+            CancelBtn.ForeColor = Color.White;
+            CancelBtn.Location = new Point(219, 139);
+            CancelBtn.Name = "CancelBtn";
+            CancelBtn.Size = new Size(94, 29);
+            CancelBtn.TabIndex = 3;
+            CancelBtn.Text = "Cancel";
+            CancelBtn.UseVisualStyleBackColor = false;
+            CancelBtn.Click += CancelBtn_Click;
+            // 
+            // empCmb
+            // 
+            empCmb.FormattingEnabled = true;
+            empCmb.Location = new Point(137, 17);
+            empCmb.Name = "empCmb";
+            empCmb.Size = new Size(151, 28);
+            empCmb.TabIndex = 4;
+            // 
+            // grossSalTxt
+            // 
+            grossSalTxt.Location = new Point(138, 63);
+            grossSalTxt.Name = "grossSalTxt";
+            grossSalTxt.Size = new Size(150, 27);
+            grossSalTxt.TabIndex = 5;
+            // 
+            // SalaryDetailsForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(481, 259);
+            Controls.Add(grossSalTxt);
+            Controls.Add(empCmb);
+            Controls.Add(CancelBtn);
+            Controls.Add(SaveBtn);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Name = "SalaryDetailsForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "SalaryDetailsForm";
+            ((System.ComponentModel.ISupportInitialize)grossSalTxt).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
+        private Label label2;
+        private Button SaveBtn;
+        private Button CancelBtn;
+        private ComboBox empCmb;
+        private NumericUpDown grossSalTxt;
     }
 }

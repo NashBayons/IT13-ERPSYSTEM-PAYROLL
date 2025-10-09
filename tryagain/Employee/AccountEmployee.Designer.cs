@@ -35,7 +35,6 @@
             label5 = new Label();
             label6 = new Label();
             saveBtn = new Button();
-            cancelBtn = new Button();
             curUsernameTxt = new TextBox();
             newUsernameTxt = new TextBox();
             curPasswordTxt = new TextBox();
@@ -109,27 +108,13 @@
             saveBtn.FlatStyle = FlatStyle.Flat;
             saveBtn.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             saveBtn.ForeColor = Color.White;
-            saveBtn.Location = new Point(511, 459);
+            saveBtn.Location = new Point(350, 453);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(157, 51);
             saveBtn.TabIndex = 6;
             saveBtn.Text = "Save";
             saveBtn.UseVisualStyleBackColor = false;
             saveBtn.Click += saveBtn_Click;
-            // 
-            // cancelBtn
-            // 
-            cancelBtn.BackColor = Color.Gray;
-            cancelBtn.FlatStyle = FlatStyle.Flat;
-            cancelBtn.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(348, 459);
-            cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(138, 51);
-            cancelBtn.TabIndex = 7;
-            cancelBtn.Text = "Cancel";
-            cancelBtn.UseVisualStyleBackColor = false;
-            cancelBtn.Click += cancelBtn_Click;
             // 
             // curUsernameTxt
             // 
@@ -186,7 +171,6 @@
             Controls.Add(curPasswordTxt);
             Controls.Add(newUsernameTxt);
             Controls.Add(curUsernameTxt);
-            Controls.Add(cancelBtn);
             Controls.Add(saveBtn);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -210,7 +194,6 @@
         private Label label5;
         private Label label6;
         private Button saveBtn;
-        private Button cancelBtn;
         private TextBox curUsernameTxt;
         private TextBox newUsernameTxt;
         private TextBox curPasswordTxt;

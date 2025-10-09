@@ -91,7 +91,7 @@
             label1.Size = new Size(658, 46);
             label1.TabIndex = 0;
             label1.Text = "ERP PAYROLL AND ATTENDANCE - ADMIN";
-            label1.Click += label1_Click;
+            label1.Click += this.label1_Click;
             // 
             // panel2
             // 
