@@ -31,6 +31,12 @@ namespace tryagain
         private void PayrollBatchDetailsForm_Load(object sender, EventArgs e)
         {
             LoadPayrollRecords(_batchId);
+            if (_batchStatus == "Paid")
+            {
+                finalizeselectBtn.Enabled = false;
+                editselectBtn.Enabled = false;
+                
+            }
         }
 
         private void LoadPayrollRecords(int batchId)
@@ -63,6 +69,12 @@ namespace tryagain
 
         private void finalizeselectBtn_Click(object sender, EventArgs e)
         {
+            if (_batchStatus == "Paid")
+            {
+                MessageBox.Show("This batch is finalized and cannot be edited.", "Locked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             var confirm = MessageBox.Show("Finalize this batch and mark as Paid? This will lock the batch.", "Finalize Batch", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 

@@ -165,6 +165,23 @@ namespace tryagain
             }
         }
 
+        private void EditSelectedDeduct()
+        {
+            if (dgvDeduct.SelectedRows.Count > 0)
+            {
+                var rowView = dgvDeduct.SelectedRows[0].DataBoundItem as DataRowView;
+                AddOrEditDeduction(rowView.Row);
+            }
+        }
+
+        private void DeleteSelectedDeduct()
+        {
+            if (dgvDeduct.SelectedRows.Count > 0)
+            {
+                dgvDeduct.Rows.Remove(dgvDeduct.SelectedRows[0]);
+            }
+        }
+
         private void DeleteSelectedBonus()
         {
             if (dgvBonus.SelectedRows.Count > 0)
@@ -275,12 +292,12 @@ namespace tryagain
 
         private void deductEditBtn_Click(object sender, EventArgs e)
         {
-            EditSelectedBonus();
+            EditSelectedDeduct();
         }
 
         private void deductDeleteBtn_Click(object sender, EventArgs e)
         {
-            DeleteSelectedBonus();
+            DeleteSelectedDeduct();
         }
 
         private void bonusAddBtn_Click(object sender, EventArgs e)
@@ -296,6 +313,11 @@ namespace tryagain
         private void bonusDeleteBtn_Click(object sender, EventArgs e)
         {
             DeleteSelectedBonus();
+        }
+
+        private void cancelChangesBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

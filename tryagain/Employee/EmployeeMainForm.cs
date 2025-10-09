@@ -31,7 +31,6 @@ namespace tryagain.Employee
             LoadForm(new Employee.Dashboard(_empId));
         }
 
-        // Method to load a form into the contentPanel
         private void LoadForm(Form form)
         {
             contentPanel.Controls.Clear();

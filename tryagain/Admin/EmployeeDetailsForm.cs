@@ -34,16 +34,51 @@ namespace tryagain
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public EmployeeDetailsForm(string firstName = "", string lastName = "", string dept = "", string pos = "", string status = "")
+        public EmployeeDetailsForm(
+                                    string firstName = "",
+                                    string lastName = "",
+                                    string dept = "",
+                                    string pos = "",
+                                    string status = "",
+                                    string email = "",
+                                    DateTime? dob = null,
+                                    string address = "",
+                                    string contactName = "",
+                                    string relationship = "",
+                                    string contactPhone = "",
+                                    bool isEditMode = false
+                                )
         {
             InitializeComponent();
 
+            //basic info
             FirstNameTB.Text = firstName;
             LastNameTB.Text = lastName;
             DepartmentCB.Text = dept;
             PositionTB.Text = pos;
             StatusCB.Items.AddRange(new[] { "Active", "Inactive" });
             StatusCB.Text = string.IsNullOrEmpty(status) ? "Active" : status;
+
+            //Extra details
+            emailaddTxt.Text = email;
+            birthdateDtp.Value = dob ?? DateTime.Today;
+            addressTxt.Text = address;
+
+            // Emergency contact
+            emergencyNameTxt.Text = contactName;
+            emergencyRelationshipTxt.Text = relationship;
+            emergencyContactTxt.Text = contactPhone;
+
+            if (isEditMode)
+            {
+                empUsernameTxt.Visible = false;
+                empPasswordTxt.Visible = false;
+                // hide labels too if you have them
+                empaccountLbl.Visible = false;
+                empaccountuserLbl.Visible = false;
+                empaccountpassLbl.Visible = false;
+
+            }
 
             submitBtn.Click += BtnSave_Click;
             cancelBtn.Click += BtnCancel_Click;
@@ -70,12 +105,32 @@ namespace tryagain
             ContactPhone = emergencyContactTxt.Text.Trim();
 
             // Employee Account Details
-            Username = empUsernameTxt.Text.Trim();
-            Password = empPasswordTxt.Text.Trim();
+            Username = empUsernameTxt.Visible ? empUsernameTxt.Text.Trim() : null;
+            Password = empPasswordTxt.Visible ? empPasswordTxt.Text.Trim() : null;
 
-            if (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName))
+            if (string.IsNullOrWhiteSpace(FirstName))
             {
-                MessageBox.Show("First and Last Name are required.");
+                MessageBox.Show("First name is required.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(LastName))
+            {
+                MessageBox.Show("Last name is required.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Department))
+            {
+                MessageBox.Show("Department is required.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Position))
+            {
+                MessageBox.Show("Position is required.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Status))
+            {
+                MessageBox.Show("Status is required.");
                 return;
             }
             if (string.IsNullOrWhiteSpace(Email))
@@ -83,7 +138,38 @@ namespace tryagain
                 MessageBox.Show("Email is required.");
                 return;
             }
+            if (string.IsNullOrWhiteSpace(Address))
+            {
+                MessageBox.Show("Address is required.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(ContactName))
+            {
+                MessageBox.Show("Emergency contact name is required.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Relationship))
+            {
+                MessageBox.Show("Emergency contact relationship is required.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(ContactPhone))
+            {
+                MessageBox.Show("Emergency contact phone is required.");
+                return;
+            }
 
+            // Only require username/password in Add mode (when textboxes are visible)
+            if (empUsernameTxt.Visible && string.IsNullOrWhiteSpace(Username))
+            {
+                MessageBox.Show("Username is required.");
+                return;
+            }
+            if (empPasswordTxt.Visible && string.IsNullOrWhiteSpace(Password))
+            {
+                MessageBox.Show("Password is required.");
+                return;
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

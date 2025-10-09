@@ -102,7 +102,6 @@ namespace tryagain
             return (absences, halfdays, lates);
         }
 
-
         private int GetUnpaidLeaveDays(int empId, DateTime start, DateTime end, SqlConnection conn, SqlTransaction tx)
         {
             string sql = @"SELECT ISNULL(SUM(DATEDIFF(DAY, start_date, end_date) + 1),0)
@@ -118,6 +117,25 @@ namespace tryagain
                 cmd.Parameters.AddWithValue("@start", start);
                 cmd.Parameters.AddWithValue("@end", end);
                 return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        private bool BatchOverlaps(DateTime start, DateTime end, SqlConnection conn, SqlTransaction tx)
+        {
+            string sql = @"
+                    SELECT COUNT(*)
+                    FROM Payroll_Batch
+                    WHERE status <> 'Canceled'
+                    AND (
+                        (pay_period_start <= @end AND pay_period_end >= @start)
+                    )";
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn, tx))
+            {
+                cmd.Parameters.AddWithValue("@start", start);
+                cmd.Parameters.AddWithValue("@end", end);
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
             }
         }
 
@@ -150,6 +168,15 @@ namespace tryagain
 
                 try
                 {
+                    // 🔹 NEW: prevent overlapping batches
+                    if (BatchOverlaps(periodStart, periodEnd, conn, tx))
+                    {
+                        MessageBox.Show("A payroll batch already exists that overlaps this pay period. Please adjust the dates.",
+                                        "Duplicate Batch", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        tx.Rollback();
+                        return;
+                    }
+
                     // 1) Insert batch row
                     string insertBatchSql = @"
                 INSERT INTO Payroll_Batch (pay_period_start, pay_period_end, payment_date, status, total_net_pay)
@@ -202,7 +229,7 @@ namespace tryagain
                         // --- Deduction calculation ---
                         decimal absenceDeduction = absences * dailyRate;
                         decimal halfdayDeduction = halfdays * (dailyRate / 2);
-                        decimal lateDeduction = lates * hourlyRate; // or flat penalty
+                        decimal lateDeduction = lates * hourlyRate;
                         decimal leaveDeduction = unpaidLeaves * dailyRate;
 
                         decimal deductions = absenceDeduction + halfdayDeduction + lateDeduction + leaveDeduction;
@@ -214,7 +241,7 @@ namespace tryagain
                         decimal net = basePay - deductions + bonus;
                         runningTotalNetPay += net;
 
-                        // 4) Insert payroll record and get its ID
+                        // 4) Insert payroll record
                         string insertRecordSql = @"
                     INSERT INTO Payroll_Record
                         (batch_id, employee_id, gross_salary, base_pay, deductions_total, bonus_amount, net_pay)
@@ -273,9 +300,9 @@ namespace tryagain
 
                     // 6) Update batch totals
                     string updateBatchTotalSql = @"
-                            UPDATE Payroll_Batch
-                            SET total_net_pay = @total
-                            WHERE batch_id = @batchId;";
+                UPDATE Payroll_Batch
+                SET total_net_pay = @total
+                WHERE batch_id = @batchId;";
 
                     using (SqlCommand cmd = new SqlCommand(updateBatchTotalSql, conn, tx))
                     {
@@ -286,7 +313,8 @@ namespace tryagain
 
                     tx.Commit();
 
-                    MessageBox.Show($"Draft batch #{batchId} created with {employees.Rows.Count} employee records.\nTotal Net Pay: {runningTotalNetPay:C2}", "Batch Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Draft batch #{batchId} created with {employees.Rows.Count} employee records.\nTotal Net Pay: {runningTotalNetPay:C2}",
+                                    "Batch Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // refresh grid
                     LoadBatches();

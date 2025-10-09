@@ -42,6 +42,7 @@
             bonusEditBtn = new Button();
             bonusDeleteBtn = new Button();
             savechangeBtn = new Button();
+            cancelChangesBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvDeduct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvBonus).BeginInit();
             SuspendLayout();
@@ -102,7 +103,9 @@
             dgvDeduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDeduct.Location = new Point(10, 120);
             dgvDeduct.Name = "dgvDeduct";
+            dgvDeduct.RowHeadersVisible = false;
             dgvDeduct.RowHeadersWidth = 51;
+            dgvDeduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDeduct.Size = new Size(360, 300);
             dgvDeduct.TabIndex = 5;
             // 
@@ -114,7 +117,9 @@
             dgvBonus.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBonus.Location = new Point(400, 120);
             dgvBonus.Name = "dgvBonus";
+            dgvBonus.RowHeadersVisible = false;
             dgvBonus.RowHeadersWidth = 51;
+            dgvBonus.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBonus.Size = new Size(350, 300);
             dgvBonus.TabIndex = 6;
             // 
@@ -209,11 +214,25 @@
             savechangeBtn.UseVisualStyleBackColor = false;
             savechangeBtn.Click += savechangeBtn_Click;
             // 
+            // cancelChangesBtn
+            // 
+            cancelChangesBtn.BackColor = Color.Gray;
+            cancelChangesBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cancelChangesBtn.ForeColor = Color.White;
+            cancelChangesBtn.Location = new Point(170, 502);
+            cancelChangesBtn.Name = "cancelChangesBtn";
+            cancelChangesBtn.Size = new Size(92, 39);
+            cancelChangesBtn.TabIndex = 14;
+            cancelChangesBtn.Text = "Cancel";
+            cancelChangesBtn.UseVisualStyleBackColor = false;
+            cancelChangesBtn.Click += cancelChangesBtn_Click;
+            // 
             // PayrollRecordEditForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(782, 553);
+            Controls.Add(cancelChangesBtn);
             Controls.Add(savechangeBtn);
             Controls.Add(bonusDeleteBtn);
             Controls.Add(bonusEditBtn);
@@ -252,5 +271,6 @@
         private Button bonusEditBtn;
         private Button bonusDeleteBtn;
         private Button savechangeBtn;
+        private Button cancelChangesBtn;
     }
 }

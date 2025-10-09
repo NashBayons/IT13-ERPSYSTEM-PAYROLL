@@ -32,7 +32,7 @@ namespace tryagain
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT EmployeeID, FirstName, LastName, Department, Position, Status FROM Employees", conn);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT EmployeeID, FirstName, LastName, Department, Position, Status FROM Employees Where status ='active'", conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 dgvEmployee.DataSource = dt;
@@ -129,12 +129,22 @@ namespace tryagain
 
             int employeeId = Convert.ToInt32(dgvEmployee.CurrentRow.Cells["EmployeeID"].Value);
 
+            // Get details + contact info
+            var details = GetExtraDetails(employeeId);
+
             using (var form = new EmployeeDetailsForm(
                 dgvEmployee.CurrentRow.Cells["FirstName"].Value.ToString(),
                 dgvEmployee.CurrentRow.Cells["LastName"].Value.ToString(),
                 dgvEmployee.CurrentRow.Cells["Department"].Value.ToString(),
                 dgvEmployee.CurrentRow.Cells["Position"].Value.ToString(),
-                dgvEmployee.CurrentRow.Cells["Status"].Value.ToString()
+                dgvEmployee.CurrentRow.Cells["Status"].Value.ToString(),
+                details.email,
+                details.dob,
+                details.address,
+                details.contactName,
+                details.relationship,
+                details.phone,
+                isEditMode: true // hide user account
             ))
             {
                 if (form.ShowDialog() == DialogResult.OK)
@@ -142,17 +152,60 @@ namespace tryagain
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
-                        SqlCommand cmd = new SqlCommand(
-                            "UPDATE Employees SET FirstName=@FirstName, LastName=@LastName, Department=@Department, Position=@Position, Status=@Status WHERE EmployeeID=@EmployeeID", conn);
 
-                        cmd.Parameters.AddWithValue("@FirstName", form.FirstName);
-                        cmd.Parameters.AddWithValue("@LastName", form.LastName);
-                        cmd.Parameters.AddWithValue("@Department", form.Department);
-                        cmd.Parameters.AddWithValue("@Position", form.Position);
-                        cmd.Parameters.AddWithValue("@Status", form.Status);
-                        cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
+                        using (SqlTransaction transaction = conn.BeginTransaction())
+                        {
+                            try
+                            {
+                                // Update Employees
+                                SqlCommand cmdEmp = new SqlCommand(@"
+                            UPDATE Employees
+                            SET FirstName=@FirstName, LastName=@LastName,
+                                Department=@Department, Position=@Position, Status=@Status
+                            WHERE EmployeeID=@EmployeeID", conn, transaction);
 
-                        cmd.ExecuteNonQuery();
+                                cmdEmp.Parameters.AddWithValue("@FirstName", form.FirstName);
+                                cmdEmp.Parameters.AddWithValue("@LastName", form.LastName);
+                                cmdEmp.Parameters.AddWithValue("@Department", form.Department);
+                                cmdEmp.Parameters.AddWithValue("@Position", form.Position);
+                                cmdEmp.Parameters.AddWithValue("@Status", form.Status);
+                                cmdEmp.Parameters.AddWithValue("@EmployeeID", employeeId);
+                                cmdEmp.ExecuteNonQuery();
+
+                                // Update EmployeeDetails
+                                SqlCommand cmdDetails = new SqlCommand(@"
+                            UPDATE EmployeeDetails
+                            SET Email=@Email, Date_of_Birth=@DOB, Address=@Address
+                            WHERE EmployeeID=@EmployeeID", conn, transaction);
+
+                                cmdDetails.Parameters.AddWithValue("@Email", form.Email);
+                                cmdDetails.Parameters.AddWithValue("@DOB", (object)form.DateOfBirth ?? DBNull.Value);
+                                cmdDetails.Parameters.AddWithValue("@Address", form.Address);
+                                cmdDetails.Parameters.AddWithValue("@EmployeeID", employeeId);
+                                cmdDetails.ExecuteNonQuery();
+
+                                // Update EmergencyContact
+                                SqlCommand cmdContact = new SqlCommand(@"
+                            UPDATE EmergencyContact
+                            SET Contact_Name=@ContactName, Relationship=@Relationship, Phone_Number=@PhoneNumber
+                            WHERE EmployeeID=@EmployeeID", conn, transaction);
+
+                                cmdContact.Parameters.AddWithValue("@ContactName", form.ContactName);
+                                cmdContact.Parameters.AddWithValue("@Relationship", form.Relationship);
+                                cmdContact.Parameters.AddWithValue("@PhoneNumber", form.ContactPhone);
+                                cmdContact.Parameters.AddWithValue("@EmployeeID", employeeId);
+                                cmdContact.ExecuteNonQuery();
+
+                                // ✅ Commit transaction
+                                transaction.Commit();
+                                MessageBox.Show("Employee updated successfully!");
+                            }
+                            catch (Exception ex)
+                            {
+                                transaction.Rollback();
+                                MessageBox.Show("Error updating employee: " + ex.Message);
+                            }
+                        }
                     }
                     LoadEmployees();
                 }
@@ -161,24 +214,63 @@ namespace tryagain
 
         private void deleteBtn1_Click(object sender, EventArgs e)
         {
-            DataGridView dgv = this.Controls["dgvEmployees"] as DataGridView;
-            if (dgv.CurrentRow == null) return;
+            if (dgvEmployee == null || dgvEmployee.CurrentRow == null)
+                return;
 
-            int employeeId = Convert.ToInt32(dgv.CurrentRow.Cells["EmployeeID"].Value);
+            int employeeId = Convert.ToInt32(dgvEmployee.CurrentRow.Cells["EmployeeID"].Value);
 
-            var confirm = MessageBox.Show("Are you sure you want to delete this employee?", "Confirm Delete", MessageBoxButtons.YesNo);
+            var confirm = MessageBox.Show("Are you sure you want to delete this employee?",
+                                          "Confirm Delete",
+                                          MessageBoxButtons.YesNo,
+                                          MessageBoxIcon.Warning);
+
             if (confirm == DialogResult.Yes)
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("DELETE FROM Employees WHERE EmployeeID=@EmployeeID", conn);
+
+                    // instead of hard delete, mark as inactive (soft delete)
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE Employees SET Status = 'Inactive' WHERE EmployeeID = @EmployeeID", conn);
                     cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
                     cmd.ExecuteNonQuery();
                 }
 
                 LoadEmployees(); // refresh grid
             }
+        }
+
+        private (string email, DateTime? dob, string address, string contactName, string relationship, string phone) GetExtraDetails(int employeeId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(@"
+            SELECT d.Email, d.Date_of_Birth, d.Address,
+                   c.Contact_Name, c.Relationship, c.Phone_Number
+            FROM EmployeeDetails d
+            LEFT JOIN EmergencyContact c ON d.EmployeeID = c.EmployeeID
+            WHERE d.EmployeeID = @EmployeeID", conn);
+
+                cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return (
+                            reader["Email"].ToString(),
+                            reader["Date_of_Birth"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Date_of_Birth"]),
+                            reader["Address"].ToString(),
+                            reader["Contact_Name"].ToString(),
+                            reader["Relationship"].ToString(),
+                            reader["Phone_Number"].ToString()
+                        );
+                    }
+                }
+            }
+            return (null, null, null, null, null, null);
         }
     }
 }

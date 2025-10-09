@@ -57,11 +57,11 @@
             label13 = new Label();
             label14 = new Label();
             label15 = new Label();
-            label16 = new Label();
+            empaccountLbl = new Label();
             empPasswordTxt = new TextBox();
             empUsernameTxt = new TextBox();
-            label17 = new Label();
-            label18 = new Label();
+            empaccountpassLbl = new Label();
+            empaccountuserLbl = new Label();
             SuspendLayout();
             // 
             // label1
@@ -315,15 +315,15 @@
             label15.TabIndex = 29;
             label15.Text = "Emergency Contact";
             // 
-            // label16
+            // empaccountLbl
             // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.Location = new Point(409, 276);
-            label16.Name = "label16";
-            label16.Size = new Size(171, 25);
-            label16.TabIndex = 34;
-            label16.Text = "Employee Account";
+            empaccountLbl.AutoSize = true;
+            empaccountLbl.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            empaccountLbl.Location = new Point(409, 276);
+            empaccountLbl.Name = "empaccountLbl";
+            empaccountLbl.Size = new Size(171, 25);
+            empaccountLbl.TabIndex = 34;
+            empaccountLbl.Text = "Employee Account";
             // 
             // empPasswordTxt
             // 
@@ -340,34 +340,34 @@
             empUsernameTxt.Size = new Size(151, 27);
             empUsernameTxt.TabIndex = 32;
             // 
-            // label17
+            // empaccountpassLbl
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(443, 342);
-            label17.Name = "label17";
-            label17.Size = new Size(70, 20);
-            label17.TabIndex = 31;
-            label17.Text = "Password";
+            empaccountpassLbl.AutoSize = true;
+            empaccountpassLbl.Location = new Point(443, 342);
+            empaccountpassLbl.Name = "empaccountpassLbl";
+            empaccountpassLbl.Size = new Size(70, 20);
+            empaccountpassLbl.TabIndex = 31;
+            empaccountpassLbl.Text = "Password";
             // 
-            // label18
+            // empaccountuserLbl
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(438, 309);
-            label18.Name = "label18";
-            label18.Size = new Size(75, 20);
-            label18.TabIndex = 30;
-            label18.Text = "Username";
+            empaccountuserLbl.AutoSize = true;
+            empaccountuserLbl.Location = new Point(438, 309);
+            empaccountuserLbl.Name = "empaccountuserLbl";
+            empaccountuserLbl.Size = new Size(75, 20);
+            empaccountuserLbl.TabIndex = 30;
+            empaccountuserLbl.Text = "Username";
             // 
             // EmployeeDetailsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(731, 533);
-            Controls.Add(label16);
+            Controls.Add(empaccountLbl);
             Controls.Add(empPasswordTxt);
             Controls.Add(empUsernameTxt);
-            Controls.Add(label17);
-            Controls.Add(label18);
+            Controls.Add(empaccountpassLbl);
+            Controls.Add(empaccountuserLbl);
             Controls.Add(label15);
             Controls.Add(emergencyContactTxt);
             Controls.Add(emergencyRelationshipTxt);
@@ -434,10 +434,10 @@
         private Label label13;
         private Label label14;
         private Label label15;
-        private Label label16;
+        private Label empaccountLbl;
         private TextBox empPasswordTxt;
         private TextBox empUsernameTxt;
-        private Label label17;
-        private Label label18;
+        private Label empaccountpassLbl;
+        private Label empaccountuserLbl;
     }
 }

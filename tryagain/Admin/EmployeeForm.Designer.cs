@@ -57,6 +57,7 @@
             dgvEmployee.ReadOnly = true;
             dgvEmployee.RowHeadersVisible = false;
             dgvEmployee.RowHeadersWidth = 51;
+            dgvEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEmployee.Size = new Size(937, 353);
             dgvEmployee.TabIndex = 1;
             // 

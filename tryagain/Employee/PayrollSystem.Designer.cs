@@ -113,7 +113,7 @@
             // 
             deductionsValueLabel.AutoSize = true;
             deductionsValueLabel.ForeColor = Color.Red;
-            deductionsValueLabel.Location = new Point(765, 71);
+            deductionsValueLabel.Location = new Point(755, 71);
             deductionsValueLabel.Name = "deductionsValueLabel";
             deductionsValueLabel.Size = new Size(84, 20);
             deductionsValueLabel.TabIndex = 38;
@@ -123,7 +123,7 @@
             // 
             bonusesValueLabel.AutoSize = true;
             bonusesValueLabel.ForeColor = Color.Green;
-            bonusesValueLabel.Location = new Point(541, 71);
+            bonusesValueLabel.Location = new Point(407, 71);
             bonusesValueLabel.Name = "bonusesValueLabel";
             bonusesValueLabel.Size = new Size(63, 20);
             bonusesValueLabel.TabIndex = 37;
@@ -133,7 +133,7 @@
             // 
             basepayValueLabel.AutoSize = true;
             basepayValueLabel.ForeColor = Color.Green;
-            basepayValueLabel.Location = new Point(321, 71);
+            basepayValueLabel.Location = new Point(121, 120);
             basepayValueLabel.Name = "basepayValueLabel";
             basepayValueLabel.Size = new Size(64, 20);
             basepayValueLabel.TabIndex = 36;
@@ -153,7 +153,7 @@
             // 
             label8.AutoSize = true;
             label8.ForeColor = Color.Green;
-            label8.Location = new Point(438, 71);
+            label8.Location = new Point(306, 71);
             label8.Name = "label8";
             label8.Size = new Size(63, 20);
             label8.TabIndex = 34;
@@ -163,7 +163,7 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = Color.Green;
-            label7.Location = new Point(218, 71);
+            label7.Location = new Point(18, 120);
             label7.Name = "label7";
             label7.Size = new Size(66, 20);
             label7.TabIndex = 33;
@@ -216,7 +216,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = Color.Red;
-            label4.Location = new Point(675, 71);
+            label4.Location = new Point(665, 71);
             label4.Name = "label4";
             label4.Size = new Size(84, 20);
             label4.TabIndex = 17;
@@ -256,6 +256,7 @@
             // 
             // payrollDvg
             // 
+            payrollDvg.BackgroundColor = SystemColors.Control;
             payrollDvg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             payrollDvg.Location = new Point(0, 61);
             payrollDvg.Margin = new Padding(3, 4, 3, 4);

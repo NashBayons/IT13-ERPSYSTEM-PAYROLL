@@ -45,10 +45,10 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Arial", 16F, FontStyle.Bold);
+            label5.Font = new Font("Arial", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.Location = new Point(344, 18);
             label5.Name = "label5";
-            label5.Size = new Size(312, 32);
+            label5.Size = new Size(383, 40);
             label5.TabIndex = 21;
             label5.Text = "Attendance Monitoring";
             label5.TextAlign = ContentAlignment.BottomCenter;
@@ -56,56 +56,66 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(44, 65);
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(44, 79);
             label1.Name = "label1";
-            label1.Size = new Size(49, 20);
+            label1.Size = new Size(95, 38);
             label1.TabIndex = 22;
-            label1.Text = "Today";
+            label1.Text = "Today:";
             // 
             // dateNowLabel
             // 
             dateNowLabel.AutoSize = true;
-            dateNowLabel.Location = new Point(123, 65);
+            dateNowLabel.Font = new Font("Segoe UI", 16.2F);
+            dateNowLabel.Location = new Point(145, 79);
             dateNowLabel.Name = "dateNowLabel";
-            dateNowLabel.Size = new Size(114, 20);
+            dateNowLabel.Size = new Size(216, 38);
             dateNowLabel.TabIndex = 23;
             dateNowLabel.Text = "Month Day year";
             // 
             // timeinBtn
             // 
-            timeinBtn.Location = new Point(120, 120);
+            timeinBtn.BackColor = Color.FromArgb(0, 192, 0);
+            timeinBtn.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            timeinBtn.ForeColor = Color.White;
+            timeinBtn.Location = new Point(44, 215);
             timeinBtn.Name = "timeinBtn";
-            timeinBtn.Size = new Size(94, 29);
+            timeinBtn.Size = new Size(123, 46);
             timeinBtn.TabIndex = 24;
             timeinBtn.Text = "Time In";
-            timeinBtn.UseVisualStyleBackColor = true;
+            timeinBtn.UseVisualStyleBackColor = false;
             timeinBtn.Click += timeinBtn_Click;
             // 
             // timeoutBtn
             // 
-            timeoutBtn.Location = new Point(290, 120);
+            timeoutBtn.BackColor = Color.Red;
+            timeoutBtn.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            timeoutBtn.ForeColor = Color.White;
+            timeoutBtn.Location = new Point(173, 215);
             timeoutBtn.Name = "timeoutBtn";
-            timeoutBtn.Size = new Size(94, 29);
+            timeoutBtn.Size = new Size(123, 46);
             timeoutBtn.TabIndex = 25;
             timeoutBtn.Text = "Time Out";
-            timeoutBtn.UseVisualStyleBackColor = true;
+            timeoutBtn.UseVisualStyleBackColor = false;
             timeoutBtn.Click += timeoutBtn_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(39, 163);
+            label2.Font = new Font("Segoe UI", 16.2F);
+            label2.Location = new Point(49, 143);
             label2.Name = "label2";
-            label2.Size = new Size(104, 20);
+            label2.Size = new Size(198, 38);
             label2.TabIndex = 26;
             label2.Text = "Current Status:";
             // 
             // statusLabel
             // 
             statusLabel.AutoSize = true;
-            statusLabel.Location = new Point(188, 163);
+            statusLabel.Font = new Font("Segoe UI", 16.2F);
+            statusLabel.Location = new Point(253, 143);
             statusLabel.Name = "statusLabel";
-            statusLabel.Size = new Size(99, 20);
+            statusLabel.Size = new Size(184, 38);
             statusLabel.TabIndex = 27;
             statusLabel.Text = "Event at Time";
             // 
@@ -114,29 +124,35 @@
             panel1.BackColor = Color.White;
             panel1.Controls.Add(label4);
             panel1.Controls.Add(attendanceDvg);
-            panel1.Location = new Point(44, 229);
+            panel1.Location = new Point(44, 267);
             panel1.Name = "panel1";
-            panel1.Size = new Size(589, 308);
+            panel1.Size = new Size(925, 308);
             panel1.TabIndex = 28;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(11, 13);
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(5, 15);
             label4.Name = "label4";
-            label4.Size = new Size(136, 20);
+            label4.Size = new Size(188, 28);
             label4.TabIndex = 1;
             label4.Text = "Attendance History";
             // 
             // attendanceDvg
             // 
+            attendanceDvg.AllowUserToAddRows = false;
+            attendanceDvg.AllowUserToResizeColumns = false;
+            attendanceDvg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            attendanceDvg.BackgroundColor = SystemColors.Control;
             attendanceDvg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             attendanceDvg.Dock = DockStyle.Bottom;
             attendanceDvg.Location = new Point(0, 46);
             attendanceDvg.Name = "attendanceDvg";
             attendanceDvg.RowHeadersVisible = false;
             attendanceDvg.RowHeadersWidth = 51;
-            attendanceDvg.Size = new Size(589, 262);
+            attendanceDvg.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            attendanceDvg.Size = new Size(925, 262);
             attendanceDvg.TabIndex = 0;
             // 
             // Attendance

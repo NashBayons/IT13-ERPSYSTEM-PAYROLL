@@ -47,10 +47,10 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Arial", 16F, FontStyle.Bold);
+            label5.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.Location = new Point(12, 9);
             label5.Name = "label5";
-            label5.Size = new Size(207, 32);
+            label5.Size = new Size(297, 46);
             label5.TabIndex = 22;
             label5.Text = "Leave Request";
             label5.TextAlign = ContentAlignment.BottomCenter;
@@ -58,111 +58,126 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(18, 59);
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(12, 67);
             label1.Name = "label1";
-            label1.Size = new Size(82, 20);
+            label1.Size = new Size(153, 38);
             label1.TabIndex = 23;
             label1.Text = "Leave Type";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(18, 101);
+            label2.Font = new Font("Segoe UI", 16.2F);
+            label2.Location = new Point(383, 66);
             label2.Name = "label2";
-            label2.Size = new Size(76, 20);
+            label2.Size = new Size(139, 38);
             label2.TabIndex = 24;
             label2.Text = "Start Date";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(227, 101);
+            label3.Font = new Font("Segoe UI", 16.2F);
+            label3.Location = new Point(676, 67);
             label3.Name = "label3";
-            label3.Size = new Size(70, 20);
+            label3.Size = new Size(129, 38);
             label3.TabIndex = 25;
             label3.Text = "End Date";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(18, 144);
+            label4.Font = new Font("Segoe UI", 16.2F);
+            label4.Location = new Point(59, 129);
             label4.Name = "label4";
-            label4.Size = new Size(57, 20);
+            label4.Size = new Size(106, 38);
             label4.TabIndex = 26;
             label4.Text = "Reason";
             // 
             // dateFrom
             // 
             dateFrom.Format = DateTimePickerFormat.Short;
-            dateFrom.Location = new Point(106, 101);
+            dateFrom.Location = new Point(528, 75);
             dateFrom.Name = "dateFrom";
-            dateFrom.Size = new Size(104, 27);
+            dateFrom.Size = new Size(125, 27);
             dateFrom.TabIndex = 27;
             // 
             // dateTo
             // 
             dateTo.Format = DateTimePickerFormat.Short;
-            dateTo.Location = new Point(303, 101);
+            dateTo.Location = new Point(811, 75);
             dateTo.Name = "dateTo";
-            dateTo.Size = new Size(104, 27);
+            dateTo.Size = new Size(125, 27);
             dateTo.TabIndex = 28;
             // 
             // leavetypeCmb
             // 
             leavetypeCmb.FormattingEnabled = true;
             leavetypeCmb.Items.AddRange(new object[] { "Vacation", "Sick", "Emergency", "Other" });
-            leavetypeCmb.Location = new Point(106, 56);
+            leavetypeCmb.Location = new Point(171, 77);
             leavetypeCmb.Name = "leavetypeCmb";
-            leavetypeCmb.Size = new Size(151, 28);
+            leavetypeCmb.Size = new Size(169, 28);
             leavetypeCmb.TabIndex = 29;
             // 
             // reasonTxt
             // 
-            reasonTxt.Location = new Point(106, 144);
+            reasonTxt.Location = new Point(171, 129);
             reasonTxt.Multiline = true;
             reasonTxt.Name = "reasonTxt";
-            reasonTxt.Size = new Size(281, 54);
+            reasonTxt.Size = new Size(271, 65);
             reasonTxt.TabIndex = 30;
             // 
             // submitBtn
             // 
-            submitBtn.Location = new Point(106, 204);
+            submitBtn.BackColor = Color.FromArgb(0, 192, 0);
+            submitBtn.FlatStyle = FlatStyle.Flat;
+            submitBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            submitBtn.ForeColor = Color.White;
+            submitBtn.Location = new Point(302, 214);
             submitBtn.Name = "submitBtn";
-            submitBtn.Size = new Size(94, 29);
+            submitBtn.Size = new Size(106, 40);
             submitBtn.TabIndex = 31;
             submitBtn.Text = "Submit";
-            submitBtn.UseVisualStyleBackColor = true;
+            submitBtn.UseVisualStyleBackColor = false;
             submitBtn.Click += submitBtn_Click;
             // 
             // cancelBtn
             // 
-            cancelBtn.Location = new Point(206, 204);
+            cancelBtn.BackColor = Color.DarkGray;
+            cancelBtn.FlatStyle = FlatStyle.Flat;
+            cancelBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cancelBtn.ForeColor = Color.White;
+            cancelBtn.Location = new Point(190, 214);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(94, 29);
+            cancelBtn.Size = new Size(106, 40);
             cancelBtn.TabIndex = 32;
             cancelBtn.Text = "Cancel";
-            cancelBtn.UseVisualStyleBackColor = true;
+            cancelBtn.UseVisualStyleBackColor = false;
             cancelBtn.Click += cancelBtn_Click;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Arial", 16F, FontStyle.Bold);
-            label6.Location = new Point(18, 264);
+            label6.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(26, 322);
             label6.Name = "label6";
-            label6.Size = new Size(251, 32);
+            label6.Size = new Size(247, 38);
             label6.TabIndex = 33;
             label6.Text = "My Leave Request";
             label6.TextAlign = ContentAlignment.BottomCenter;
             // 
             // leaveDgv
             // 
+            leaveDgv.AllowUserToAddRows = false;
+            leaveDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            leaveDgv.BackgroundColor = SystemColors.Control;
             leaveDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            leaveDgv.Location = new Point(18, 324);
+            leaveDgv.Location = new Point(26, 367);
             leaveDgv.Name = "leaveDgv";
             leaveDgv.RowHeadersVisible = false;
             leaveDgv.RowHeadersWidth = 51;
-            leaveDgv.Size = new Size(865, 318);
+            leaveDgv.Size = new Size(954, 318);
             leaveDgv.TabIndex = 34;
             // 
             // LeaveForm

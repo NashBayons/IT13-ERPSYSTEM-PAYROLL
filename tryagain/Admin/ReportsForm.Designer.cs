@@ -42,124 +42,144 @@
             expPDFBtn = new Button();
             reportsDvg = new DataGridView();
             summaryLbl = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)reportsDvg).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(341, 28);
+            label1.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(20, 18);
             label1.Name = "label1";
-            label1.Size = new Size(151, 20);
+            label1.Size = new Size(401, 50);
             label1.TabIndex = 0;
             label1.Text = "REPORTS & ANALYTICS";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(20, 85);
+            label2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(28, 84);
             label2.Name = "label2";
-            label2.Size = new Size(46, 20);
+            label2.Size = new Size(53, 23);
             label2.TabIndex = 1;
             label2.Text = "From:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(193, 85);
+            label3.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(50, 118);
             label3.Name = "label3";
-            label3.Size = new Size(28, 20);
+            label3.Size = new Size(31, 23);
             label3.TabIndex = 2;
             label3.Text = "To:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(365, 85);
+            label4.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(267, 84);
             label4.Name = "label4";
-            label4.Size = new Size(92, 20);
+            label4.Size = new Size(106, 23);
             label4.TabIndex = 3;
             label4.Text = "Department:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(20, 118);
+            label5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(268, 117);
             label5.Name = "label5";
-            label5.Size = new Size(92, 20);
+            label5.Size = new Size(105, 23);
             label5.TabIndex = 4;
             label5.Text = "Report Type:";
             // 
             // datefromPicker
             // 
             datefromPicker.Format = DateTimePickerFormat.Short;
-            datefromPicker.Location = new Point(76, 80);
+            datefromPicker.Location = new Point(97, 83);
             datefromPicker.Name = "datefromPicker";
-            datefromPicker.Size = new Size(111, 27);
+            datefromPicker.Size = new Size(127, 27);
             datefromPicker.TabIndex = 5;
             // 
             // datetoPicker
             // 
             datetoPicker.Format = DateTimePickerFormat.Short;
-            datetoPicker.Location = new Point(248, 80);
+            datetoPicker.Location = new Point(97, 116);
             datetoPicker.Name = "datetoPicker";
-            datetoPicker.Size = new Size(111, 27);
+            datetoPicker.Size = new Size(127, 27);
             datetoPicker.TabIndex = 6;
             // 
             // DeparmentCmb
             // 
             DeparmentCmb.FormattingEnabled = true;
             DeparmentCmb.Items.AddRange(new object[] { "All", "HR", "IT", "CS" });
-            DeparmentCmb.Location = new Point(463, 82);
+            DeparmentCmb.Location = new Point(379, 83);
             DeparmentCmb.Name = "DeparmentCmb";
-            DeparmentCmb.Size = new Size(100, 28);
+            DeparmentCmb.Size = new Size(175, 28);
             DeparmentCmb.TabIndex = 7;
             // 
             // reportTypeCmb
             // 
             reportTypeCmb.FormattingEnabled = true;
             reportTypeCmb.Items.AddRange(new object[] { "Attendance Summary", "Payroll", "Leave" });
-            reportTypeCmb.Location = new Point(118, 115);
+            reportTypeCmb.Location = new Point(379, 117);
             reportTypeCmb.Name = "reportTypeCmb";
-            reportTypeCmb.Size = new Size(100, 28);
+            reportTypeCmb.Size = new Size(175, 28);
             reportTypeCmb.TabIndex = 8;
             // 
             // generateBtn
             // 
-            generateBtn.Location = new Point(28, 163);
+            generateBtn.BackColor = Color.RoyalBlue;
+            generateBtn.FlatStyle = FlatStyle.Flat;
+            generateBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            generateBtn.ForeColor = Color.White;
+            generateBtn.Location = new Point(12, 190);
             generateBtn.Name = "generateBtn";
-            generateBtn.Size = new Size(94, 29);
+            generateBtn.Size = new Size(109, 33);
             generateBtn.TabIndex = 9;
             generateBtn.Text = "Generate Report";
-            generateBtn.UseVisualStyleBackColor = true;
+            generateBtn.UseVisualStyleBackColor = false;
             generateBtn.Click += generateBtn_Click;
             // 
             // expCSVBtn
             // 
-            expCSVBtn.Location = new Point(149, 163);
+            expCSVBtn.BackColor = Color.FromArgb(0, 192, 0);
+            expCSVBtn.FlatStyle = FlatStyle.Flat;
+            expCSVBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            expCSVBtn.ForeColor = Color.White;
+            expCSVBtn.Location = new Point(127, 190);
             expCSVBtn.Name = "expCSVBtn";
-            expCSVBtn.Size = new Size(94, 29);
+            expCSVBtn.Size = new Size(109, 33);
             expCSVBtn.TabIndex = 10;
             expCSVBtn.Text = "Export CSV";
-            expCSVBtn.UseVisualStyleBackColor = true;
+            expCSVBtn.UseVisualStyleBackColor = false;
             expCSVBtn.Click += expCSVBtn_Click;
             // 
             // expPDFBtn
             // 
-            expPDFBtn.Location = new Point(274, 163);
+            expPDFBtn.BackColor = Color.Red;
+            expPDFBtn.FlatStyle = FlatStyle.Flat;
+            expPDFBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            expPDFBtn.ForeColor = Color.White;
+            expPDFBtn.Location = new Point(242, 190);
             expPDFBtn.Name = "expPDFBtn";
-            expPDFBtn.Size = new Size(94, 29);
+            expPDFBtn.Size = new Size(109, 33);
             expPDFBtn.TabIndex = 11;
             expPDFBtn.Text = "Export PDF";
-            expPDFBtn.UseVisualStyleBackColor = true;
+            expPDFBtn.UseVisualStyleBackColor = false;
             expPDFBtn.Click += expPDFBtn_Click;
             // 
             // reportsDvg
             // 
             reportsDvg.AllowUserToAddRows = false;
             reportsDvg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            reportsDvg.BackgroundColor = SystemColors.Control;
             reportsDvg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            reportsDvg.Location = new Point(28, 239);
+            reportsDvg.Location = new Point(16, 24);
             reportsDvg.Name = "reportsDvg";
             reportsDvg.RowHeadersVisible = false;
             reportsDvg.RowHeadersWidth = 51;
@@ -169,11 +189,21 @@
             // summaryLbl
             // 
             summaryLbl.AutoSize = true;
-            summaryLbl.Location = new Point(28, 561);
+            summaryLbl.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            summaryLbl.Location = new Point(20, 594);
             summaryLbl.Name = "summaryLbl";
-            summaryLbl.Size = new Size(118, 20);
+            summaryLbl.Size = new Size(146, 25);
             summaryLbl.TabIndex = 13;
             summaryLbl.Text = "Total Employees";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(reportsDvg);
+            panel1.Location = new Point(12, 229);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(938, 349);
+            panel1.TabIndex = 14;
             // 
             // ReportsForm
             // 
@@ -181,7 +211,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(982, 753);
             Controls.Add(summaryLbl);
-            Controls.Add(reportsDvg);
             Controls.Add(expPDFBtn);
             Controls.Add(expCSVBtn);
             Controls.Add(generateBtn);
@@ -194,10 +223,12 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ReportsForm";
             Text = "ReportsForm";
             ((System.ComponentModel.ISupportInitialize)reportsDvg).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -218,5 +249,6 @@
         private Button expPDFBtn;
         private DataGridView reportsDvg;
         private Label summaryLbl;
+        private Panel panel1;
     }
 }

@@ -46,122 +46,141 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(112, 22);
+            label1.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(38, 15);
             label1.Name = "label1";
-            label1.Size = new Size(120, 20);
+            label1.Size = new Size(316, 50);
             label1.TabIndex = 0;
             label1.Text = "Account Settings";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(29, 65);
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(292, 116);
             label2.Name = "label2";
-            label2.Size = new Size(75, 20);
+            label2.Size = new Size(152, 41);
             label2.TabIndex = 1;
             label2.Text = "Username";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(29, 100);
+            label3.Font = new Font("Segoe UI", 18F);
+            label3.Location = new Point(224, 174);
             label3.Name = "label3";
-            label3.Size = new Size(109, 20);
+            label3.Size = new Size(220, 41);
             label3.TabIndex = 2;
             label3.Text = "New Username";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(29, 172);
+            label4.Font = new Font("Segoe UI", 18F);
+            label4.Location = new Point(194, 234);
             label4.Name = "label4";
-            label4.Size = new Size(122, 20);
+            label4.Size = new Size(250, 41);
             label4.TabIndex = 3;
             label4.Text = "Current Password";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(29, 207);
+            label5.Font = new Font("Segoe UI", 18F);
+            label5.Location = new Point(233, 285);
             label5.Name = "label5";
-            label5.Size = new Size(104, 20);
+            label5.Size = new Size(211, 41);
             label5.TabIndex = 4;
             label5.Text = "New Password";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(29, 244);
+            label6.Font = new Font("Segoe UI", 18F);
+            label6.Location = new Point(119, 343);
             label6.Name = "label6";
-            label6.Size = new Size(161, 20);
+            label6.Size = new Size(325, 41);
             label6.TabIndex = 5;
             label6.Text = "Confirm New Password";
             // 
             // saveBtn
             // 
-            saveBtn.Location = new Point(53, 303);
+            saveBtn.BackColor = Color.FromArgb(0, 192, 0);
+            saveBtn.FlatStyle = FlatStyle.Flat;
+            saveBtn.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            saveBtn.ForeColor = Color.White;
+            saveBtn.Location = new Point(511, 459);
             saveBtn.Name = "saveBtn";
-            saveBtn.Size = new Size(94, 29);
+            saveBtn.Size = new Size(157, 51);
             saveBtn.TabIndex = 6;
             saveBtn.Text = "Save";
-            saveBtn.UseVisualStyleBackColor = true;
+            saveBtn.UseVisualStyleBackColor = false;
             saveBtn.Click += saveBtn_Click;
             // 
             // cancelBtn
             // 
-            cancelBtn.Location = new Point(168, 303);
+            cancelBtn.BackColor = Color.Gray;
+            cancelBtn.FlatStyle = FlatStyle.Flat;
+            cancelBtn.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cancelBtn.ForeColor = Color.White;
+            cancelBtn.Location = new Point(348, 459);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(94, 29);
+            cancelBtn.Size = new Size(138, 51);
             cancelBtn.TabIndex = 7;
             cancelBtn.Text = "Cancel";
-            cancelBtn.UseVisualStyleBackColor = true;
+            cancelBtn.UseVisualStyleBackColor = false;
             cancelBtn.Click += cancelBtn_Click;
             // 
             // curUsernameTxt
             // 
-            curUsernameTxt.Location = new Point(229, 62);
+            curUsernameTxt.Location = new Point(450, 116);
+            curUsernameTxt.Multiline = true;
             curUsernameTxt.Name = "curUsernameTxt";
             curUsernameTxt.ReadOnly = true;
-            curUsernameTxt.Size = new Size(125, 27);
+            curUsernameTxt.Size = new Size(298, 41);
             curUsernameTxt.TabIndex = 8;
             // 
             // newUsernameTxt
             // 
-            newUsernameTxt.Location = new Point(229, 97);
+            newUsernameTxt.Location = new Point(450, 174);
+            newUsernameTxt.Multiline = true;
             newUsernameTxt.Name = "newUsernameTxt";
-            newUsernameTxt.Size = new Size(125, 27);
+            newUsernameTxt.Size = new Size(298, 41);
             newUsernameTxt.TabIndex = 9;
             // 
             // curPasswordTxt
             // 
-            curPasswordTxt.Location = new Point(229, 169);
+            curPasswordTxt.Location = new Point(450, 234);
+            curPasswordTxt.Multiline = true;
             curPasswordTxt.Name = "curPasswordTxt";
             curPasswordTxt.PasswordChar = '*';
             curPasswordTxt.ReadOnly = true;
-            curPasswordTxt.Size = new Size(125, 27);
+            curPasswordTxt.Size = new Size(298, 41);
             curPasswordTxt.TabIndex = 10;
             // 
             // newPasswordTxt
             // 
-            newPasswordTxt.Location = new Point(229, 204);
+            newPasswordTxt.Location = new Point(450, 285);
+            newPasswordTxt.Multiline = true;
             newPasswordTxt.Name = "newPasswordTxt";
             newPasswordTxt.PasswordChar = '*';
-            newPasswordTxt.Size = new Size(125, 27);
+            newPasswordTxt.Size = new Size(298, 41);
             newPasswordTxt.TabIndex = 11;
             // 
             // newConfirmPasswordTxt
             // 
-            newConfirmPasswordTxt.Location = new Point(229, 241);
+            newConfirmPasswordTxt.Location = new Point(450, 343);
+            newConfirmPasswordTxt.Multiline = true;
             newConfirmPasswordTxt.Name = "newConfirmPasswordTxt";
             newConfirmPasswordTxt.PasswordChar = '*';
-            newConfirmPasswordTxt.Size = new Size(125, 27);
+            newConfirmPasswordTxt.Size = new Size(298, 41);
             newConfirmPasswordTxt.TabIndex = 12;
             // 
             // AccountEmployee
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1032, 753);
             Controls.Add(newConfirmPasswordTxt);
             Controls.Add(newPasswordTxt);
             Controls.Add(curPasswordTxt);
