@@ -1,18 +1,19 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Bibliography;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using ClosedXML.Excel;
-using System.IO;
 
 namespace tryagain
 {
@@ -22,59 +23,58 @@ namespace tryagain
         public ReportsForm()
         {
             InitializeComponent();
+            LoadDepartments();
         }
 
 
-        private void LoadAttendanceReport(DateTime fromDate, DateTime toDate, string department = "All")
+        private void LoadAttendanceReport(DateTime fromDate, DateTime toDate, int? departmentId = null)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 string sql = @"
-            SELECT e.employeeid, 
-                   (e.firstname + ' ' + e.lastname) AS FullName,
-                   SUM(CASE WHEN a.status = 'Present' THEN 1 ELSE 0 END) AS Present,
-                   SUM(CASE WHEN a.status = 'Absent' THEN 1 ELSE 0 END) AS Absent,
-                   SUM(CASE WHEN a.status IN ('On Leave', 'Leave') THEN 1 ELSE 0 END) AS Leave,
-                   SUM(CASE WHEN a.status = 'Late' THEN 1 ELSE 0 END) AS Late
+            SELECT 
+                e.employeeid,
+                (e.firstname + ' ' + e.lastname) AS FullName,
+                ISNULL(SUM(CASE WHEN a.status = 'Present' THEN 1 ELSE 0 END),0) AS Present,
+                ISNULL(SUM(CASE WHEN a.status = 'Absent' THEN 1 ELSE 0 END),0) AS Absent,
+                ISNULL(SUM(CASE WHEN a.status IN ('On Leave','Leave') THEN 1 ELSE 0 END),0) AS LeaveDays,
+                ISNULL(SUM(CASE WHEN a.status = 'Late' THEN 1 ELSE 0 END),0) AS Late
             FROM Attendance a
             JOIN Employees e ON a.employeeid = e.employeeid
-            WHERE a.date BETWEEN @FromDate AND @ToDate
-            /**DEPT_FILTER**/
+            WHERE a.[date] BETWEEN @FromDate AND @ToDate
+            /**DEPT_CONDITION**/
             GROUP BY e.employeeid, e.firstname, e.lastname
-            ORDER BY FullName";
+            ORDER BY FullName;
+        ";
 
-                // If filtering by department
-                if (department != "All")
-                    sql = sql.Replace("/**DEPT_FILTER**/", "AND e.department = @Department");
+                if (departmentId.HasValue)
+                    sql = sql.Replace("/**DEPT_CONDITION**/", "AND e.DepartmentID = @DeptId");
                 else
-                    sql = sql.Replace("/**DEPT_FILTER**/", "");
+                    sql = sql.Replace("/**DEPT_CONDITION**/", "");
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@FromDate", fromDate);
                     cmd.Parameters.AddWithValue("@ToDate", toDate);
-                    if (department != "All")
-                        cmd.Parameters.AddWithValue("@Department", department);
+                    if (departmentId.HasValue)
+                        cmd.Parameters.AddWithValue("@DeptId", departmentId.Value);
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
-                    da.Fill(dt);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        da.Fill(dt);
 
                     reportsDvg.DataSource = dt;
 
                     int totalEmployees = dt.Rows.Count;
-
-                    // ✅ Total days in selected range
                     int totalDays = (toDate - fromDate).Days + 1;
-
                     summaryLbl.Text = $"Total Employees: {totalEmployees}    Total Days: {totalDays}";
                 }
             }
         }
 
-        private void LoadPayrollReport(DateTime fromDate, DateTime toDate, string department = "All")
+        private void LoadPayrollReport(DateTime fromDate, DateTime toDate, int? departmentId = null)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -86,38 +86,38 @@ namespace tryagain
                 pb.pay_period_end,
                 pb.payment_date,
                 COUNT(DISTINCT pr.employee_id) AS TotalEmployees,
-                SUM(pr.base_pay) AS TotalBasePay,
-                SUM(pr.gross_salary) AS TotalGrossPay,
-                SUM(pr.deductions_total) AS TotalDeductions,
-                SUM(pr.bonus_amount) AS TotalBonuses,
-                SUM(pr.net_pay) AS TotalNetPay
-                FROM Payroll_Record pr
-                JOIN Payroll_Batch pb ON pr.batch_id = pb.batch_id
-                JOIN Employees e ON pr.employee_id = e.employeeid
-                WHERE pb.payment_date BETWEEN @FromDate AND @ToDate
-                /**DEPT_FILTER**/
-                GROUP BY pb.pay_period_start, pb.pay_period_end, pb.payment_date
-                ORDER BY pb.pay_period_start DESC";
+                ISNULL(SUM(pr.base_pay),0) AS TotalBasePay,
+                ISNULL(SUM(pr.gross_salary),0) AS TotalGrossPay,
+                ISNULL(SUM(pr.deductions_total),0) AS TotalDeductions,
+                ISNULL(SUM(pr.bonus_amount),0) AS TotalBonuses,
+                ISNULL(SUM(pr.net_pay),0) AS TotalNetPay
+            FROM Payroll_Record pr
+            JOIN Payroll_Batch pb ON pr.batch_id = pb.batch_id
+            JOIN Employees e ON pr.employee_id = e.employeeid
+            WHERE pb.payment_date BETWEEN @FromDate AND @ToDate
+            /**DEPT_CONDITION**/
+            GROUP BY pb.pay_period_start, pb.pay_period_end, pb.payment_date
+            ORDER BY pb.pay_period_start DESC;
+        ";
 
-                if (department != "All")
-                    sql = sql.Replace("/**DEPT_FILTER**/", "AND e.department = @Department");
+                if (departmentId.HasValue)
+                    sql = sql.Replace("/**DEPT_CONDITION**/", "AND e.DepartmentID = @DeptId");
                 else
-                    sql = sql.Replace("/**DEPT_FILTER**/", "");
+                    sql = sql.Replace("/**DEPT_CONDITION**/", "");
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@FromDate", fromDate);
                     cmd.Parameters.AddWithValue("@ToDate", toDate);
-                    if (department != "All")
-                        cmd.Parameters.AddWithValue("@Department", department);
+                    if (departmentId.HasValue)
+                        cmd.Parameters.AddWithValue("@DeptId", departmentId.Value);
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
-                    da.Fill(dt);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        da.Fill(dt);
 
                     reportsDvg.DataSource = dt;
 
-                    // ✅ Summary across all batches
                     int totalEmployees = dt.AsEnumerable().Sum(r => r.Field<int>("TotalEmployees"));
                     decimal totalPayroll = dt.AsEnumerable().Sum(r => r.Field<decimal>("TotalNetPay"));
 
@@ -126,7 +126,7 @@ namespace tryagain
             }
         }
 
-        private void LoadLeaveReport(DateTime fromDate, DateTime toDate, string department = "All")
+        private void LoadLeaveReport(DateTime fromDate, DateTime toDate, int? departmentId = null)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -144,56 +144,57 @@ namespace tryagain
             FROM Leave_Record lr
             JOIN Employees e ON lr.employee_id = e.employeeid
             WHERE lr.start_date BETWEEN @FromDate AND @ToDate
-            /**DEPT_FILTER**/
-            ORDER BY lr.start_date DESC";
+            /**DEPT_CONDITION**/
+            ORDER BY lr.start_date DESC;
+        ";
 
-                if (department != "All")
-                    sql = sql.Replace("/**DEPT_FILTER**/", "AND e.department = @Department");
+                if (departmentId.HasValue)
+                    sql = sql.Replace("/**DEPT_CONDITION**/", "AND e.DepartmentID = @DeptId");
                 else
-                    sql = sql.Replace("/**DEPT_FILTER**/", "");
+                    sql = sql.Replace("/**DEPT_CONDITION**/", "");
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@FromDate", fromDate);
                     cmd.Parameters.AddWithValue("@ToDate", toDate);
-                    if (department != "All")
-                        cmd.Parameters.AddWithValue("@Department", department);
+                    if (departmentId.HasValue)
+                        cmd.Parameters.AddWithValue("@DeptId", departmentId.Value);
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
-                    da.Fill(dt);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        da.Fill(dt);
 
                     reportsDvg.DataSource = dt;
 
-                    // ✅ Summary
                     int totalRequests = dt.Rows.Count;
-                    int approved = dt.AsEnumerable().Count(r => r.Field<string>("status") == "Approved");
-                    int pending = dt.AsEnumerable().Count(r => r.Field<string>("status") == "Pending");
-                    int rejected = dt.AsEnumerable().Count(r => r.Field<string>("status") == "Rejected");
+                    int approved = dt.AsEnumerable().Count(r => string.Equals(r.Field<string>("status"), "Approved", StringComparison.OrdinalIgnoreCase));
+                    int pending = dt.AsEnumerable().Count(r => string.Equals(r.Field<string>("status"), "Pending", StringComparison.OrdinalIgnoreCase));
+                    int rejected = dt.AsEnumerable().Count(r => string.Equals(r.Field<string>("status"), "Rejected", StringComparison.OrdinalIgnoreCase));
 
                     summaryLbl.Text = $"Total Requests: {totalRequests}   Approved: {approved}   Pending: {pending}   Rejected: {rejected}";
                 }
             }
         }
 
+
         private void generateBtn_Click(object sender, EventArgs e)
         {
             DateTime fromDate = datefromPicker.Value.Date;
             DateTime toDate = datetoPicker.Value.Date;
-            string department = DeparmentCmb.SelectedItem?.ToString() ?? "All";
+            int? departmentId = GetSelectedDepartmentId();
             string reportType = reportTypeCmb.SelectedItem?.ToString();
 
             if (reportType == "Attendance Summary")
             {
-                LoadAttendanceReport(fromDate, toDate, department);
+                LoadAttendanceReport(fromDate, toDate, departmentId);
             }
             else if (reportType == "Payroll")
             {
-                LoadPayrollReport(fromDate, toDate, department);
+                LoadPayrollReport(fromDate, toDate, departmentId);
             }
             else if (reportType == "Leave")
             {
-                LoadLeaveReport(fromDate, toDate, department);
+                LoadLeaveReport(fromDate, toDate, departmentId);
             }
         }
 
@@ -338,6 +339,44 @@ namespace tryagain
                     MessageBox.Show("Error exporting PDF: " + ex.Message);
                 }
             }
+        }
+
+        private void LoadDepartments()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlDataAdapter da = new SqlDataAdapter(
+                    "SELECT dept_id, name FROM Department WHERE status = 1 ORDER BY name", conn);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // Create a copy so we can insert "All" row without modifying original schema
+                DataTable dtWithAll = dt.Clone();
+                dtWithAll.Columns["dept_id"].DataType = typeof(int); // ensure type
+                dtWithAll.Rows.Add(DBNull.Value, "All"); // Position 0 -> All
+
+                // Merge the real departments
+                foreach (DataRow r in dt.Rows)
+                    dtWithAll.ImportRow(r);
+
+                DeparmentCmb.DisplayMember = "name";
+                DeparmentCmb.ValueMember = "dept_id";
+                DeparmentCmb.DataSource = dtWithAll;
+
+                if (dt.Rows.Count > 0)
+                {
+                    DeparmentCmb.SelectedIndex = 0;
+                }
+            }
+        }
+
+        private int? GetSelectedDepartmentId()
+        {
+            if (DeparmentCmb.SelectedValue == null || DeparmentCmb.SelectedValue == DBNull.Value)
+                return null;
+            return Convert.ToInt32(DeparmentCmb.SelectedValue);
         }
     }
 

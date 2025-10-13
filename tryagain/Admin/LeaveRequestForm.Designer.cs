@@ -41,6 +41,8 @@
             dtpFrom = new DateTimePicker();
             dtpTo = new DateTimePicker();
             filterBtn = new Button();
+            statusFilter = new ComboBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvLeaveRequests).BeginInit();
             SuspendLayout();
             // 
@@ -153,16 +155,18 @@
             // 
             // dtpFrom
             // 
+            dtpFrom.Format = DateTimePickerFormat.Short;
             dtpFrom.Location = new Point(397, 26);
             dtpFrom.Name = "dtpFrom";
-            dtpFrom.Size = new Size(153, 27);
+            dtpFrom.Size = new Size(128, 27);
             dtpFrom.TabIndex = 10;
             // 
             // dtpTo
             // 
+            dtpTo.Format = DateTimePickerFormat.Short;
             dtpTo.Location = new Point(397, 66);
             dtpTo.Name = "dtpTo";
-            dtpTo.Size = new Size(153, 27);
+            dtpTo.Size = new Size(128, 27);
             dtpTo.TabIndex = 11;
             // 
             // filterBtn
@@ -170,7 +174,7 @@
             filterBtn.BackColor = Color.DarkBlue;
             filterBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             filterBtn.ForeColor = Color.White;
-            filterBtn.Location = new Point(586, 20);
+            filterBtn.Location = new Point(551, 22);
             filterBtn.Name = "filterBtn";
             filterBtn.Size = new Size(117, 36);
             filterBtn.TabIndex = 12;
@@ -178,11 +182,32 @@
             filterBtn.UseVisualStyleBackColor = false;
             filterBtn.Click += filterBtn_Click;
             // 
+            // statusFilter
+            // 
+            statusFilter.FormattingEnabled = true;
+            statusFilter.Location = new Point(832, 71);
+            statusFilter.Name = "statusFilter";
+            statusFilter.Size = new Size(96, 28);
+            statusFilter.TabIndex = 13;
+            statusFilter.SelectedIndexChanged += statusFilter_SelectedIndexChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10.8F);
+            label5.Location = new Point(762, 71);
+            label5.Name = "label5";
+            label5.Size = new Size(64, 25);
+            label5.TabIndex = 14;
+            label5.Text = "Status:";
+            // 
             // LeaveRequestForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(964, 706);
+            Controls.Add(label5);
+            Controls.Add(statusFilter);
             Controls.Add(filterBtn);
             Controls.Add(dtpTo);
             Controls.Add(dtpFrom);
@@ -219,5 +244,7 @@
         private DateTimePicker dtpFrom;
         private DateTimePicker dtpTo;
         private Button filterBtn;
+        private ComboBox statusFilter;
+        private Label label5;
     }
 }

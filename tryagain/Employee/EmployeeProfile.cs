@@ -35,14 +35,18 @@ namespace tryagain.Employee
                 {
                     connection.Open();
                     string query = @"
-                SELECT 
-                    e.employeeid, e.firstname, e.lastname, e.department, e.position, e.hire_date,
-                    d.email, d.date_of_birth, d.address,
-                    c.contact_name, c.relationship, c.phone_number
-                FROM Employees e
-                LEFT JOIN EmployeeDetails d ON e.employeeid = d.employeeid
-                LEFT JOIN EmergencyContact c ON e.employeeid = c.employeeid
-                WHERE e.employeeid = @EmpId";
+                        SELECT 
+                            e.employeeid, e.firstname, e.lastname, e.hire_date,
+                            d.name AS DepartmentName,
+                            p.name AS PositionName,
+                            ed.email, ed.date_of_birth, ed.address,
+                            ec.contact_name, ec.relationship, ec.phone_number
+                        FROM Employees e
+                        LEFT JOIN Department d ON e.departmentid = d.dept_id
+                        LEFT JOIN Position p ON e.positionid = p.position_id
+                        LEFT JOIN EmployeeDetails ed ON e.employeeid = ed.employeeid
+                        LEFT JOIN EmergencyContact ec ON e.employeeid = ec.employeeid
+                        WHERE e.employeeid = @EmpId";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -52,26 +56,30 @@ namespace tryagain.Employee
                         {
                             if (reader.Read())
                             {
-                                // Employee core
+                                // Basic Info
                                 empidTxt.Text = reader["employeeid"].ToString();
                                 fullnameTxt.Text = $"{reader["firstname"]} {reader["lastname"]}";
-                                departmentTxt.Text = reader["department"].ToString();
-                                positionTxt.Text = reader["position"].ToString();
-                                hiredateTxt.Text = Convert.ToDateTime(reader["hire_date"]).ToShortDateString();
+                                departmentTxt.Text = reader["DepartmentName"]?.ToString() ?? "N/A";
+                                positionTxt.Text = reader["PositionName"]?.ToString() ?? "N/A";
+                                hiredateTxt.Text = reader["hire_date"] != DBNull.Value
+                                    ? Convert.ToDateTime(reader["hire_date"]).ToShortDateString()
+                                    : "N/A";
 
-                                // EmployeeDetails
-                                emailaddTxt.Text = reader["email"].ToString();
-                                dobTxt.Text = reader["date_of_birth"] == DBNull.Value ? "" : Convert.ToDateTime(reader["date_of_birth"]).ToShortDateString();
-                                addressTxt.Text = reader["address"].ToString();
+                                // Details
+                                emailaddTxt.Text = reader["email"]?.ToString() ?? "";
+                                dobTxt.Text = reader["date_of_birth"] != DBNull.Value
+                                    ? Convert.ToDateTime(reader["date_of_birth"]).ToShortDateString()
+                                    : "";
+                                addressTxt.Text = reader["address"]?.ToString() ?? "";
 
-                                // EmergencyContact (just first one here)
-                                emerconNameTxt.Text = reader["contact_name"].ToString();
-                                emerconRelationshipTxt.Text = reader["relationship"].ToString();
-                                emerconPhoneTxt.Text = reader["phone_number"].ToString();
+                                // Emergency Contact
+                                emerconNameTxt.Text = reader["contact_name"]?.ToString() ?? "";
+                                emerconRelationshipTxt.Text = reader["relationship"]?.ToString() ?? "";
+                                emerconPhoneTxt.Text = reader["phone_number"]?.ToString() ?? "";
                             }
                             else
                             {
-                                MessageBox.Show("Employee not found.");
+                                MessageBox.Show("Employee not found.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                     }
@@ -79,7 +87,7 @@ namespace tryagain.Employee
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading employee profile: {ex.Message}");
+                MessageBox.Show($"Error loading employee profile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

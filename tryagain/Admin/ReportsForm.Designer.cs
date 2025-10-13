@@ -116,7 +116,6 @@
             // DeparmentCmb
             // 
             DeparmentCmb.FormattingEnabled = true;
-            DeparmentCmb.Items.AddRange(new object[] { "All", "HR", "IT", "CS" });
             DeparmentCmb.Location = new Point(379, 83);
             DeparmentCmb.Name = "DeparmentCmb";
             DeparmentCmb.Size = new Size(175, 28);

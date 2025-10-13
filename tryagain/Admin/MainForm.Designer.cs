@@ -69,7 +69,7 @@
             DepartmentBtn.BackColor = Color.RoyalBlue;
             DepartmentBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DepartmentBtn.ForeColor = Color.White;
-            DepartmentBtn.Location = new Point(23, 588);
+            DepartmentBtn.Location = new Point(23, 342);
             DepartmentBtn.Name = "DepartmentBtn";
             DepartmentBtn.Size = new Size(151, 42);
             DepartmentBtn.TabIndex = 9;
@@ -82,7 +82,7 @@
             leaveBtn.BackColor = Color.RoyalBlue;
             leaveBtn.Font = new Font("Segoe UI", 10.2F);
             leaveBtn.ForeColor = Color.White;
-            leaveBtn.Location = new Point(23, 390);
+            leaveBtn.Location = new Point(23, 440);
             leaveBtn.Name = "leaveBtn";
             leaveBtn.Size = new Size(151, 42);
             leaveBtn.TabIndex = 6;
@@ -95,7 +95,7 @@
             salaryBtn.BackColor = Color.RoyalBlue;
             salaryBtn.Font = new Font("Segoe UI", 10.2F);
             salaryBtn.ForeColor = Color.White;
-            salaryBtn.Location = new Point(23, 490);
+            salaryBtn.Location = new Point(23, 540);
             salaryBtn.Name = "salaryBtn";
             salaryBtn.Size = new Size(151, 42);
             salaryBtn.TabIndex = 5;
@@ -108,7 +108,7 @@
             reportsBtn.BackColor = Color.RoyalBlue;
             reportsBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             reportsBtn.ForeColor = Color.White;
-            reportsBtn.Location = new Point(23, 540);
+            reportsBtn.Location = new Point(23, 590);
             reportsBtn.Name = "reportsBtn";
             reportsBtn.Size = new Size(151, 42);
             reportsBtn.TabIndex = 4;
@@ -121,7 +121,7 @@
             payrollBtn.BackColor = Color.RoyalBlue;
             payrollBtn.Font = new Font("Segoe UI", 10.2F);
             payrollBtn.ForeColor = Color.White;
-            payrollBtn.Location = new Point(23, 440);
+            payrollBtn.Location = new Point(23, 490);
             payrollBtn.Name = "payrollBtn";
             payrollBtn.Size = new Size(151, 42);
             payrollBtn.TabIndex = 3;
@@ -134,7 +134,7 @@
             attendanceBtn.BackColor = Color.RoyalBlue;
             attendanceBtn.Font = new Font("Segoe UI", 10.2F);
             attendanceBtn.ForeColor = Color.White;
-            attendanceBtn.Location = new Point(23, 340);
+            attendanceBtn.Location = new Point(23, 390);
             attendanceBtn.Name = "attendanceBtn";
             attendanceBtn.Size = new Size(151, 42);
             attendanceBtn.TabIndex = 2;

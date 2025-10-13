@@ -35,12 +35,12 @@
             DeptAddBtn = new Button();
             label1 = new Label();
             panel2 = new Panel();
+            PositionFilterCmb = new ComboBox();
             PositionGrid = new DataGridView();
             PosDelBtn = new Button();
             PosEditBtn = new Button();
             PosAddBtn = new Button();
             label2 = new Label();
-            PositionFilterCmb = new ComboBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DepartmentGrid).BeginInit();
             panel2.SuspendLayout();
@@ -63,8 +63,9 @@
             // 
             DepartmentGrid.AllowUserToAddRows = false;
             DepartmentGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DepartmentGrid.BackgroundColor = SystemColors.Control;
             DepartmentGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DepartmentGrid.Location = new Point(14, 79);
+            DepartmentGrid.Location = new Point(14, 125);
             DepartmentGrid.MultiSelect = false;
             DepartmentGrid.Name = "DepartmentGrid";
             DepartmentGrid.RowHeadersVisible = false;
@@ -75,7 +76,7 @@
             // 
             // DeptDelBtn
             // 
-            DeptDelBtn.Location = new Point(214, 481);
+            DeptDelBtn.Location = new Point(214, 527);
             DeptDelBtn.Name = "DeptDelBtn";
             DeptDelBtn.Size = new Size(94, 29);
             DeptDelBtn.TabIndex = 3;
@@ -85,7 +86,7 @@
             // 
             // DeptEditBtn
             // 
-            DeptEditBtn.Location = new Point(114, 481);
+            DeptEditBtn.Location = new Point(114, 527);
             DeptEditBtn.Name = "DeptEditBtn";
             DeptEditBtn.Size = new Size(94, 29);
             DeptEditBtn.TabIndex = 2;
@@ -95,7 +96,7 @@
             // 
             // DeptAddBtn
             // 
-            DeptAddBtn.Location = new Point(14, 481);
+            DeptAddBtn.Location = new Point(14, 527);
             DeptAddBtn.Name = "DeptAddBtn";
             DeptAddBtn.Size = new Size(94, 29);
             DeptAddBtn.TabIndex = 1;
@@ -106,9 +107,10 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
             label1.Location = new Point(14, 13);
             label1.Name = "label1";
-            label1.Size = new Size(89, 20);
+            label1.Size = new Size(232, 50);
             label1.TabIndex = 0;
             label1.Text = "Department";
             // 
@@ -125,12 +127,22 @@
             panel2.Size = new Size(470, 729);
             panel2.TabIndex = 1;
             // 
+            // PositionFilterCmb
+            // 
+            PositionFilterCmb.FormattingEnabled = true;
+            PositionFilterCmb.Location = new Point(21, 91);
+            PositionFilterCmb.Name = "PositionFilterCmb";
+            PositionFilterCmb.Size = new Size(151, 28);
+            PositionFilterCmb.TabIndex = 7;
+            PositionFilterCmb.SelectedIndexChanged += PositionFilterCmb_SelectedIndexChanged;
+            // 
             // PositionGrid
             // 
             PositionGrid.AllowUserToAddRows = false;
             PositionGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            PositionGrid.BackgroundColor = SystemColors.Control;
             PositionGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PositionGrid.Location = new Point(21, 79);
+            PositionGrid.Location = new Point(21, 125);
             PositionGrid.MultiSelect = false;
             PositionGrid.Name = "PositionGrid";
             PositionGrid.RowHeadersVisible = false;
@@ -141,7 +153,7 @@
             // 
             // PosDelBtn
             // 
-            PosDelBtn.Location = new Point(221, 481);
+            PosDelBtn.Location = new Point(221, 527);
             PosDelBtn.Name = "PosDelBtn";
             PosDelBtn.Size = new Size(94, 29);
             PosDelBtn.TabIndex = 6;
@@ -151,7 +163,7 @@
             // 
             // PosEditBtn
             // 
-            PosEditBtn.Location = new Point(121, 481);
+            PosEditBtn.Location = new Point(121, 527);
             PosEditBtn.Name = "PosEditBtn";
             PosEditBtn.Size = new Size(94, 29);
             PosEditBtn.TabIndex = 5;
@@ -161,7 +173,7 @@
             // 
             // PosAddBtn
             // 
-            PosAddBtn.Location = new Point(21, 481);
+            PosAddBtn.Location = new Point(21, 527);
             PosAddBtn.Name = "PosAddBtn";
             PosAddBtn.Size = new Size(94, 29);
             PosAddBtn.TabIndex = 4;
@@ -172,25 +184,18 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(21, 13);
+            label2.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
+            label2.Location = new Point(21, 25);
             label2.Name = "label2";
-            label2.Size = new Size(154, 20);
+            label2.Size = new Size(409, 50);
             label2.TabIndex = 0;
             label2.Text = "Department's Position";
-            // 
-            // PositionFilterCmb
-            // 
-            PositionFilterCmb.FormattingEnabled = true;
-            PositionFilterCmb.Location = new Point(21, 45);
-            PositionFilterCmb.Name = "PositionFilterCmb";
-            PositionFilterCmb.Size = new Size(151, 28);
-            PositionFilterCmb.TabIndex = 7;
-            PositionFilterCmb.SelectedIndexChanged += PositionFilterCmb_SelectedIndexChanged;
             // 
             // DepartmentForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(982, 753);
             Controls.Add(panel2);
             Controls.Add(panel1);

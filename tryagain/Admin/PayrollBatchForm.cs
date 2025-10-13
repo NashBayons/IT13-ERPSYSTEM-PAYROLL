@@ -195,10 +195,17 @@ namespace tryagain
 
                     // 2) Query employees
                     string selectEmployees = @"
-                SELECT e.EmployeeID, e.FirstName, e.LastName, ISNULL(s.GrossSalary, 0) AS GrossSalary
-                FROM Employees e
-                LEFT JOIN Salaries s ON e.EmployeeID = s.EmployeeID
-                ORDER BY e.LastName, e.FirstName;";
+                                SELECT 
+                                    e.EmployeeID, 
+                                    e.FirstName, 
+                                    e.LastName, 
+                                    p.name AS PositionName,
+                                    ISNULL(s.GrossSalary, 0) AS GrossSalary
+                                FROM Employees e
+                                LEFT JOIN Position p ON e.PositionID = p.position_id
+                                LEFT JOIN Salaries s ON p.position_id = s.PositionID
+                                WHERE e.status = 'active'
+                                ORDER BY e.LastName, e.FirstName;";
 
                     DataTable employees = new DataTable();
                     using (SqlCommand cmd = new SqlCommand(selectEmployees, conn, tx))

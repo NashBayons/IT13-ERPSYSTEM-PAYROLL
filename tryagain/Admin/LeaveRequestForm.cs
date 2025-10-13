@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using Org.BouncyCastle.Asn1.Cmp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,9 +31,15 @@ namespace tryagain
             cmbLeaveType.Items.Add("All");
             cmbLeaveType.Items.Add("Sick");
             cmbLeaveType.Items.Add("Vacation");
-            cmbLeaveType.Items.Add("Unpaid");
             cmbLeaveType.Items.Add("Emergency");
             cmbLeaveType.SelectedIndex = 0;
+
+            statusFilter.Items.Clear();
+            statusFilter.Items.Add("All");
+            statusFilter.Items.Add("Pending");
+            statusFilter.Items.Add("Approved");
+            statusFilter.Items.Add("Rejected");
+            statusFilter.SelectedIndex = 1;
 
             dtpFrom.Value = DateTime.Now.AddMonths(-1); // default: last month
             dtpTo.Value = DateTime.Now;
@@ -48,11 +55,10 @@ namespace tryagain
                                 lr.leave_type, 
                                 lr.start_date, 
                                 lr.end_date, 
-                                lr.status,
-                                lr.remarks
+                                lr.status
                          FROM Leave_Record lr
                          INNER JOIN Employees e ON lr.employee_id = e.EmployeeID
-                         WHERE lr.status = 'Pending'";
+                         ";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
@@ -136,7 +142,6 @@ namespace tryagain
                     UPDATE leave_record
                     SET status = @status,
                         approved_by = @userId,
-                        remarks = @remarks
                     WHERE leave_id = @leaveId;";
                         // We rely on the SELECT check above for 'Pending' status
 
@@ -144,7 +149,6 @@ namespace tryagain
                         {
                             updateCmd.Parameters.AddWithValue("@status", "Approved");
                             updateCmd.Parameters.AddWithValue("@userId", _userId);
-                            updateCmd.Parameters.AddWithValue("@remarks", DBNull.Value);
                             updateCmd.Parameters.AddWithValue("@leaveId", leaveId);
 
                             int rowsUpdated = updateCmd.ExecuteNonQuery();
@@ -231,7 +235,6 @@ namespace tryagain
                 UPDATE leave_record
                 SET status = @status,
                     approved_by = @userId,
-                    remarks = @remarks
                 WHERE leave_id = @leaveId
                   AND status = 'Pending';
             ";
@@ -241,7 +244,6 @@ namespace tryagain
                         cmd.Parameters.AddWithValue("@status", "Rejected"); // or "Denied" if you prefer
                         cmd.Parameters.AddWithValue("@userId", _userId);
                         // you can prompt the admin for a rejection reason and put it here
-                        cmd.Parameters.AddWithValue("@remarks", DBNull.Value);
                         cmd.Parameters.AddWithValue("@leaveId", leaveId);
 
                         int rows = cmd.ExecuteNonQuery();
@@ -269,39 +271,47 @@ namespace tryagain
             {
                 conn.Open();
 
-                // Base query
                 string query = @"SELECT lr.leave_id, 
                                 e.FirstName + ' ' + e.LastName AS EmployeeName,
                                 lr.leave_type, 
                                 lr.start_date, 
                                 lr.end_date, 
-                                lr.status,
-                                lr.remarks
+                                lr.status
                          FROM Leave_Record lr
                          INNER JOIN Employees e ON lr.employee_id = e.EmployeeID
                          WHERE 1=1";
 
-                // Build filter conditions dynamically
+                // Employee Name Filter
                 if (!string.IsNullOrWhiteSpace(txtEmployeeName.Text))
                 {
                     query += " AND (e.FirstName + ' ' + e.LastName LIKE @empName)";
                 }
 
+                // Leave Type Filter
                 if (cmbLeaveType.SelectedIndex > 0) // skip if "All"
                 {
                     query += " AND lr.leave_type = @leaveType";
                 }
 
+                // Status Filter
+                if (statusFilter.SelectedIndex > 0) // skip if "All"
+                {
+                    query += " AND lr.status = @status";
+                }
+
+                // Date Range Filter
                 query += " AND lr.start_date >= @fromDate AND lr.end_date <= @toDate";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
-                // Add parameters only if used
                 if (!string.IsNullOrWhiteSpace(txtEmployeeName.Text))
                     cmd.Parameters.AddWithValue("@empName", "%" + txtEmployeeName.Text + "%");
 
                 if (cmbLeaveType.SelectedIndex > 0)
                     cmd.Parameters.AddWithValue("@leaveType", cmbLeaveType.SelectedItem.ToString());
+
+                if (statusFilter.SelectedIndex > 0)
+                    cmd.Parameters.AddWithValue("@status", statusFilter.SelectedItem.ToString());
 
                 cmd.Parameters.AddWithValue("@fromDate", dtpFrom.Value.Date);
                 cmd.Parameters.AddWithValue("@toDate", dtpTo.Value.Date);
@@ -317,6 +327,9 @@ namespace tryagain
             LoadFilter();
         }
 
-
+        private void statusFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadFilter();
+        }
     }
 }

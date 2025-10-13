@@ -79,7 +79,7 @@ namespace tryagain
 
         private void salaryBtn_Click(object sender, EventArgs e)
         {
-            LoadForm(new SalaryMangementForm());
+            LoadForm(new SalaryMangementNewForm());
         }
 
         private void leaveBtn_Click(object sender, EventArgs e)

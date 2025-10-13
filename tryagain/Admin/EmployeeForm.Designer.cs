@@ -60,6 +60,7 @@
             dgvEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEmployee.Size = new Size(937, 353);
             dgvEmployee.TabIndex = 1;
+            dgvEmployee.DoubleClick += editBtn1_Click;
             // 
             // addEmpBtn
             // 

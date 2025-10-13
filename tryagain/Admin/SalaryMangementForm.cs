@@ -27,10 +27,12 @@ namespace tryagain
         }
         private void LoadSalaries()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter(@"
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(@"
                     SELECT s.SalaryID,
                            e.FirstName + ' ' + e.LastName AS EmployeeName,
                            e.Department,
@@ -39,10 +41,16 @@ namespace tryagain
                     FROM Salaries s
                     JOIN Employees e ON s.EmployeeID = e.EmployeeID", conn);
 
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dgvSalaryGrid.DataSource = dt;
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dgvSalaryGrid.DataSource = dt;
+                }
             }
+            catch (Exception ex) 
+            {
+                MessageBox.Show( ex.Message);
+            }
+            
         }
 
         private int GetEmployeeIDFromSalary(int salaryId)

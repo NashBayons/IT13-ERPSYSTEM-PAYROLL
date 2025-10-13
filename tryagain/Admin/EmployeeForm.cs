@@ -32,10 +32,34 @@ namespace tryagain
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT EmployeeID, FirstName, LastName, Department, Position, Status FROM Employees Where status ='active'", conn);
+                string query = @"
+                        SELECT 
+                            e.EmployeeID,
+                            e.FirstName,
+                            e.LastName,
+                            e.DepartmentID,
+                            d.Name AS DepartmentName,
+                            e.PositionID,
+                            p.Name AS PositionName,
+                            e.Status
+                        FROM Employees e
+                        LEFT JOIN Department d ON e.DepartmentID = d.Dept_ID
+                        LEFT JOIN Position p ON e.PositionID = p.Position_ID
+                        WHERE e.Status = 'Active';
+                                                    ";
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 dgvEmployee.DataSource = dt;
+                if (dgvEmployee.Columns.Contains("DepartmentID"))
+                    dgvEmployee.Columns["DepartmentID"].Visible = false;
+
+                if (dgvEmployee.Columns.Contains("PositionID"))
+                    dgvEmployee.Columns["PositionID"].Visible = false;
+
+                // Optional: make displayed columns more readable
+                dgvEmployee.Columns["DepartmentName"].HeaderText = "Department";
+                dgvEmployee.Columns["PositionName"].HeaderText = "Position";
             }
 
         }
@@ -77,15 +101,15 @@ namespace tryagain
 
                                 // 2) Insert into Employee
                                 SqlCommand cmdEmp = new SqlCommand(@"
-                            INSERT INTO Employees (userid, firstname, lastname, department, position, status, hire_date)
-                            VALUES (@UserId, @FirstName, @LastName, @Department, @Position, @Status, @HireDate);
+                            INSERT INTO Employees (userid, firstname, lastname, departmentID, positionID, status, hire_date)
+                            VALUES (@UserId, @FirstName, @LastName, @DepartmentID, @PositionID, @Status, @HireDate);
                             SELECT SCOPE_IDENTITY();", conn, transaction);
 
                                 cmdEmp.Parameters.AddWithValue("@UserId", newUserId);
                                 cmdEmp.Parameters.AddWithValue("@FirstName", form.FirstName);
                                 cmdEmp.Parameters.AddWithValue("@LastName", form.LastName);
-                                cmdEmp.Parameters.AddWithValue("@Department", form.Department);
-                                cmdEmp.Parameters.AddWithValue("@Position", form.Position);
+                                cmdEmp.Parameters.AddWithValue("@DepartmentID", form.DepartmentId);
+                                cmdEmp.Parameters.AddWithValue("@PositionID", form.PositionId);
                                 cmdEmp.Parameters.AddWithValue("@Status", form.Status);
                                 cmdEmp.Parameters.AddWithValue("@HireDate", form.HireDate);
 
@@ -145,8 +169,8 @@ namespace tryagain
             using (var form = new EmployeeDetailsForm(
                 dgvEmployee.CurrentRow.Cells["FirstName"].Value.ToString(),
                 dgvEmployee.CurrentRow.Cells["LastName"].Value.ToString(),
-                dgvEmployee.CurrentRow.Cells["Department"].Value.ToString(),
-                dgvEmployee.CurrentRow.Cells["Position"].Value.ToString(),
+                dgvEmployee.CurrentRow.Cells["DepartmentID"].Value.ToString(),
+                dgvEmployee.CurrentRow.Cells["PositionID"].Value.ToString(),
                 dgvEmployee.CurrentRow.Cells["Status"].Value.ToString(),
                 details.email,
                 details.dob,
@@ -171,13 +195,13 @@ namespace tryagain
                                 SqlCommand cmdEmp = new SqlCommand(@"
                             UPDATE Employees
                             SET FirstName=@FirstName, LastName=@LastName,
-                                Department=@Department, Position=@Position, Status=@Status
+                                DepartmentID=@DepartmentID, PositionID=@PositionID, Status=@Status
                             WHERE EmployeeID=@EmployeeID", conn, transaction);
 
                                 cmdEmp.Parameters.AddWithValue("@FirstName", form.FirstName);
                                 cmdEmp.Parameters.AddWithValue("@LastName", form.LastName);
-                                cmdEmp.Parameters.AddWithValue("@Department", form.Department);
-                                cmdEmp.Parameters.AddWithValue("@Position", form.Position);
+                                cmdEmp.Parameters.AddWithValue("@DepartmentID", form.DepartmentId);
+                                cmdEmp.Parameters.AddWithValue("@PositionID", form.PositionId);
                                 cmdEmp.Parameters.AddWithValue("@Status", form.Status);
                                 cmdEmp.Parameters.AddWithValue("@EmployeeID", employeeId);
                                 cmdEmp.ExecuteNonQuery();

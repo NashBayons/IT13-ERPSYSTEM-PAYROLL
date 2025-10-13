@@ -35,9 +35,7 @@
             label5 = new Label();
             FirstNameTB = new TextBox();
             LastNameTB = new TextBox();
-            PositionTB = new TextBox();
             StatusCB = new ComboBox();
-            DepartmentCB = new ComboBox();
             submitBtn = new Button();
             cancelBtn = new Button();
             label6 = new Label();
@@ -62,6 +60,8 @@
             empUsernameTxt = new TextBox();
             empaccountpassLbl = new Label();
             empaccountuserLbl = new Label();
+            deptCmb = new ComboBox();
+            posCmb = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -123,13 +123,6 @@
             LastNameTB.Size = new Size(151, 27);
             LastNameTB.TabIndex = 6;
             // 
-            // PositionTB
-            // 
-            PositionTB.Location = new Point(118, 149);
-            PositionTB.Name = "PositionTB";
-            PositionTB.Size = new Size(151, 27);
-            PositionTB.TabIndex = 8;
-            // 
             // StatusCB
             // 
             StatusCB.FormattingEnabled = true;
@@ -138,15 +131,6 @@
             StatusCB.Name = "StatusCB";
             StatusCB.Size = new Size(151, 28);
             StatusCB.TabIndex = 9;
-            // 
-            // DepartmentCB
-            // 
-            DepartmentCB.FormattingEnabled = true;
-            DepartmentCB.Items.AddRange(new object[] { "HR", "IT", "CS" });
-            DepartmentCB.Location = new Point(118, 115);
-            DepartmentCB.Name = "DepartmentCB";
-            DepartmentCB.Size = new Size(151, 28);
-            DepartmentCB.TabIndex = 10;
             // 
             // submitBtn
             // 
@@ -358,11 +342,30 @@
             empaccountuserLbl.TabIndex = 30;
             empaccountuserLbl.Text = "Username";
             // 
+            // deptCmb
+            // 
+            deptCmb.FormattingEnabled = true;
+            deptCmb.Location = new Point(118, 115);
+            deptCmb.Name = "deptCmb";
+            deptCmb.Size = new Size(151, 28);
+            deptCmb.TabIndex = 35;
+            deptCmb.SelectedIndexChanged += deptCmb_SelectedIndexChanged;
+            // 
+            // posCmb
+            // 
+            posCmb.FormattingEnabled = true;
+            posCmb.Location = new Point(118, 149);
+            posCmb.Name = "posCmb";
+            posCmb.Size = new Size(151, 28);
+            posCmb.TabIndex = 36;
+            // 
             // EmployeeDetailsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(731, 533);
+            Controls.Add(posCmb);
+            Controls.Add(deptCmb);
             Controls.Add(empaccountLbl);
             Controls.Add(empPasswordTxt);
             Controls.Add(empUsernameTxt);
@@ -387,9 +390,7 @@
             Controls.Add(label6);
             Controls.Add(cancelBtn);
             Controls.Add(submitBtn);
-            Controls.Add(DepartmentCB);
             Controls.Add(StatusCB);
-            Controls.Add(PositionTB);
             Controls.Add(LastNameTB);
             Controls.Add(FirstNameTB);
             Controls.Add(label5);
@@ -413,9 +414,7 @@
         private Label label5;
         private TextBox FirstNameTB;
         private TextBox LastNameTB;
-        private TextBox PositionTB;
         private ComboBox StatusCB;
-        private ComboBox DepartmentCB;
         private Button submitBtn;
         private Button cancelBtn;
         private Label label6;
@@ -440,5 +439,7 @@
         private TextBox empUsernameTxt;
         private Label empaccountpassLbl;
         private Label empaccountuserLbl;
+        private ComboBox deptCmb;
+        private ComboBox posCmb;
     }
 }

@@ -42,13 +42,34 @@ namespace tryagain.Employee
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT firstname, lastname, position FROM Employees WHERE employeeid=@EmpId", conn);
+
+                string query = @"
+            SELECT 
+                e.firstname, 
+                e.lastname, 
+                d.name AS DepartmentName, 
+                p.name AS PositionName
+            FROM Employees e
+            LEFT JOIN Department d ON e.departmentID = d.dept_id
+            LEFT JOIN Position p ON e.positionID = p.position_id
+            WHERE e.employeeid = @EmpId";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@EmpId", _empId);
+
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        namePositionTxt.Text = $" {reader["firstname"]} {reader["lastname"]} ({reader["position"]})";
+                        string fullName = $"{reader["firstname"]} {reader["lastname"]}";
+                        string position = reader["PositionName"] == DBNull.Value ? "N/A" : reader["PositionName"].ToString();
+                        string department = reader["DepartmentName"] == DBNull.Value ? "N/A" : reader["DepartmentName"].ToString();
+
+                        namePositionTxt.Text = $"{fullName} ({position} - {department})";
+                    }
+                    else
+                    {
+                        namePositionTxt.Text = "Employee not found.";
                     }
                 }
             }

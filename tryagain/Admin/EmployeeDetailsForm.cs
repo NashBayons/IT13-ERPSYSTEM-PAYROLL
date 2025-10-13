@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,11 +15,12 @@ namespace tryagain
 {
     public partial class EmployeeDetailsForm : Form
     {
+        private string connectionString = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
         //employee details
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Department { get; set; }
-        public string Position { get; set; }
+        public int DepartmentId { get; set; }
+        public int PositionId { get; set; }
         public string Status { get; set; }
         public DateTime HireDate { get; set; }
 
@@ -50,14 +53,34 @@ namespace tryagain
                                 )
         {
             InitializeComponent();
+            LoadDepartments();
 
             //basic info
             FirstNameTB.Text = firstName;
             LastNameTB.Text = lastName;
-            DepartmentCB.Text = dept;
-            PositionTB.Text = pos;
+            deptCmb.Text = dept;
+            posCmb.Text = pos;
             StatusCB.Items.AddRange(new[] { "Active", "Inactive" });
             StatusCB.Text = string.IsNullOrEmpty(status) ? "Active" : status;
+
+            if (!string.IsNullOrEmpty(dept))
+            {
+                int deptIdVal;
+                if (int.TryParse(dept, out deptIdVal))
+                {
+                    deptCmb.SelectedValue = deptIdVal;
+                    LoadPositionsByDepartment(deptIdVal);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(pos))
+            {
+                int posIdVal;
+                if (int.TryParse(pos, out posIdVal))
+                {
+                    posCmb.SelectedValue = posIdVal;
+                }
+            }
 
             //Extra details
             emailaddTxt.Text = email;
@@ -89,8 +112,8 @@ namespace tryagain
             // Employee values
             FirstName = FirstNameTB.Text.Trim();
             LastName = LastNameTB.Text.Trim();
-            Department = DepartmentCB.Text.Trim();
-            Position = PositionTB.Text.Trim();
+            DepartmentId = (int)deptCmb.SelectedValue;
+            PositionId = (int)posCmb.SelectedValue;
             Status = StatusCB.Text.Trim();
             HireDate = hiredateDtp.Value;
 
@@ -118,14 +141,15 @@ namespace tryagain
                 MessageBox.Show("Last name is required.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(Department))
+            if (deptCmb.SelectedValue == null || !(deptCmb.SelectedValue is int))
             {
-                MessageBox.Show("Department is required.");
+                MessageBox.Show("Please select a valid department.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(Position))
+
+            if (posCmb.SelectedValue == null || !(posCmb.SelectedValue is int))
             {
-                MessageBox.Show("Position is required.");
+                MessageBox.Show("Please select a valid position.");
                 return;
             }
             if (string.IsNullOrWhiteSpace(Status))
@@ -178,6 +202,45 @@ namespace tryagain
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void LoadDepartments()
+        {
+            string query = "SELECT dept_id, name FROM Department WHERE status = 1";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                conn.Open();
+                DataTable dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                deptCmb.DisplayMember = "name";
+                deptCmb.ValueMember = "dept_id";
+                deptCmb.DataSource = dt;
+            }
+        }
+
+        private void LoadPositionsByDepartment(int deptId)
+        {
+            string query = "SELECT position_id, name FROM Position WHERE dept_id = @deptId AND status = 1";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@deptId", deptId);
+                conn.Open();
+                DataTable dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                posCmb.DisplayMember = "name";
+                posCmb.ValueMember = "position_id";
+                posCmb.DataSource = dt;
+            }
+        }
+
+        private void deptCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (deptCmb.SelectedValue is int deptId)
+            {
+                LoadPositionsByDepartment(deptId);
+            }
         }
     }
 }

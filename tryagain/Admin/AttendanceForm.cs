@@ -29,7 +29,7 @@ namespace tryagain
             dtpFrom.Value = new DateTime(today.Year, today.Month, 1);
             dtpTo1.Value = today;
 
-            cmbStatus1.Items.AddRange(new[] { "All", "Present", "Late", "Absent" });
+            cmbStatus1.Items.AddRange(new[] { "All", "Present", "Late", "Absent", "Leave" });
             cmbStatus1.SelectedIndex = 0;
 
             LoadAttendanceData();
