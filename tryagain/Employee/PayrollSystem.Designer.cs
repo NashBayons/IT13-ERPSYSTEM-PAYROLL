@@ -250,10 +250,10 @@
             panel3.BackColor = SystemColors.ButtonHighlight;
             panel3.Controls.Add(payrollDvg);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(12, 271);
+            panel3.Location = new Point(12, 231);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(990, 361);
+            panel3.Size = new Size(990, 400);
             panel3.TabIndex = 30;
             // 
             // payrollDvg
@@ -265,7 +265,7 @@
             payrollDvg.Name = "payrollDvg";
             payrollDvg.RowHeadersVisible = false;
             payrollDvg.RowHeadersWidth = 51;
-            payrollDvg.Size = new Size(987, 300);
+            payrollDvg.Size = new Size(987, 339);
             payrollDvg.TabIndex = 17;
             // 
             // label2
@@ -284,7 +284,7 @@
             filterBtn.BackColor = Color.CornflowerBlue;
             filterBtn.FlatStyle = FlatStyle.Flat;
             filterBtn.ForeColor = Color.White;
-            filterBtn.Location = new Point(203, 235);
+            filterBtn.Location = new Point(187, 181);
             filterBtn.Name = "filterBtn";
             filterBtn.Size = new Size(94, 29);
             filterBtn.TabIndex = 32;
@@ -296,7 +296,7 @@
             // 
             filterComboCmb.FormattingEnabled = true;
             filterComboCmb.Items.AddRange(new object[] { "Batch (Newest First)", "Batch (Oldest First)", "Payment Date (Newest First)", "Payment Date (Oldest First)" });
-            filterComboCmb.Location = new Point(12, 235);
+            filterComboCmb.Location = new Point(12, 181);
             filterComboCmb.Name = "filterComboCmb";
             filterComboCmb.Size = new Size(151, 28);
             filterComboCmb.TabIndex = 33;

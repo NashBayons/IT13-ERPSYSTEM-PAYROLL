@@ -40,6 +40,8 @@
             curPasswordTxt = new TextBox();
             newPasswordTxt = new TextBox();
             newConfirmPasswordTxt = new TextBox();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -55,10 +57,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(292, 116);
             label2.Name = "label2";
-            label2.Size = new Size(152, 41);
+            label2.Size = new Size(156, 41);
             label2.TabIndex = 1;
             label2.Text = "Username";
             // 
@@ -75,10 +77,10 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 18F);
+            label4.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.Location = new Point(194, 234);
             label4.Name = "label4";
-            label4.Size = new Size(250, 41);
+            label4.Size = new Size(259, 41);
             label4.TabIndex = 3;
             label4.Text = "Current Password";
             // 
@@ -108,7 +110,7 @@
             saveBtn.FlatStyle = FlatStyle.Flat;
             saveBtn.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             saveBtn.ForeColor = Color.White;
-            saveBtn.Location = new Point(350, 453);
+            saveBtn.Location = new Point(327, 361);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(157, 51);
             saveBtn.TabIndex = 6;
@@ -127,6 +129,7 @@
             // 
             // newUsernameTxt
             // 
+            newUsernameTxt.BackColor = SystemColors.Menu;
             newUsernameTxt.Location = new Point(450, 174);
             newUsernameTxt.Multiline = true;
             newUsernameTxt.Name = "newUsernameTxt";
@@ -145,6 +148,7 @@
             // 
             // newPasswordTxt
             // 
+            newPasswordTxt.BackColor = SystemColors.Menu;
             newPasswordTxt.Location = new Point(450, 285);
             newPasswordTxt.Multiline = true;
             newPasswordTxt.Name = "newPasswordTxt";
@@ -154,12 +158,22 @@
             // 
             // newConfirmPasswordTxt
             // 
+            newConfirmPasswordTxt.BackColor = SystemColors.Menu;
             newConfirmPasswordTxt.Location = new Point(450, 343);
             newConfirmPasswordTxt.Multiline = true;
             newConfirmPasswordTxt.Name = "newConfirmPasswordTxt";
             newConfirmPasswordTxt.PasswordChar = '*';
             newConfirmPasswordTxt.Size = new Size(298, 41);
             newConfirmPasswordTxt.TabIndex = 12;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(saveBtn);
+            panel1.Location = new Point(54, 83);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(922, 452);
+            panel1.TabIndex = 13;
             // 
             // AccountEmployee
             // 
@@ -171,16 +185,17 @@
             Controls.Add(curPasswordTxt);
             Controls.Add(newUsernameTxt);
             Controls.Add(curUsernameTxt);
-            Controls.Add(saveBtn);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "AccountEmployee";
             Text = "AccountEmployee";
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -199,5 +214,6 @@
         private TextBox curPasswordTxt;
         private TextBox newPasswordTxt;
         private TextBox newConfirmPasswordTxt;
+        private Panel panel1;
     }
 }

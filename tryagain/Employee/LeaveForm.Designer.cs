@@ -89,7 +89,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 16.2F);
-            label4.Location = new Point(59, 129);
+            label4.Location = new Point(59, 126);
             label4.Name = "label4";
             label4.Size = new Size(106, 38);
             label4.TabIndex = 26;
@@ -122,10 +122,10 @@
             // 
             // reasonTxt
             // 
-            reasonTxt.Location = new Point(171, 129);
+            reasonTxt.Location = new Point(171, 126);
             reasonTxt.Multiline = true;
             reasonTxt.Name = "reasonTxt";
-            reasonTxt.Size = new Size(271, 65);
+            reasonTxt.Size = new Size(765, 101);
             reasonTxt.TabIndex = 30;
             // 
             // submitBtn
@@ -134,7 +134,7 @@
             submitBtn.FlatStyle = FlatStyle.Flat;
             submitBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             submitBtn.ForeColor = Color.White;
-            submitBtn.Location = new Point(302, 214);
+            submitBtn.Location = new Point(283, 233);
             submitBtn.Name = "submitBtn";
             submitBtn.Size = new Size(106, 40);
             submitBtn.TabIndex = 31;
@@ -148,7 +148,7 @@
             cancelBtn.FlatStyle = FlatStyle.Flat;
             cancelBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(190, 214);
+            cancelBtn.Location = new Point(171, 233);
             cancelBtn.Name = "cancelBtn";
             cancelBtn.Size = new Size(106, 40);
             cancelBtn.TabIndex = 32;
@@ -160,7 +160,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(26, 322);
+            label6.Location = new Point(12, 289);
             label6.Name = "label6";
             label6.Size = new Size(247, 38);
             label6.TabIndex = 33;
@@ -173,11 +173,11 @@
             leaveDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             leaveDgv.BackgroundColor = SystemColors.Control;
             leaveDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            leaveDgv.Location = new Point(26, 367);
+            leaveDgv.Location = new Point(12, 334);
             leaveDgv.Name = "leaveDgv";
             leaveDgv.RowHeadersVisible = false;
             leaveDgv.RowHeadersWidth = 51;
-            leaveDgv.Size = new Size(954, 318);
+            leaveDgv.Size = new Size(974, 338);
             leaveDgv.TabIndex = 34;
             // 
             // LeaveForm

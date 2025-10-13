@@ -87,6 +87,11 @@ namespace tryagain
             LoadForm(new LeaveRequestForm(_userid));
         }
 
+        private void DepartmentBtn_Click(object sender, EventArgs e)
+        {
+            LoadForm(new DepartmentForm());
+        }
+
         private void logoutBtn_Click(object sender, EventArgs e)
         {
             Logout();
@@ -96,5 +101,7 @@ namespace tryagain
         {
 
         }
+
+        
     }
 }

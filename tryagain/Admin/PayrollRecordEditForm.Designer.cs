@@ -130,9 +130,9 @@
             deductAddBtn.ForeColor = Color.White;
             deductAddBtn.Location = new Point(10, 430);
             deductAddBtn.Name = "deductAddBtn";
-            deductAddBtn.Size = new Size(70, 35);
+            deductAddBtn.Size = new Size(83, 35);
             deductAddBtn.TabIndex = 7;
-            deductAddBtn.Text = "Add";
+            deductAddBtn.Text = "Deduct";
             deductAddBtn.UseVisualStyleBackColor = false;
             deductAddBtn.Click += deductAddBtn_Click;
             // 
@@ -141,7 +141,7 @@
             deductEditBtn.BackColor = Color.DarkGoldenrod;
             deductEditBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             deductEditBtn.ForeColor = Color.White;
-            deductEditBtn.Location = new Point(90, 430);
+            deductEditBtn.Location = new Point(99, 430);
             deductEditBtn.Name = "deductEditBtn";
             deductEditBtn.Size = new Size(70, 35);
             deductEditBtn.TabIndex = 8;
@@ -154,7 +154,7 @@
             deductDeleteBtn.BackColor = Color.Red;
             deductDeleteBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             deductDeleteBtn.ForeColor = Color.White;
-            deductDeleteBtn.Location = new Point(170, 430);
+            deductDeleteBtn.Location = new Point(175, 430);
             deductDeleteBtn.Name = "deductDeleteBtn";
             deductDeleteBtn.Size = new Size(70, 35);
             deductDeleteBtn.TabIndex = 9;
@@ -169,7 +169,7 @@
             bonusAddBtn.ForeColor = Color.White;
             bonusAddBtn.Location = new Point(400, 430);
             bonusAddBtn.Name = "bonusAddBtn";
-            bonusAddBtn.Size = new Size(70, 35);
+            bonusAddBtn.Size = new Size(83, 35);
             bonusAddBtn.TabIndex = 10;
             bonusAddBtn.Text = "Add";
             bonusAddBtn.UseVisualStyleBackColor = false;
@@ -180,7 +180,7 @@
             bonusEditBtn.BackColor = Color.DarkGoldenrod;
             bonusEditBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             bonusEditBtn.ForeColor = Color.White;
-            bonusEditBtn.Location = new Point(480, 430);
+            bonusEditBtn.Location = new Point(489, 430);
             bonusEditBtn.Name = "bonusEditBtn";
             bonusEditBtn.Size = new Size(70, 35);
             bonusEditBtn.TabIndex = 11;
@@ -193,7 +193,7 @@
             bonusDeleteBtn.BackColor = Color.Red;
             bonusDeleteBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bonusDeleteBtn.ForeColor = Color.White;
-            bonusDeleteBtn.Location = new Point(560, 430);
+            bonusDeleteBtn.Location = new Point(565, 430);
             bonusDeleteBtn.Name = "bonusDeleteBtn";
             bonusDeleteBtn.Size = new Size(70, 35);
             bonusDeleteBtn.TabIndex = 12;
@@ -206,7 +206,7 @@
             savechangeBtn.BackColor = Color.FromArgb(0, 192, 0);
             savechangeBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             savechangeBtn.ForeColor = Color.White;
-            savechangeBtn.Location = new Point(10, 502);
+            savechangeBtn.Location = new Point(108, 502);
             savechangeBtn.Name = "savechangeBtn";
             savechangeBtn.Size = new Size(150, 39);
             savechangeBtn.TabIndex = 13;
@@ -219,7 +219,7 @@
             cancelChangesBtn.BackColor = Color.Gray;
             cancelChangesBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cancelChangesBtn.ForeColor = Color.White;
-            cancelChangesBtn.Location = new Point(170, 502);
+            cancelChangesBtn.Location = new Point(10, 502);
             cancelChangesBtn.Name = "cancelChangesBtn";
             cancelChangesBtn.Size = new Size(92, 39);
             cancelChangesBtn.TabIndex = 14;
@@ -248,6 +248,7 @@
             Controls.Add(grossSalLbl);
             Controls.Add(employeeLbl);
             Name = "PayrollRecordEditForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Edit Payroll Record";
             ((System.ComponentModel.ISupportInitialize)dgvDeduct).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvBonus).EndInit();

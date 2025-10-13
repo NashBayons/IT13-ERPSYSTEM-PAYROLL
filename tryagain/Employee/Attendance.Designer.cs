@@ -46,7 +46,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Arial", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(344, 18);
+            label5.Location = new Point(44, 9);
             label5.Name = "label5";
             label5.Size = new Size(383, 40);
             label5.TabIndex = 21;
@@ -78,7 +78,7 @@
             timeinBtn.BackColor = Color.FromArgb(0, 192, 0);
             timeinBtn.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             timeinBtn.ForeColor = Color.White;
-            timeinBtn.Location = new Point(44, 215);
+            timeinBtn.Location = new Point(44, 200);
             timeinBtn.Name = "timeinBtn";
             timeinBtn.Size = new Size(123, 46);
             timeinBtn.TabIndex = 24;
@@ -91,7 +91,7 @@
             timeoutBtn.BackColor = Color.Red;
             timeoutBtn.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             timeoutBtn.ForeColor = Color.White;
-            timeoutBtn.Location = new Point(173, 215);
+            timeoutBtn.Location = new Point(173, 200);
             timeoutBtn.Name = "timeoutBtn";
             timeoutBtn.Size = new Size(123, 46);
             timeoutBtn.TabIndex = 25;
@@ -103,7 +103,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 16.2F);
-            label2.Location = new Point(49, 143);
+            label2.Location = new Point(44, 135);
             label2.Name = "label2";
             label2.Size = new Size(198, 38);
             label2.TabIndex = 26;
@@ -113,7 +113,7 @@
             // 
             statusLabel.AutoSize = true;
             statusLabel.Font = new Font("Segoe UI", 16.2F);
-            statusLabel.Location = new Point(253, 143);
+            statusLabel.Location = new Point(248, 135);
             statusLabel.Name = "statusLabel";
             statusLabel.Size = new Size(184, 38);
             statusLabel.TabIndex = 27;
@@ -124,7 +124,7 @@
             panel1.BackColor = Color.White;
             panel1.Controls.Add(label4);
             panel1.Controls.Add(attendanceDvg);
-            panel1.Location = new Point(44, 267);
+            panel1.Location = new Point(44, 252);
             panel1.Name = "panel1";
             panel1.Size = new Size(925, 308);
             panel1.TabIndex = 28;

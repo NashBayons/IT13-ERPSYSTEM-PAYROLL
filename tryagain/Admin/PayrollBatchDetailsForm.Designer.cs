@@ -86,6 +86,7 @@
             Controls.Add(finalizeselectBtn);
             Controls.Add(dgvPayrollRecords);
             Name = "PayrollBatchDetailsForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PayrollBatchDetailsForm";
             ((System.ComponentModel.ISupportInitialize)dgvPayrollRecords).EndInit();
             ResumeLayout(false);

@@ -236,7 +236,6 @@ namespace tryagain
 
             if (confirm == DialogResult.Yes)
             {
-                // 💡 Use a local variable to hold the UserID retrieved from the DB
                 int userId = 0;
 
                 try
@@ -255,7 +254,7 @@ namespace tryagain
                         if (result == null || result == DBNull.Value)
                         {
                             MessageBox.Show("Error: Could not find associated user account (userid). Deletion halted.", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return; // Exit the function if the userid is missing
+                            return;
                         }
 
                         userId = Convert.ToInt32(result);

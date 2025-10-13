@@ -40,6 +40,7 @@
             attendanceChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             chartPayroll = new System.Windows.Forms.DataVisualization.Charting.Chart();
             chartLeave = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             ((System.ComponentModel.ISupportInitialize)attendanceChart).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chartPayroll).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chartLeave).BeginInit();
@@ -51,13 +52,13 @@
             attendanceChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             attendanceChart.Legends.Add(legend1);
-            attendanceChart.Location = new Point(29, 22);
+            attendanceChart.Location = new Point(24, 22);
             attendanceChart.Name = "attendanceChart";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             attendanceChart.Series.Add(series1);
-            attendanceChart.Size = new Size(375, 375);
+            attendanceChart.Size = new Size(455, 320);
             attendanceChart.TabIndex = 0;
             attendanceChart.Text = "chart1";
             // 
@@ -67,13 +68,13 @@
             chartPayroll.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             chartPayroll.Legends.Add(legend2);
-            chartPayroll.Location = new Point(483, 22);
+            chartPayroll.Location = new Point(517, 22);
             chartPayroll.Name = "chartPayroll";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             chartPayroll.Series.Add(series2);
-            chartPayroll.Size = new Size(375, 375);
+            chartPayroll.Size = new Size(426, 672);
             chartPayroll.TabIndex = 1;
             chartPayroll.Text = "chart1";
             // 
@@ -83,15 +84,20 @@
             chartLeave.ChartAreas.Add(chartArea3);
             legend3.Name = "Legend1";
             chartLeave.Legends.Add(legend3);
-            chartLeave.Location = new Point(268, 403);
+            chartLeave.Location = new Point(24, 360);
             chartLeave.Name = "chartLeave";
             series3.ChartArea = "ChartArea1";
             series3.Legend = "Legend1";
             series3.Name = "Series1";
             chartLeave.Series.Add(series3);
-            chartLeave.Size = new Size(343, 278);
+            chartLeave.Size = new Size(455, 334);
             chartLeave.TabIndex = 2;
             chartLeave.Text = "chart1";
+            // 
+            // sqlCommand1
+            // 
+            sqlCommand1.CommandTimeout = 30;
+            sqlCommand1.EnableOptimizedParameterBinding = false;
             // 
             // DashboardwithCharts
             // 
@@ -115,5 +121,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart attendanceChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartPayroll;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartLeave;
+        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
     }
 }

@@ -56,18 +56,19 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.WhiteSmoke;
             panel1.Controls.Add(txtSearch);
             panel1.Controls.Add(btnFilter11);
             panel1.Controls.Add(label5);
+            panel1.Controls.Add(label3);
             panel1.Controls.Add(cmbStatus1);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(dtpTo1);
-            panel1.Controls.Add(label3);
             panel1.Controls.Add(dtpFrom);
             panel1.Controls.Add(label2);
             panel1.Location = new Point(20, 70);
             panel1.Name = "panel1";
-            panel1.Size = new Size(950, 60);
+            panel1.Size = new Size(950, 100);
             panel1.TabIndex = 1;
             // 
             // txtSearch
@@ -120,7 +121,7 @@
             // 
             // dtpTo1
             // 
-            dtpTo1.Location = new Point(250, 14);
+            dtpTo1.Location = new Point(114, 54);
             dtpTo1.Name = "dtpTo1";
             dtpTo1.Size = new Size(120, 27);
             dtpTo1.TabIndex = 3;
@@ -128,7 +129,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(194, 19);
+            label3.Location = new Point(38, 54);
             label3.Name = "label3";
             label3.Size = new Size(25, 20);
             label3.TabIndex = 2;
@@ -138,15 +139,16 @@
             // 
             dtpFrom.Location = new Point(68, 14);
             dtpFrom.Name = "dtpFrom";
-            dtpFrom.Size = new Size(120, 27);
+            dtpFrom.Size = new Size(241, 27);
             dtpFrom.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(12, 19);
             label2.Name = "label2";
-            label2.Size = new Size(43, 20);
+            label2.Size = new Size(58, 28);
             label2.TabIndex = 0;
             label2.Text = "From";
             // 
@@ -156,7 +158,7 @@
             dgvAttendance1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvAttendance1.BackgroundColor = SystemColors.Control;
             dgvAttendance1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAttendance1.Location = new Point(20, 150);
+            dgvAttendance1.Location = new Point(20, 201);
             dgvAttendance1.Name = "dgvAttendance1";
             dgvAttendance1.ReadOnly = true;
             dgvAttendance1.RowHeadersVisible = false;

@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             sidebarPanel = new Panel();
-            pictureBox1 = new PictureBox();
-            logoutBtn = new Button();
+            DepartmentBtn = new Button();
             leaveBtn = new Button();
             salaryBtn = new Button();
             reportsBtn = new Button();
@@ -38,6 +37,8 @@
             attendanceBtn = new Button();
             employeeBtn = new Button();
             dashboardBtn = new Button();
+            pictureBox1 = new PictureBox();
+            logoutBtn = new Button();
             contentPanel = new Panel();
             sidebarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -46,6 +47,7 @@
             // sidebarPanel
             // 
             sidebarPanel.BackColor = Color.DarkBlue;
+            sidebarPanel.Controls.Add(DepartmentBtn);
             sidebarPanel.Controls.Add(leaveBtn);
             sidebarPanel.Controls.Add(salaryBtn);
             sidebarPanel.Controls.Add(reportsBtn);
@@ -62,29 +64,18 @@
             sidebarPanel.TabIndex = 4;
             sidebarPanel.Paint += sidebarPanel_Paint;
             // 
-            // pictureBox1
+            // DepartmentBtn
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.logo2;
-            pictureBox1.Location = new Point(9, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(185, 255);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 8;
-            pictureBox1.TabStop = false;
-            // 
-            // logoutBtn
-            // 
-            logoutBtn.BackColor = Color.Red;
-            logoutBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            logoutBtn.ForeColor = Color.White;
-            logoutBtn.Location = new Point(23, 699);
-            logoutBtn.Name = "logoutBtn";
-            logoutBtn.Size = new Size(151, 42);
-            logoutBtn.TabIndex = 7;
-            logoutBtn.Text = "Log Out";
-            logoutBtn.UseVisualStyleBackColor = false;
-            logoutBtn.Click += logoutBtn_Click;
+            DepartmentBtn.BackColor = Color.RoyalBlue;
+            DepartmentBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DepartmentBtn.ForeColor = Color.White;
+            DepartmentBtn.Location = new Point(23, 588);
+            DepartmentBtn.Name = "DepartmentBtn";
+            DepartmentBtn.Size = new Size(151, 42);
+            DepartmentBtn.TabIndex = 9;
+            DepartmentBtn.Text = "Department";
+            DepartmentBtn.UseVisualStyleBackColor = false;
+            DepartmentBtn.Click += DepartmentBtn_Click;
             // 
             // leaveBtn
             // 
@@ -177,6 +168,30 @@
             dashboardBtn.UseVisualStyleBackColor = false;
             dashboardBtn.Click += dashboardBtn_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = Properties.Resources.logo2;
+            pictureBox1.Location = new Point(9, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(185, 255);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
+            // 
+            // logoutBtn
+            // 
+            logoutBtn.BackColor = Color.Red;
+            logoutBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            logoutBtn.ForeColor = Color.White;
+            logoutBtn.Location = new Point(23, 699);
+            logoutBtn.Name = "logoutBtn";
+            logoutBtn.Size = new Size(151, 42);
+            logoutBtn.TabIndex = 7;
+            logoutBtn.Text = "Log Out";
+            logoutBtn.UseVisualStyleBackColor = false;
+            logoutBtn.Click += logoutBtn_Click;
+            // 
             // contentPanel
             // 
             contentPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -213,5 +228,6 @@
         private Button leaveBtn;
         private Button logoutBtn;
         private PictureBox pictureBox1;
+        private Button DepartmentBtn;
     }
 }

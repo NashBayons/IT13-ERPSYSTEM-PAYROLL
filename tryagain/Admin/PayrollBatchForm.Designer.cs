@@ -44,34 +44,37 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(10, 14);
             label1.Name = "label1";
-            label1.Size = new Size(115, 20);
+            label1.Size = new Size(153, 28);
             label1.TabIndex = 0;
             label1.Text = "Pay Period Start:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(282, 14);
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(114, 47);
             label2.Name = "label2";
-            label2.Size = new Size(37, 20);
+            label2.Size = new Size(49, 28);
             label2.TabIndex = 1;
             label2.Text = "End:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(480, 14);
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(389, 12);
             label3.Name = "label3";
-            label3.Size = new Size(104, 20);
+            label3.Size = new Size(137, 28);
             label3.TabIndex = 2;
             label3.Text = "Payment Date:";
             // 
             // dtpPeriodFrom
             // 
             dtpPeriodFrom.Format = DateTimePickerFormat.Short;
-            dtpPeriodFrom.Location = new Point(130, 10);
+            dtpPeriodFrom.Location = new Point(169, 14);
             dtpPeriodFrom.Name = "dtpPeriodFrom";
             dtpPeriodFrom.Size = new Size(150, 27);
             dtpPeriodFrom.TabIndex = 3;
@@ -79,7 +82,7 @@
             // dtpPeriodTo
             // 
             dtpPeriodTo.Format = DateTimePickerFormat.Short;
-            dtpPeriodTo.Location = new Point(325, 10);
+            dtpPeriodTo.Location = new Point(169, 47);
             dtpPeriodTo.Name = "dtpPeriodTo";
             dtpPeriodTo.Size = new Size(150, 27);
             dtpPeriodTo.TabIndex = 4;
@@ -87,7 +90,7 @@
             // dtpPayment
             // 
             dtpPayment.Format = DateTimePickerFormat.Short;
-            dtpPayment.Location = new Point(590, 10);
+            dtpPayment.Location = new Point(532, 13);
             dtpPayment.Name = "dtpPayment";
             dtpPayment.Size = new Size(150, 27);
             dtpPayment.TabIndex = 5;
@@ -95,11 +98,11 @@
             // gendraftBtn
             // 
             gendraftBtn.BackColor = Color.FromArgb(0, 192, 0);
-            gendraftBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            gendraftBtn.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             gendraftBtn.ForeColor = Color.White;
-            gendraftBtn.Location = new Point(746, 7);
+            gendraftBtn.Location = new Point(10, 90);
             gendraftBtn.Name = "gendraftBtn";
-            gendraftBtn.Size = new Size(130, 36);
+            gendraftBtn.Size = new Size(153, 36);
             gendraftBtn.TabIndex = 6;
             gendraftBtn.Text = "Generate Draft";
             gendraftBtn.UseVisualStyleBackColor = false;
@@ -108,10 +111,11 @@
             // refreshBtn
             // 
             refreshBtn.BackColor = Color.RoyalBlue;
+            refreshBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             refreshBtn.ForeColor = Color.White;
-            refreshBtn.Location = new Point(882, 6);
+            refreshBtn.Location = new Point(844, 9);
             refreshBtn.Name = "refreshBtn";
-            refreshBtn.Size = new Size(84, 36);
+            refreshBtn.Size = new Size(126, 37);
             refreshBtn.TabIndex = 7;
             refreshBtn.Text = "Refresh";
             refreshBtn.UseVisualStyleBackColor = false;
@@ -123,14 +127,14 @@
             dgvPayrollBatch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvPayrollBatch.BackgroundColor = SystemColors.Control;
             dgvPayrollBatch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPayrollBatch.Location = new Point(10, 50);
+            dgvPayrollBatch.Location = new Point(10, 132);
             dgvPayrollBatch.MultiSelect = false;
             dgvPayrollBatch.Name = "dgvPayrollBatch";
             dgvPayrollBatch.ReadOnly = true;
             dgvPayrollBatch.RowHeadersVisible = false;
             dgvPayrollBatch.RowHeadersWidth = 51;
             dgvPayrollBatch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPayrollBatch.Size = new Size(960, 490);
+            dgvPayrollBatch.Size = new Size(960, 509);
             dgvPayrollBatch.TabIndex = 8;
             dgvPayrollBatch.DoubleClick += viewbatchBtn_Click;
             // 
@@ -139,7 +143,7 @@
             viewbatchBtn.BackColor = Color.DarkBlue;
             viewbatchBtn.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             viewbatchBtn.ForeColor = Color.White;
-            viewbatchBtn.Location = new Point(10, 546);
+            viewbatchBtn.Location = new Point(10, 647);
             viewbatchBtn.Name = "viewbatchBtn";
             viewbatchBtn.Size = new Size(168, 44);
             viewbatchBtn.TabIndex = 9;
@@ -151,7 +155,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 600);
+            ClientSize = new Size(982, 753);
             Controls.Add(viewbatchBtn);
             Controls.Add(dgvPayrollBatch);
             Controls.Add(refreshBtn);
@@ -165,6 +169,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "PayrollBatchForm";
             Text = "PayrollBatchForm";
+            Load += PayrollBatchForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPayrollBatch).EndInit();
             ResumeLayout(false);
             PerformLayout();

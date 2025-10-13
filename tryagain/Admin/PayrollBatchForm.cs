@@ -358,5 +358,10 @@ namespace tryagain
             // refresh after potential edits
             LoadBatches();
         }
+
+        private void PayrollBatchForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
